@@ -27,9 +27,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.junit.Test;
-import org.logicware.pdb.prolog.OperatorEntry;
-import org.logicware.pdb.prolog.PrologOperatorSet;
 import org.logicware.pdb.prolog.tuprolog.TuPrologOperatorSet;
+import org.logicware.prolog.OperatorEntry;
+import org.logicware.prolog.PrologOperatorSet;
 
 public class PrologOperatorSetTest {
 

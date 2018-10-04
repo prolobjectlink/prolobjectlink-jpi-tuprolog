@@ -21,9 +21,9 @@ package org.logicware.pdb.prolog.tuprolog;
 
 import java.util.List;
 
-import org.logicware.pdb.prolog.AbstractTerm;
-import org.logicware.pdb.prolog.PrologProvider;
-import org.logicware.pdb.prolog.PrologTerm;
+import org.logicware.prolog.AbstractTerm;
+import org.logicware.prolog.PrologProvider;
+import org.logicware.prolog.PrologTerm;
 
 import alice.tuprolog.Double;
 import alice.tuprolog.Float;

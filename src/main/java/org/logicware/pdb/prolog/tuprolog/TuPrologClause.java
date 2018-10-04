@@ -19,10 +19,10 @@
  */
 package org.logicware.pdb.prolog.tuprolog;
 
-import org.logicware.pdb.prolog.AbstractClause;
-import org.logicware.pdb.prolog.PrologClause;
-import org.logicware.pdb.prolog.PrologProvider;
-import org.logicware.pdb.prolog.PrologTerm;
+import org.logicware.prolog.AbstractClause;
+import org.logicware.prolog.PrologClause;
+import org.logicware.prolog.PrologProvider;
+import org.logicware.prolog.PrologTerm;
 
 public final class TuPrologClause extends AbstractClause implements PrologClause {
 

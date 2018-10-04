@@ -28,10 +28,10 @@ import static org.junit.Assert.assertTrue;
 import java.util.Iterator;
 
 import org.junit.Test;
-import org.logicware.pdb.prolog.PrologClause;
-import org.logicware.pdb.prolog.PrologEngine;
-import org.logicware.pdb.prolog.PrologIndicator;
-import org.logicware.pdb.prolog.PrologTerm;
+import org.logicware.prolog.PrologClause;
+import org.logicware.prolog.PrologEngine;
+import org.logicware.prolog.PrologIndicator;
+import org.logicware.prolog.PrologTerm;
 
 public class PrologClauseTest extends PrologBaseTest {
 

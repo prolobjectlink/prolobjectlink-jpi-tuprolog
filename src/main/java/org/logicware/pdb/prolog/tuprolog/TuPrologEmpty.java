@@ -19,9 +19,9 @@
  */
 package org.logicware.pdb.prolog.tuprolog;
 
-import org.logicware.pdb.prolog.PrologList;
-import org.logicware.pdb.prolog.PrologProvider;
-import org.logicware.pdb.prolog.PrologTerm;
+import org.logicware.prolog.PrologList;
+import org.logicware.prolog.PrologProvider;
+import org.logicware.prolog.PrologTerm;
 
 import alice.tuprolog.Struct;
 

@@ -25,8 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.logicware.pdb.prolog.OperatorEntry;
-import org.logicware.pdb.prolog.PrologOperatorSet;
+import org.logicware.prolog.OperatorEntry;
+import org.logicware.prolog.PrologOperatorSet;
 
 import alice.tuprolog.Operator;
 import alice.tuprolog.Prolog;

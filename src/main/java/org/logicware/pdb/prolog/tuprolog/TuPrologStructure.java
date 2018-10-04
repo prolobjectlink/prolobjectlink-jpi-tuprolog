@@ -19,11 +19,11 @@
  */
 package org.logicware.pdb.prolog.tuprolog;
 
-import static org.logicware.pdb.prolog.PrologTermType.STRUCTURE_TYPE;
+import static org.logicware.prolog.PrologTermType.STRUCTURE_TYPE;
 
-import org.logicware.pdb.prolog.PrologProvider;
-import org.logicware.pdb.prolog.PrologStructure;
-import org.logicware.pdb.prolog.PrologTerm;
+import org.logicware.prolog.PrologProvider;
+import org.logicware.prolog.PrologStructure;
+import org.logicware.prolog.PrologTerm;
 
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
