@@ -40,7 +40,10 @@
 	</developers>
 
 	<scm>
-		<url>http://gitlab.delnet.cu/logicware/prolobjectlink-jpi-tuprolog.git</url>
+		<developerConnection>scm:git:git@gitlab.delnet.cu:logicware/prolobjectlink-jpi-tuprolog.git</developerConnection>
+		<connection>scm:git:git@gitlab.delnet.cu:logicware/prolobjectlink-jpi-tuprolog.git</connection>
+		<url>http://gitlab.delnet.cu/logicware/prolobjectlink-jpi-tuprolog</url>
+		<tag>${project.name}-${project.version}</tag>
 	</scm>
 
 	<ciManagement>
