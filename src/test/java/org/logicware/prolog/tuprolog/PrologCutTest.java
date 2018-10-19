@@ -201,37 +201,36 @@ public class PrologCutTest extends PrologBaseTest {
 
 		// with integer
 		PrologInteger iValue = provider.newInteger(36);
-		assertEquals(cut.compareTo(iValue), 1);
+		assertEquals(1, cut.compareTo(iValue));
 
 		// with long
 		PrologLong lValue = provider.newLong(28);
-		assertEquals(cut.compareTo(lValue), 1);
+		assertEquals(1, cut.compareTo(lValue));
 
 		// with float
 		PrologFloat fValue = provider.newFloat(36.47);
-		assertEquals(cut.compareTo(fValue), 1);
+		assertEquals(1, cut.compareTo(fValue));
 
 		// with double
 		PrologDouble dValue = provider.newDouble(36.47);
-		assertEquals(cut.compareTo(dValue), 1);
+		assertEquals(1, cut.compareTo(dValue));
 
 		// with variable
 		PrologVariable variable = provider.newVariable("X");
-		// true. case [] and variable
-		assertEquals(cut.compareTo(variable), 1);
+		assertEquals(1, cut.compareTo(variable));
 
 		// with predicate
 		PrologStructure structure = provider.parsePrologStructure("some_predicate(a,b,c)");
-		assertEquals(cut.compareTo(structure), -1);
+		assertEquals(-1, cut.compareTo(structure));
 
 		// with list
 		PrologList list = provider.parsePrologList("[a,b,c]");
-		assertEquals(cut.compareTo(list), -1);
-		assertEquals(cut.compareTo(cut), 0);
+		assertEquals(-1, cut.compareTo(list));
+		assertEquals(0, cut.compareTo(cut));
 
 		// with expression
 		PrologTerm expression = provider.parsePrologTerm("58+93*10");
-		assertEquals(cut.compareTo(expression), -1);
+		assertEquals(-1, cut.compareTo(expression));
 
 	}
 

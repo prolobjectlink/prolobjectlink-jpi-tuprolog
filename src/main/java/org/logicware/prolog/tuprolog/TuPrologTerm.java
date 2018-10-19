@@ -165,8 +165,9 @@ public abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 		if (value == null) {
 			if (other.value != null)
 				return false;
-		} else if (!value.unify(prolog, other.value))
+		} else if (!value.unify(prolog, other.value)) {
 			return false;
+		}
 		return true;
 	}
 

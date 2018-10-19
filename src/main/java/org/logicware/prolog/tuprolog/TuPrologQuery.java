@@ -309,8 +309,9 @@ public class TuPrologQuery extends AbstractQuery implements PrologQuery {
 		if (solution == null) {
 			if (other.solution != null)
 				return false;
-		} else if (!solution.getQuery().equals(other.solution.getQuery()))
+		} else if (!solution.getQuery().equals(other.solution.getQuery())) {
 			return false;
+		}
 		return true;
 	}
 
