@@ -23,13 +23,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import org.junit.Test;
-import org.logicware.prolog.OperatorEntry;
 import org.logicware.prolog.PrologOperatorSet;
-import org.logicware.prolog.tuprolog.TuPrologOperatorSet;
 
 public class PrologOperatorSetTest {
 
