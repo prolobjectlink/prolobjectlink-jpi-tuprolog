@@ -40,7 +40,6 @@ import org.logicware.prolog.PrologLong;
 import org.logicware.prolog.PrologStructure;
 import org.logicware.prolog.PrologTerm;
 import org.logicware.prolog.PrologVariable;
-import org.logicware.prolog.tuprolog.TuPrologConverter;
 
 import alice.tuprolog.Double;
 import alice.tuprolog.Float;

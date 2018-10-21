@@ -30,7 +30,6 @@ import org.logicware.prolog.PrologInteger;
 import org.logicware.prolog.PrologProvider;
 import org.logicware.prolog.PrologTerm;
 import org.logicware.prolog.PrologVariable;
-import org.logicware.prolog.tuprolog.TuPrologProvider;
 
 public abstract class PrologBaseTest {
 

@@ -41,8 +41,6 @@ import org.logicware.prolog.PrologList;
 import org.logicware.prolog.PrologStructure;
 import org.logicware.prolog.PrologTerm;
 import org.logicware.prolog.PrologVariable;
-import org.logicware.prolog.tuprolog.TuPrologConverter;
-import org.logicware.prolog.tuprolog.TuPrologProvider;
 
 public class PrologProviderTest extends PrologBaseTest {
 
