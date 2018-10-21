@@ -130,20 +130,12 @@ public class TuPrologProvider extends AbstractProvider implements PrologProvider
 		return new TuPrologLong(this, value);
 	}
 
-	public PrologVariable newVariable() {
+	public PrologVariable newVariable(int position) {
 		return new TuPrologVariable(this);
 	}
 
-	public PrologVariable newVariable(String name) {
-		return new TuPrologVariable(this, name);
-	}
-
-	public PrologVariable newVariable(int position) {
-		return newVariable();
-	}
-
 	public PrologVariable newVariable(String name, int position) {
-		return newVariable(name);
+		return new TuPrologVariable(this, name);
 	}
 
 	public PrologList newList() {
