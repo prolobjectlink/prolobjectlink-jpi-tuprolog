@@ -1,6 +1,6 @@
 /*
  * #%L
- * prolobjectlink-jpi-tuprolog
+ * prolobjectlink-jpi-jtrolog
  * %%
  * Copyright (C) 2012 - 2018 Logicware Project
  * %%
@@ -40,11 +40,6 @@ public class PrologFalseTest extends PrologBaseTest {
 	private PrologTerm f = provider.prologFalse();
 
 	@Test
-	public final void testGetTerm() {
-		assertEquals(f, f.getTerm());
-	}
-
-	@Test
 	public void testGetArguments() {
 		assertArrayEquals(new PrologTerm[0], f.getArguments());
 	}
@@ -66,9 +61,6 @@ public class PrologFalseTest extends PrologBaseTest {
 
 	@Test
 	public void testHasIndicator() {
-		assertFalse(f.hasIndicator("an", 100));
-		assertFalse(f.hasIndicator("an", 0));
-		assertFalse(f.hasIndicator("false", 100));
 		assertTrue(f.hasIndicator("false", 0));
 	}
 
@@ -174,7 +166,7 @@ public class PrologFalseTest extends PrologBaseTest {
 		assertFalse(f.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		// true. case [] and variable
 		assertTrue(f.unify(variable));
 
@@ -218,7 +210,7 @@ public class PrologFalseTest extends PrologBaseTest {
 		assertEquals(1, f.compareTo(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X",0);
 		assertEquals(1, f.compareTo(variable));
 
 		// with predicate

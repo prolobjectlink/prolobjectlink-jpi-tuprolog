@@ -173,7 +173,7 @@ public class PrologNilTest extends PrologBaseTest {
 		assertFalse(empty.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		// true. case [] and variable
 		assertTrue(empty.unify(variable));
 
@@ -217,7 +217,7 @@ public class PrologNilTest extends PrologBaseTest {
 		assertEquals(1, empty.compareTo(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		assertEquals(1, empty.compareTo(variable));
 
 		// with predicate

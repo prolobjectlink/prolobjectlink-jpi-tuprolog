@@ -1,6 +1,6 @@
 /*
  * #%L
- * prolobjectlink-jpi-tuprolog
+ * prolobjectlink-jpi-jtrolog
  * %%
  * Copyright (C) 2012 - 2017 Logicware Project
  * %%
@@ -57,7 +57,7 @@ public class PrologAtomTest extends PrologBaseTest {
 	}
 
 	@Test
-	public final void testGetStringValue() {
+	public final void testGetValue() {
 		assertEquals("an_atom", atom.getStringValue());
 	}
 
@@ -69,26 +69,13 @@ public class PrologAtomTest extends PrologBaseTest {
 	}
 
 	@Test
-	public final void testGetIndicator() {
+	public final void testGetKey() {
 		assertEquals("an_atom/0", atom.getIndicator());
-	}
-
-	@Test
-	public final void testHasIndicator() {
-		assertFalse(atom.hasIndicator("an_", 100));
-		assertFalse(atom.hasIndicator("an_", 0));
-		assertFalse(atom.hasIndicator("an_atom", 100));
-		assertTrue(atom.hasIndicator("an_atom", 0));
 	}
 
 	@Test
 	public final void testGetType() {
 		assertEquals(ATOM_TYPE, atom.getType());
-	}
-
-	@Test
-	public final void testGetTerm() {
-		assertEquals(atom, atom.getTerm());
 	}
 
 	@Test
@@ -188,7 +175,7 @@ public class PrologAtomTest extends PrologBaseTest {
 		assertFalse(atom.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		// true. case atom and variable
 		assertTrue(atom.unify(variable));
 
@@ -233,7 +220,7 @@ public class PrologAtomTest extends PrologBaseTest {
 		assertEquals(1, atom.compareTo(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X",0);
 		// true. case atom and variable
 		assertEquals(1, atom.compareTo(variable));
 

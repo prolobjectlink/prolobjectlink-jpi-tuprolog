@@ -1,6 +1,6 @@
 /*
  * #%L
- * prolobjectlink-jpi-tuprolog
+ * prolobjectlink-jpi-jtrolog
  * %%
  * Copyright (C) 2012 - 2017 Logicware Project
  * %%
@@ -100,23 +100,13 @@ public class PrologIntegerTest extends PrologBaseTest {
 	}
 
 	@Test(expected = IndicatorError.class)
-	public final void testGetIndicator() {
+	public final void testGetKey() {
 		integer.getIndicator();
-	}
-
-	@Test(expected = IndicatorError.class)
-	public final void testHasIndicator() {
-		assertFalse(integer.hasIndicator("100", 0));
 	}
 
 	@Test
 	public final void testGetType() {
 		assertEquals(INTEGER_TYPE, integer.getType());
-	}
-
-	@Test
-	public final void testGetTerm() {
-		assertEquals(integer, integer.getTerm());
 	}
 
 	@Test
@@ -221,7 +211,7 @@ public class PrologIntegerTest extends PrologBaseTest {
 		assertFalse(iValue.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		// true. case atom and variable
 		assertTrue(iValue.unify(variable));
 
@@ -270,7 +260,7 @@ public class PrologIntegerTest extends PrologBaseTest {
 		assertEquals(-1, iValue.compareTo(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X",0);
 		// true. case atom and variable
 		assertEquals(1, iValue.compareTo(variable));
 

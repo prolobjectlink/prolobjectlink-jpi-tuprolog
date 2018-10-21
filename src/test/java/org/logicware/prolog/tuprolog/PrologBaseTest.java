@@ -49,15 +49,15 @@ public abstract class PrologBaseTest {
 
 	protected static final PrologProvider provider = PrologFactory.newProvider(TuPrologProvider.class);
 
-	protected PrologVariable x = provider.newVariable("X");
-	protected PrologVariable y = provider.newVariable("Y");
-	protected PrologVariable z = provider.newVariable("Z");
+	protected PrologVariable x = provider.newVariable("X", 0);
+	protected PrologVariable y = provider.newVariable("Y", 1);
+	protected PrologVariable z = provider.newVariable("Z", 2);
 
-	protected PrologVariable name = provider.newVariable("Name");
-	protected PrologVariable dpto = provider.newVariable("Dpto");
-	protected PrologVariable scale = provider.newVariable("Scale");
-	protected PrologVariable dptoName = provider.newVariable("DepartmentName");
-	protected PrologVariable money = provider.newVariable("Money");
+	protected PrologVariable name = provider.newVariable("Name", 0);
+	protected PrologVariable dpto = provider.newVariable("Dpto", 1);
+	protected PrologVariable scale = provider.newVariable("Scale", 2);
+	protected PrologVariable dptoName = provider.newVariable("DepartmentName", 3);
+	protected PrologVariable money = provider.newVariable("Money", 4);
 
 	protected PrologAtom pam = provider.newAtom("pam");
 	protected PrologAtom bob = provider.newAtom("bob");

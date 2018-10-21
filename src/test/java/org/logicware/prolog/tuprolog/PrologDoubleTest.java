@@ -1,6 +1,6 @@
 /*
  * #%L
- * prolobjectlink-jpi-tuprolog
+ * prolobjectlink-jpi-jtrolog
  * %%
  * Copyright (C) 2012 - 2017 Logicware Project
  * %%
@@ -124,11 +124,6 @@ public class PrologDoubleTest extends PrologBaseTest {
 	}
 
 	@Test
-	public final void testGetTerm() {
-		assertEquals(double1, double1.getTerm());
-	}
-
-	@Test
 	public void testIsAtom() {
 		assertFalse(double1.isAtom());
 	}
@@ -189,13 +184,8 @@ public class PrologDoubleTest extends PrologBaseTest {
 	}
 
 	@Test(expected = IndicatorError.class)
-	public void testGetIndicator() {
+	public void testGetKey() {
 		double1.getIndicator();
-	}
-
-	@Test(expected = IndicatorError.class)
-	public void testHasIndicator() {
-		assertFalse(double1.hasIndicator("1.6180339887", 0));
 	}
 
 	@Test
@@ -227,7 +217,7 @@ public class PrologDoubleTest extends PrologBaseTest {
 		assertFalse(dValue.unify(dValue1));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		// true. case float and variable
 		assertTrue(dValue.unify(variable));
 
@@ -274,7 +264,7 @@ public class PrologDoubleTest extends PrologBaseTest {
 		assertEquals(-1, dValue.compareTo(dValue1));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X",0);
 		// true. case float and variable
 		assertEquals(1, dValue.compareTo(variable));
 

@@ -1,6 +1,6 @@
 /*
  * #%L
- * prolobjectlink-jpi-tuprolog
+ * prolobjectlink-jpi-jtrolog
  * %%
  * Copyright (C) 2012 - 2017 Logicware Project
  * %%
@@ -81,7 +81,7 @@ public class PrologListTest extends PrologBaseTest {
 	public final void testIterator() {
 		int number = 0;
 		for (Iterator<PrologTerm> iterator = list.iterator(); iterator.hasNext();) {
-			PrologTerm prologTerm = iterator.next();
+			PrologTerm prologTerm = (PrologTerm) iterator.next();
 			assertEquals(provider.newInteger(number++), prologTerm);
 		}
 	}
@@ -98,19 +98,6 @@ public class PrologListTest extends PrologBaseTest {
 	}
 
 	@Test
-	public final void testGetIndicator() {
-		assertEquals("./2", list.getIndicator());
-	}
-
-	@Test
-	public final void testHasIndicator() {
-		assertFalse(list.hasIndicator("an_", 100));
-		assertFalse(list.hasIndicator("an_", 2));
-		assertFalse(list.hasIndicator(".", 100));
-		assertTrue(list.hasIndicator(".", 2));
-	}
-
-	@Test
 	public final void testGetType() {
 		assertEquals(LIST_TYPE, list.getType());
 	}
@@ -118,11 +105,6 @@ public class PrologListTest extends PrologBaseTest {
 	@Test
 	public final void testGetKey() {
 		assertEquals("./2", list.getIndicator());
-	}
-
-	@Test
-	public final void testGetTerm() {
-		assertEquals(list, list.getTerm());
 	}
 
 	@Test
@@ -223,9 +205,9 @@ public class PrologListTest extends PrologBaseTest {
 		assertFalse(empty.unify(dValue));
 
 		// with variable
-		PrologVariable x = provider.newVariable("X");
-		PrologVariable y = provider.newVariable("Y");
-		PrologVariable z = provider.newVariable("Z");
+		PrologVariable x = provider.newVariable("X", 0);
+		PrologVariable y = provider.newVariable("Y", 0);
+		PrologVariable z = provider.newVariable("Z", 0);
 		assertTrue(flattened.unify(x));
 		assertTrue(headTail.unify(y));
 		assertTrue(empty.unify(z));
@@ -237,6 +219,8 @@ public class PrologListTest extends PrologBaseTest {
 		assertFalse(empty.unify(structure));
 
 		// with list
+		x = provider.newVariable("X", 0);
+
 		PrologList flattenList1 = provider.parsePrologList("[X,Y,Z]");
 		PrologList headTailList1 = provider.parsePrologList("[X|[Y|[Z]]]");
 
@@ -295,9 +279,9 @@ public class PrologListTest extends PrologBaseTest {
 		assertEquals(1, empty.compareTo(dValue));
 
 		// with variable
-		PrologVariable x = provider.newVariable("X");
-		PrologVariable y = provider.newVariable("Y");
-		PrologVariable z = provider.newVariable("Z");
+		PrologVariable x = provider.newVariable("X", 0);
+		PrologVariable y = provider.newVariable("Y", 0);
+		PrologVariable z = provider.newVariable("Z", 0);
 		assertEquals(1, flattened.compareTo(x));
 		assertEquals(1, headTail.compareTo(y));
 		assertEquals(1, empty.compareTo(z));

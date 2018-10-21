@@ -1,6 +1,6 @@
 /*
  * #%L
- * prolobjectlink-jpi-tuprolog
+ * prolobjectlink-jpi-jtrolog
  * %%
  * Copyright (C) 2012 - 2017 Logicware Project
  * %%
@@ -125,26 +125,8 @@ public class PrologStructureTest extends PrologBaseTest {
 	}
 
 	@Test
-	public final void testGetIndicator() {
-		assertEquals("digits/10", structure.getIndicator());
-	}
-
-	@Test
-	public final void testHasIndicator() {
-		assertFalse(structure.hasIndicator("an_", 100));
-		assertFalse(structure.hasIndicator("digits", 0));
-		assertFalse(structure.hasIndicator("an_atom", 100));
-		assertTrue(structure.hasIndicator("digits", 10));
-	}
-
-	@Test
 	public final void testGetType() {
 		assertEquals(STRUCTURE_TYPE, structure.getType());
-	}
-
-	@Test
-	public final void testGetTerm() {
-		assertEquals(structure, structure.getTerm());
 	}
 
 	@Test
@@ -187,7 +169,7 @@ public class PrologStructureTest extends PrologBaseTest {
 		assertFalse(structure.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		// true. case predicate and variable
 		assertTrue(structure.unify(variable));
 
@@ -240,7 +222,7 @@ public class PrologStructureTest extends PrologBaseTest {
 		assertEquals(1, structure.compareTo(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		assertEquals(1, structure.compareTo(variable));
 
 		// with predicate

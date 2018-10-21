@@ -1,6 +1,6 @@
 /*
  * #%L
- * prolobjectlink-jpi-tuprolog
+ * prolobjectlink-jpi-jtrolog
  * %%
  * Copyright (C) 2012 - 2017 Logicware Project
  * %%
@@ -127,11 +127,6 @@ public class PrologLongTest extends PrologBaseTest {
 	}
 
 	@Test
-	public final void testGetTerm() {
-		assertEquals(long1, long1.getTerm());
-	}
-
-	@Test
 	public void testIsAtom() {
 		assertFalse(long1.isAtom());
 	}
@@ -192,13 +187,8 @@ public class PrologLongTest extends PrologBaseTest {
 	}
 
 	@Test(expected = IndicatorError.class)
-	public void testGetIndicator() {
+	public void testGetKey() {
 		long1.getIndicator();
-	}
-
-	@Test(expected = IndicatorError.class)
-	public final void testHasIndicator() {
-		assertTrue(long1.hasIndicator("100", 0));
 	}
 
 	@Test
@@ -230,7 +220,7 @@ public class PrologLongTest extends PrologBaseTest {
 		assertFalse(lValue.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		// true. case atom and variable
 		assertTrue(lValue.unify(variable));
 
@@ -276,7 +266,7 @@ public class PrologLongTest extends PrologBaseTest {
 		assertEquals(-1, lValue.compareTo(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		assertEquals(1, lValue.compareTo(variable));
 
 		// with predicate

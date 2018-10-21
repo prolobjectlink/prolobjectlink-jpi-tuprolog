@@ -1,6 +1,6 @@
 /*
  * #%L
- * prolobjectlink-jpi-tuprolog
+ * prolobjectlink-jpi-jtrolog
  * %%
  * Copyright (C) 2012 - 2017 Logicware Project
  * %%
@@ -41,16 +41,8 @@ public class PrologEmptyTest extends PrologBaseTest {
 	private PrologTerm empty = provider.prologEmpty();
 
 	@Test
-	public final void testGetIndicator() {
+	public final void testGetKey() {
 		assertEquals("[]/0", empty.getIndicator());
-	}
-
-	@Test
-	public void testHasIndicator() {
-		assertFalse(empty.hasIndicator("an", 100));
-		assertFalse(empty.hasIndicator("an", 0));
-		assertFalse(empty.hasIndicator("[]", 100));
-		assertTrue(empty.hasIndicator("[]", 0));
 	}
 
 	@Test
@@ -81,11 +73,6 @@ public class PrologEmptyTest extends PrologBaseTest {
 	@Test
 	public final void testGetType() {
 		assertEquals(LIST_TYPE, empty.getType());
-	}
-
-	@Test
-	public final void testGetTerm() {
-		assertEquals(empty, empty.getTerm());
 	}
 
 	@Test
@@ -173,7 +160,7 @@ public class PrologEmptyTest extends PrologBaseTest {
 		assertFalse(empty.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		// true. case [] and variable
 		assertTrue(empty.unify(variable));
 
@@ -217,7 +204,7 @@ public class PrologEmptyTest extends PrologBaseTest {
 		assertEquals(1, empty.compareTo(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X",0);
 		// true. case [] and variable
 		assertEquals(1, empty.compareTo(variable));
 

@@ -134,17 +134,17 @@ public class PrologProviderTest extends PrologBaseTest {
 
 	@Test
 	public final void testNewPrologVariable() {
-		PrologVariable variable = provider.newVariable();
+		PrologVariable variable = provider.newVariable(0);
 		assertEquals(VARIABLE_TYPE, variable.getType());
-		assertEquals(provider.newVariable(), variable);
+		assertEquals(provider.newVariable(0), variable);
 		assertEquals("_", variable.getName());
 	}
 
 	@Test
 	public final void testNewPrologVariableString() {
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		assertEquals(VARIABLE_TYPE, variable.getType());
-		assertEquals(provider.newVariable("X"), variable);
+		assertEquals(provider.newVariable("X", 0), variable);
 		assertEquals("X", variable.getName());
 	}
 

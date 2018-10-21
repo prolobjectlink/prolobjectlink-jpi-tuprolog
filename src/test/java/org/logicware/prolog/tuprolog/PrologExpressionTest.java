@@ -1,6 +1,6 @@
 /*
  * #%L
- * prolobjectlink-jpi-tuprolog
+ * prolobjectlink-jpi-jtrolog
  * %%
  * Copyright (C) 2012 - 2017 Logicware Project
  * %%
@@ -63,22 +63,17 @@ public class PrologExpressionTest extends PrologBaseTest {
 
 	@Test
 	public final void testGetLeft() {
-		assertEquals(provider.newVariable("X"), expression.getLeft());
+		assertEquals(provider.newVariable("X", 0), expression.getArguments()[0]);
 	}
 
 	@Test
 	public final void testGetRight() {
-		assertEquals(provider.newVariable("Y"), expression.getRight());
+		assertEquals(provider.newVariable("Y", 1), expression.getArguments()[1]);
 	}
 
 	@Test
 	public final void testGetType() {
 		assertEquals(STRUCTURE_TYPE, expression.getType());
-	}
-
-	@Test
-	public final void testGetTerm() {
-		assertEquals(provider.newStructure(x, "+", y), expression.getTerm());
 	}
 
 	@Test
@@ -172,7 +167,7 @@ public class PrologExpressionTest extends PrologBaseTest {
 		assertFalse(expression.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		// true. case expression and variable
 		assertTrue(expression.unify(variable));
 
@@ -227,7 +222,7 @@ public class PrologExpressionTest extends PrologBaseTest {
 		assertEquals(1, expression.compareTo(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X",0);
 		// true. case expression and variable
 		assertEquals(1, expression.compareTo(variable));
 

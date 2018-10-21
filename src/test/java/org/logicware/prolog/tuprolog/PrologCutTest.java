@@ -1,6 +1,6 @@
 /*
  * #%L
- * prolobjectlink-jpi-tuprolog
+ * prolobjectlink-jpi-jtrolog
  * %%
  * Copyright (C) 2012 - 2018 Logicware Project
  * %%
@@ -40,11 +40,6 @@ public class PrologCutTest extends PrologBaseTest {
 	private PrologTerm cut = provider.prologCut();
 
 	@Test
-	public final void testGetTerm() {
-		assertEquals(cut, cut.getTerm());
-	}
-
-	@Test
 	public void testGetArguments() {
 		assertArrayEquals(new PrologTerm[0], cut.getArguments());
 	}
@@ -66,9 +61,6 @@ public class PrologCutTest extends PrologBaseTest {
 
 	@Test
 	public void testHasIndicator() {
-		assertFalse(cut.hasIndicator("an_", 100));
-		assertFalse(cut.hasIndicator("an_", 0));
-		assertFalse(cut.hasIndicator("!", 100));
 		assertTrue(cut.hasIndicator("!", 0));
 	}
 
@@ -216,7 +208,7 @@ public class PrologCutTest extends PrologBaseTest {
 		assertEquals(1, cut.compareTo(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newVariable("X");
+		PrologVariable variable = provider.newVariable("X", 0);
 		assertEquals(1, cut.compareTo(variable));
 
 		// with predicate
