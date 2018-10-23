@@ -245,58 +245,6 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 		return engine.getOperatorManager().opPrio(operator, specifier) == priority;
 	}
 
-	public Set<PrologIndicator> currentPredicates() {
-
-		// built-ins on libraries
-		String[] libraries = engine.getCurrentLibraries();
-		Set<PrologIndicator> builtins = new HashSet<PrologIndicator>();
-		for (String libraryName : libraries) {
-			Library library = engine.getLibrary(libraryName);
-			Collection<List<PrimitiveInfo>> c = library.getPrimitives().values();
-			for (List<PrimitiveInfo> list : c) {
-				for (PrimitiveInfo primitiveInfo : list) {
-					String key = primitiveInfo.getKey();
-					String functor = key.substring(0, key.lastIndexOf('/'));
-					int arity = Integer.parseInt(key.substring(key.lastIndexOf('/') + 1));
-					PredicateIndicator pi = new PredicateIndicator(functor, arity);
-					builtins.add(pi);
-				}
-			}
-		}
-
-		// user defined predicates
-		TheoryManager manager = engine.getTheoryManager();
-		try {
-			Theory theory = new Theory(manager.getTheory(true));
-			Iterator<? extends Term> iterator = theory.iterator(engine);
-			while (iterator.hasNext()) {
-				Term term = iterator.next();
-				if (term instanceof Struct) {
-					Struct struct = (Struct) term;
-					int arity = struct.getArity();
-					String functor = struct.getName();
-					if (functor.equals(":-") && arity == 2) {
-						Term head = struct.getArg(0);
-						if (head instanceof Struct) {
-							Struct headStruct = (Struct) head;
-							arity = headStruct.getArity();
-							functor = headStruct.getName();
-							PredicateIndicator pi = new PredicateIndicator(functor, arity);
-							builtins.add(pi);
-						}
-					} else {
-						PredicateIndicator pi = new PredicateIndicator(functor, arity);
-						builtins.add(pi);
-					}
-				}
-			}
-		} catch (InvalidTheoryException e) {
-			LoggerUtils.error(getClass(), SYNTAX_ERROR, e);
-		}
-
-		return builtins;
-	}
-
 	public Set<PrologOperator> currentOperators() {
 		List<Operator> operatorsList = engine.getOperatorManager().getOperators();
 		Set<PrologOperator> operators = new HashSet<PrologOperator>(operatorsList.size());
@@ -342,6 +290,59 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 			counter++;
 		}
 		return counter;
+	}
+
+	public Set<PrologIndicator> getPredicates() {
+		Set<PrologIndicator> predicates = new HashSet<PrologIndicator>();
+		TheoryManager manager = engine.getTheoryManager();
+		try {
+			Theory theory = new Theory(manager.getTheory(true));
+			Iterator<? extends Term> iterator = theory.iterator(engine);
+			while (iterator.hasNext()) {
+				Term term = iterator.next();
+				if (term instanceof Struct) {
+					Struct struct = (Struct) term;
+					int arity = struct.getArity();
+					String functor = struct.getName();
+					if (functor.equals(":-") && arity == 2) {
+						Term head = struct.getArg(0);
+						if (head instanceof Struct) {
+							Struct headStruct = (Struct) head;
+							arity = headStruct.getArity();
+							functor = headStruct.getName();
+							PredicateIndicator pi = new PredicateIndicator(functor, arity);
+							predicates.add(pi);
+						}
+					} else {
+						PredicateIndicator pi = new PredicateIndicator(functor, arity);
+						predicates.add(pi);
+					}
+				}
+			}
+		} catch (InvalidTheoryException e) {
+			LoggerUtils.error(getClass(), SYNTAX_ERROR, e);
+		}
+	
+		return predicates;
+	}
+
+	public Set<PrologIndicator> getBuiltIns() {
+		String[] libraries = engine.getCurrentLibraries();
+		Set<PrologIndicator> builtins = new HashSet<PrologIndicator>();
+		for (String libraryName : libraries) {
+			Library library = engine.getLibrary(libraryName);
+			Collection<List<PrimitiveInfo>> c = library.getPrimitives().values();
+			for (List<PrimitiveInfo> list : c) {
+				for (PrimitiveInfo primitiveInfo : list) {
+					String key = primitiveInfo.getKey();
+					String functor = key.substring(0, key.lastIndexOf('/'));
+					int arity = Integer.parseInt(key.substring(key.lastIndexOf('/') + 1));
+					PredicateIndicator pi = new PredicateIndicator(functor, arity);
+					builtins.add(pi);
+				}
+			}
+		}
+		return builtins;
 	}
 
 	public String getVersion() {
