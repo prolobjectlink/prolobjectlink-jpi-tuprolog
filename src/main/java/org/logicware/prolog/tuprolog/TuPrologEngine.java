@@ -227,6 +227,10 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 		return new TuPrologQuery(this, stringQuery);
 	}
 
+	public PrologQuery query(PrologTerm[] terms) {
+		return new TuPrologQuery(this, terms);
+	}
+
 	public PrologQuery query(PrologTerm term, PrologTerm... terms) {
 		return new TuPrologQuery(this, term, terms);
 	}

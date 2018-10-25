@@ -42,8 +42,8 @@ import alice.tuprolog.Var;
 
 public class TuPrologQuery extends AbstractQuery implements PrologQuery {
 
+	private Prolog tuProlog;
 	private SolveInfo solution;
-	private final Prolog tuProlog;
 
 	TuPrologQuery(AbstractEngine engine, String query) {
 		super(engine);
@@ -52,6 +52,18 @@ public class TuPrologQuery extends AbstractQuery implements PrologQuery {
 			solution = tuProlog.solve("" + query + ".");
 		} catch (MalformedGoalException e) {
 			LoggerUtils.error(getClass(), LoggerConstants.SYNTAX_ERROR, e);
+		}
+	}
+
+	TuPrologQuery(AbstractEngine engine, PrologTerm[] terms) {
+		super(engine);
+		if (terms != null && terms.length > 0) {
+			Term term = fromTerm(terms[terms.length - 1], Term.class);
+			for (int i = terms.length; i > 1; i--) {
+				term = new Struct(",", fromTerm(terms[i - 2], Term.class), term);
+			}
+			tuProlog = engine.unwrap(TuPrologEngine.class).engine;
+			solution = tuProlog.solve(term);
 		}
 	}
 
@@ -70,37 +82,41 @@ public class TuPrologQuery extends AbstractQuery implements PrologQuery {
 	}
 
 	public boolean hasSolution() {
-		return solution.isSuccess();
+		return solution != null && solution.isSuccess();
 	}
 
 	public boolean hasMoreSolutions() {
-		return tuProlog.hasOpenAlternatives();
+		return tuProlog != null && tuProlog.hasOpenAlternatives();
 	}
 
 	public PrologTerm[] oneSolution() {
-		try {
-			List<Var> vars = solution.getBindingVars();
-			PrologTerm[] array = new PrologTerm[vars.size()];
-			for (int i = 0; i < array.length; i++) {
-				array[i] = toTerm(vars.get(i).getTerm(), PrologTerm.class);
+		if (solution != null && solution.isSuccess()) {
+			try {
+				List<Var> vars = solution.getBindingVars();
+				PrologTerm[] array = new PrologTerm[vars.size()];
+				for (int i = 0; i < array.length; i++) {
+					array[i] = toTerm(vars.get(i).getTerm(), PrologTerm.class);
+				}
+				return array;
+			} catch (NoSolutionException e) {
+				// do nothing
 			}
-			return array;
-		} catch (NoSolutionException e) {
-			// do nothing
 		}
 		return new PrologTerm[0];
 	}
 
 	public Map<String, PrologTerm> oneVariablesSolution() {
-		try {
-			List<Var> vars = solution.getBindingVars();
-			Map<String, PrologTerm> map = new HashMap<String, PrologTerm>(vars.size());
-			for (Var var : vars) {
-				map.put(var.getName(), toTerm(var.getTerm(), PrologTerm.class));
+		if (solution != null && solution.isSuccess()) {
+			try {
+				List<Var> vars = solution.getBindingVars();
+				Map<String, PrologTerm> map = new HashMap<String, PrologTerm>(vars.size());
+				for (Var var : vars) {
+					map.put(var.getName(), toTerm(var.getTerm(), PrologTerm.class));
+				}
+				return map;
+			} catch (NoSolutionException e) {
+				// do nothing
 			}
-			return map;
-		} catch (NoSolutionException e) {
-			// do nothing
 		}
 		return new HashMap<String, PrologTerm>(0);
 	}
