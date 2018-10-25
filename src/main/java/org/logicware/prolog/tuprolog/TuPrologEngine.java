@@ -227,8 +227,8 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 		return new TuPrologQuery(this, stringQuery);
 	}
 
-	public PrologQuery query(PrologTerm... terms) {
-		return new TuPrologQuery(this, terms);
+	public PrologQuery query(PrologTerm term, PrologTerm... terms) {
+		return new TuPrologQuery(this, term, terms);
 	}
 
 	public void operator(int priority, String specifier, String operator) {
@@ -322,7 +322,7 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 		} catch (InvalidTheoryException e) {
 			LoggerUtils.error(getClass(), SYNTAX_ERROR, e);
 		}
-	
+
 		return predicates;
 	}
 

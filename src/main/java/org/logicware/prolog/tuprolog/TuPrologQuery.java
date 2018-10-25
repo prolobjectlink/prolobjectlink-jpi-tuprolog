@@ -55,14 +55,18 @@ public class TuPrologQuery extends AbstractQuery implements PrologQuery {
 		}
 	}
 
-	TuPrologQuery(AbstractEngine engine, PrologTerm[] terms) {
+	TuPrologQuery(AbstractEngine engine, PrologTerm term, PrologTerm[] terms) {
 		super(engine);
-		Term term = fromTerm(terms[terms.length - 1], Term.class);
-		for (int i = terms.length; i > 1; i--) {
-			term = new Struct(",", fromTerm(terms[i - 2], Term.class), term);
+		Term k = fromTerm(term, Term.class);
+		if (terms != null && terms.length > 0) {
+			k = fromTerm(terms[terms.length - 1], Term.class);
+			for (int i = terms.length; i > 1; i--) {
+				k = new Struct(",", fromTerm(terms[i - 2], Term.class), k);
+			}
+			k = new Struct(",", fromTerm(term, Term.class), k);
 		}
 		tuProlog = engine.unwrap(TuPrologEngine.class).engine;
-		solution = tuProlog.solve(term);
+		solution = tuProlog.solve(k);
 	}
 
 	public boolean hasSolution() {
