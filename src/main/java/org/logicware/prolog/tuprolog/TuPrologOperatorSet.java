@@ -26,20 +26,21 @@ import java.util.List;
 import java.util.Set;
 
 import org.logicware.prolog.OperatorEntry;
+import org.logicware.prolog.PrologOperator;
 import org.logicware.prolog.PrologOperatorSet;
 
 import alice.tuprolog.Operator;
 import alice.tuprolog.Prolog;
 
-final class TuPrologOperatorSet extends AbstractSet<OperatorEntry> implements PrologOperatorSet {
+final class TuPrologOperatorSet extends AbstractSet<PrologOperator> implements PrologOperatorSet {
 
-	protected final Set<OperatorEntry> operators;
+	protected final Set<PrologOperator> operators;
 	protected final List<Operator> operatorsList;
 
 	public TuPrologOperatorSet() {
 		Prolog engine = new Prolog();
 		operatorsList = engine.getOperatorManager().getOperators();
-		operators = new HashSet<OperatorEntry>(operatorsList.size());
+		operators = new HashSet<PrologOperator>(operatorsList.size());
 		for (Operator operator : operatorsList) {
 			String name = operator.name;
 			int priority = operator.prio;
@@ -59,7 +60,7 @@ final class TuPrologOperatorSet extends AbstractSet<OperatorEntry> implements Pr
 	}
 
 	@Override
-	public Iterator<OperatorEntry> iterator() {
+	public Iterator<PrologOperator> iterator() {
 		return operators.iterator();
 	}
 

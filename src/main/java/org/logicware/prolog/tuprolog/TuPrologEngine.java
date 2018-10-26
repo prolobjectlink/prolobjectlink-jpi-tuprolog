@@ -71,6 +71,23 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 		this.engine = engine;
 	}
 
+	private boolean exist(TheoryManager manager, String stringClause) {
+		Term toBeCheck = Term.createTerm(stringClause);
+		try {
+			Theory theory = new Theory(manager.getTheory(true));
+			Iterator<? extends Term> iterator = theory.iterator(engine);
+			while (iterator.hasNext()) {
+				Term term = iterator.next();
+				if (term.match(toBeCheck)) {
+					return true;
+				}
+			}
+		} catch (InvalidTheoryException e) {
+			LoggerUtils.error(getClass(), SYNTAX_ERROR, e);
+		}
+		return false;
+	}
+
 	public void consult(String path) {
 		try {
 			Theory theory = new Theory(new FileInputStream(path));
@@ -124,21 +141,10 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 	}
 
 	public void asserta(String stringClause) {
-		Term toBeAsserted = Term.createTerm(stringClause);
 		TheoryManager manager = engine.getTheoryManager();
-		try {
-			Theory theory = new Theory(manager.getTheory(true));
-			Iterator<? extends Term> iterator = theory.iterator(engine);
-			while (iterator.hasNext()) {
-				Term term = iterator.next();
-				if (term.match(toBeAsserted)) {
-					return;
-				}
-			}
-		} catch (InvalidTheoryException e) {
-			LoggerUtils.error(getClass(), SYNTAX_ERROR, e);
+		if (stringClause != null && !exist(manager, stringClause)) {
+			manager.assertA((Struct) Term.createTerm(stringClause), true, null, false);
 		}
-		manager.assertA((Struct) Term.createTerm(stringClause), true, null, false);
 	}
 
 	public void asserta(PrologTerm head, PrologTerm... body) {
@@ -150,21 +156,10 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 	}
 
 	public void assertz(String stringClause) {
-		Term toBeAsserted = Term.createTerm(stringClause);
 		TheoryManager manager = engine.getTheoryManager();
-		try {
-			Theory theory = new Theory(manager.getTheory(true));
-			Iterator<? extends Term> iterator = theory.iterator(engine);
-			while (iterator.hasNext()) {
-				Term term = iterator.next();
-				if (term.match(toBeAsserted)) {
-					return;
-				}
-			}
-		} catch (InvalidTheoryException e) {
-			LoggerUtils.error(getClass(), SYNTAX_ERROR, e);
+		if (stringClause != null && !exist(manager, stringClause)) {
+			manager.assertZ((Struct) Term.createTerm(stringClause), true, null, false);
 		}
-		manager.assertZ((Struct) Term.createTerm(stringClause), true, null, false);
 	}
 
 	public void assertz(PrologTerm head, PrologTerm... body) {
