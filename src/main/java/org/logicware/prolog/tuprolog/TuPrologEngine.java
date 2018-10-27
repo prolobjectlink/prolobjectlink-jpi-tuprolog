@@ -38,7 +38,6 @@ import java.util.Set;
 import org.logicware.Licenses;
 import org.logicware.logging.LoggerUtils;
 import org.logicware.prolog.AbstractEngine;
-import org.logicware.prolog.OperatorEntry;
 import org.logicware.prolog.PredicateIndicator;
 import org.logicware.prolog.PrologClause;
 import org.logicware.prolog.PrologEngine;
@@ -251,7 +250,7 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 			String name = operator.name;
 			int priority = operator.prio;
 			String specifier = operator.type;
-			OperatorEntry op = new OperatorEntry(priority, specifier, name);
+			PrologOperator op = new TuPrologOperator(priority, specifier, name);
 			operators.add(op);
 		}
 		return operators;

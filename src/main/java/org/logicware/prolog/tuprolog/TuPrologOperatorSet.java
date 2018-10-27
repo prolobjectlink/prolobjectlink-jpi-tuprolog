@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.logicware.prolog.OperatorEntry;
+import org.logicware.prolog.AbstractOperator;
 import org.logicware.prolog.PrologOperator;
 import org.logicware.prolog.PrologOperatorSet;
 
@@ -45,7 +45,7 @@ final class TuPrologOperatorSet extends AbstractSet<PrologOperator> implements P
 			String name = operator.name;
 			int priority = operator.prio;
 			String specifier = operator.type;
-			OperatorEntry op = new OperatorEntry(priority, specifier, name);
+			AbstractOperator op = new TuPrologOperator(priority, specifier, name);
 			operators.add(op);
 		}
 	}

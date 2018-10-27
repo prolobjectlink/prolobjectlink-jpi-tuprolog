@@ -38,10 +38,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.logicware.Licenses;
-import org.logicware.prolog.OperatorEntry;
 import org.logicware.prolog.PredicateIndicator;
 import org.logicware.prolog.PrologAtom;
 import org.logicware.prolog.PrologEngine;
+import org.logicware.prolog.PrologOperator;
 import org.logicware.prolog.PrologQuery;
 import org.logicware.prolog.PrologStructure;
 import org.logicware.prolog.PrologTerm;
@@ -1032,12 +1032,12 @@ public class PrologEngineTest extends PrologBaseTest {
 	@Test
 	public final void testCurrentOperators() {
 		List<Operator> operatorsList = new Prolog().getOperatorManager().getOperators();
-		Set<OperatorEntry> operators = new HashSet<OperatorEntry>(operatorsList.size());
+		Set<PrologOperator> operators = new HashSet<PrologOperator>(operatorsList.size());
 		for (Operator operator : operatorsList) {
 			String name = operator.name;
 			int priority = operator.prio;
 			String specifier = operator.type;
-			OperatorEntry op = new OperatorEntry(priority, specifier, name);
+			PrologOperator op = new TuPrologOperator(priority, specifier, name);
 			operators.add(op);
 		}
 		assertEquals(operators, engine.currentOperators());
