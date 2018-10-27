@@ -69,7 +69,7 @@ public class TuPrologVariable extends TuPrologTerm implements PrologVariable {
 	}
 
 	public boolean hasIndicator(String functor, int arity) {
-		throw new IndicatorError(this);
+		return false;
 	}
 
 	public int getPosition() {

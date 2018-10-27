@@ -88,7 +88,7 @@ public final class TuPrologDouble extends TuPrologTerm implements PrologDouble {
 	}
 
 	public boolean hasIndicator(String functor, int arity) {
-		throw new IndicatorError(this);
+		return false;
 	}
 
 }
