@@ -41,13 +41,13 @@ import alice.tuprolog.Prolog;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 
-public class TuPrologProvider extends AbstractProvider implements PrologProvider {
+public class TuProlog extends AbstractProvider implements PrologProvider {
 
-	public TuPrologProvider() {
+	public TuProlog() {
 		super(new TuPrologConverter());
 	}
 
-	public TuPrologProvider(PrologConverter<Term> converter) {
+	public TuProlog(PrologConverter<Term> converter) {
 		super(converter);
 	}
 
@@ -167,7 +167,7 @@ public class TuPrologProvider extends AbstractProvider implements PrologProvider
 
 	@Override
 	public String toString() {
-		return "TuPrologProvider [converter=" + converter + "]";
+		return "TuProlog [converter=" + converter + "]";
 	}
 
 }

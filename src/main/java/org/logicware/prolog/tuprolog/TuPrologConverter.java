@@ -203,7 +203,7 @@ public class TuPrologConverter extends AbstractConverter<Term> implements Prolog
 	}
 
 	public PrologProvider createProvider() {
-		return new TuPrologProvider(this);
+		return new TuProlog(this);
 	}
 
 	@Override

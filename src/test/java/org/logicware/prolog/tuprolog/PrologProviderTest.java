@@ -335,7 +335,7 @@ public class PrologProviderTest extends PrologBaseTest {
 	public final void testToString() {
 
 		assertEquals(
-				TuPrologProvider.class.getSimpleName() + " [converter=" + TuPrologConverter.class.getSimpleName() + "]",
+				TuProlog.class.getSimpleName() + " [converter=" + TuPrologConverter.class.getSimpleName() + "]",
 				provider.toString());
 
 	}
