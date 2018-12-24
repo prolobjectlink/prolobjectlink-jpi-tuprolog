@@ -23,6 +23,7 @@ import static org.logicware.prolog.PrologTermType.LIST_TYPE;
 
 import java.util.Iterator;
 
+import org.logicware.AbstractIterator;
 import org.logicware.prolog.PrologList;
 import org.logicware.prolog.PrologProvider;
 import org.logicware.prolog.PrologTerm;
@@ -122,7 +123,7 @@ public class TuPrologList extends TuPrologTerm implements PrologList {
 		return arguments;
 	}
 
-	private class TuPrologListIter implements Iterator<PrologTerm> {
+	private class TuPrologListIter extends AbstractIterator<PrologTerm> implements Iterator<PrologTerm> {
 
 		private Iterator<? extends Term> i;
 

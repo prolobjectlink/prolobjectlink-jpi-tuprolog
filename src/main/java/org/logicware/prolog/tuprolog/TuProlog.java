@@ -87,11 +87,11 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 
 	// parser helpers
 
-	public PrologTerm parsePrologTerm(String term) {
+	public PrologTerm parseTerm(String term) {
 		return toTerm(Term.createTerm(term), PrologTerm.class);
 	}
 
-	public PrologTerm[] parsePrologTerms(String stringTerms) {
+	public PrologTerm[] parseTerms(String stringTerms) {
 		List<PrologTerm> list = new ArrayList<PrologTerm>();
 		Parser parser = new Parser(stringTerms);
 		Term term = parser.nextTerm(false);
