@@ -302,7 +302,8 @@ public class PrologVariableTest extends PrologBaseTest {
 		// with predicate with occurs check
 		variable = provider.newVariable("X", 0);
 		substitution = new HashMap<String, PrologTerm>();
-//		substitution.put("X", provider.parsePrologStructure("structure(X)"));
+		// Occurs check return empty substitution
+		// substitution.put("X", provider.parsePrologStructure("structure(X)"));
 		PrologStructure structure = provider.parseStructure("structure(X)");
 		assertEquals(substitution, variable.match(structure));
 
