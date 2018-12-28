@@ -12,7 +12,7 @@
 	<inceptionYear>2012</inceptionYear>
 
 	<organization>
-		<name>Logicware Project</name>
+		<name>WorkLogic Project</name>
 		<url>http://www.logicware.org</url>
 	</organization>
 
@@ -237,6 +237,35 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>
+								org.logicware.prolog.tuprolog.TuPrologConsole
+							</mainClass>
+						</manifest>
+						<manifestEntries>
+							<Built-By>WorkLogic Project</Built-By>
+						</manifestEntries>
+						<manifestSections>
+							<manifestSection>
+								<name>Prolobjectlink-JPI-TuProlog</name>
+								<manifestEntries>
+									<Specification-Title>Prolobjectlink-JPI-TuProlog Library</Specification-Title>
+									<Specification-Version>${project.version}</Specification-Version>
+									<Specification-Vendor>WorkLogic Project</Specification-Vendor>
+									<Implementation-Title>Prolobjectlink-JPI-TuProlog</Implementation-Title>
+									<Implementation-Version>${project.version}</Implementation-Version>
+									<Implementation-Vendor>WorkLogic Project</Implementation-Vendor>
+								</manifestEntries>
+							</manifestSection>
+						</manifestSections>
+					</archive>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
