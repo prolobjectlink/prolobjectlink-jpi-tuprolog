@@ -31,6 +31,7 @@ import org.logicware.prolog.PrologProvider;
 import org.logicware.prolog.PrologTerm;
 import org.logicware.prolog.PrologVariable;
 
+/** @author Jose Zalacain @since 1.0 */
 public abstract class PrologBaseTest {
 
 	protected String male = "male";

@@ -24,12 +24,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.logicware.logging.LoggerConstants;
-import org.logicware.logging.LoggerUtils;
 import org.logicware.prolog.AbstractEngine;
 import org.logicware.prolog.AbstractQuery;
 import org.logicware.prolog.PrologQuery;
 import org.logicware.prolog.PrologTerm;
+import org.worklogic.logging.LoggerConstants;
+import org.worklogic.logging.LoggerUtils;
 
 import alice.tuprolog.MalformedGoalException;
 import alice.tuprolog.NoMoreSolutionException;

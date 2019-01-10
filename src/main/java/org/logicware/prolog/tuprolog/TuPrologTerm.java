@@ -23,11 +23,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.logicware.logging.LoggerConstants;
-import org.logicware.logging.LoggerUtils;
 import org.logicware.prolog.AbstractTerm;
 import org.logicware.prolog.PrologProvider;
 import org.logicware.prolog.PrologTerm;
+import org.worklogic.logging.LoggerConstants;
+import org.worklogic.logging.LoggerUtils;
 
 import alice.tuprolog.Double;
 import alice.tuprolog.Float;
@@ -44,6 +44,7 @@ import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 import alice.tuprolog.Var;
 
+/** @author Jose Zalacain @since 1.0 */
 public abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 
 	protected Term value;

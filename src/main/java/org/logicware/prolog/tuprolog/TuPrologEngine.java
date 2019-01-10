@@ -19,10 +19,10 @@
  */
 package org.logicware.prolog.tuprolog;
 
-import static org.logicware.logging.LoggerConstants.DONT_WORRY;
-import static org.logicware.logging.LoggerConstants.FILE_NOT_FOUND;
-import static org.logicware.logging.LoggerConstants.IO;
-import static org.logicware.logging.LoggerConstants.SYNTAX_ERROR;
+import static org.worklogic.logging.LoggerConstants.DONT_WORRY;
+import static org.worklogic.logging.LoggerConstants.FILE_NOT_FOUND;
+import static org.worklogic.logging.LoggerConstants.IO;
+import static org.worklogic.logging.LoggerConstants.SYNTAX_ERROR;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,8 +35,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.logicware.Licenses;
-import org.logicware.logging.LoggerUtils;
 import org.logicware.prolog.AbstractEngine;
 import org.logicware.prolog.PredicateIndicator;
 import org.logicware.prolog.PrologClause;
@@ -47,6 +45,8 @@ import org.logicware.prolog.PrologProvider;
 import org.logicware.prolog.PrologQuery;
 import org.logicware.prolog.PrologTerm;
 import org.logicware.prolog.SyntaxError;
+import org.worklogic.Licenses;
+import org.worklogic.logging.LoggerUtils;
 
 import alice.tuprolog.Int;
 import alice.tuprolog.InvalidTheoryException;
