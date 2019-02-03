@@ -44,6 +44,12 @@ public class PrologEmptyTest extends PrologBaseTest {
 	public final void testGetKey() {
 		assertEquals("[]/0", empty.getIndicator());
 	}
+	
+	@Test
+	public final void testHasIndicator() {
+		assertTrue(empty.hasIndicator("[]", 0));
+		assertFalse(empty.hasIndicator("X", 10));
+	}
 
 	@Test
 	public final void testGetArity() {

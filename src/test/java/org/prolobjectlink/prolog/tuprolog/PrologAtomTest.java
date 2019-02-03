@@ -74,6 +74,12 @@ public class PrologAtomTest extends PrologBaseTest {
 	public final void testGetKey() {
 		assertEquals("an_atom/0", atom.getIndicator());
 	}
+	
+	@Test
+	public final void testHasIndicator() {
+		assertTrue(atom.hasIndicator("an_atom", 0));
+		assertFalse(atom.hasIndicator("X", 10));
+	}
 
 	@Test
 	public final void testGetType() {

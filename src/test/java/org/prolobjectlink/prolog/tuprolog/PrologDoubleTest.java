@@ -189,6 +189,11 @@ public class PrologDoubleTest extends PrologBaseTest {
 	}
 
 	@Test
+	public void testHasIndicator() {
+		assertFalse(double1.hasIndicator("1.6180339887", 0));
+	}
+
+	@Test
 	public void testUntify() {
 
 		// with atom

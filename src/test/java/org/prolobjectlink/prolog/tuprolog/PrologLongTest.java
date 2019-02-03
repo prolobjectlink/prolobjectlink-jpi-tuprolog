@@ -117,6 +117,11 @@ public class PrologLongTest extends PrologBaseTest {
 	}
 
 	@Test
+	public void testHasIndicator() {
+		assertFalse(long1.hasIndicator("100", 0));
+	}
+
+	@Test
 	public void testGetArguments() {
 		assertArrayEquals(new PrologTerm[0], long1.getArguments());
 	}

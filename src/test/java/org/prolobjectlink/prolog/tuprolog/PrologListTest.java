@@ -107,6 +107,12 @@ public class PrologListTest extends PrologBaseTest {
 	public final void testGetKey() {
 		assertEquals("./2", list.getIndicator());
 	}
+	
+	@Test
+	public final void testHasIndicator() {
+		assertTrue(list.hasIndicator(".", 2));
+		assertFalse(list.hasIndicator("X", 10));
+	}
 
 	@Test
 	public final void testIsAtom() {

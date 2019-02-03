@@ -107,6 +107,11 @@ public class PrologIntegerTest extends PrologBaseTest {
 	}
 
 	@Test
+	public final void testHasIndicator() {
+		assertFalse(integer.hasIndicator("100", 0));
+	}
+
+	@Test
 	public final void testGetType() {
 		assertEquals(INTEGER_TYPE, integer.getType());
 	}

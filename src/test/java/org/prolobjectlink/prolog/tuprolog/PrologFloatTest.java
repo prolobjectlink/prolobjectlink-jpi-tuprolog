@@ -107,6 +107,11 @@ public class PrologFloatTest extends PrologBaseTest {
 	}
 
 	@Test
+	public final void testHasIndicator() {
+		assertFalse(f.hasIndicator("3.14", 0));
+	}
+
+	@Test
 	public final void testGetType() {
 		assertEquals(FLOAT_TYPE, f.getType());
 	}
