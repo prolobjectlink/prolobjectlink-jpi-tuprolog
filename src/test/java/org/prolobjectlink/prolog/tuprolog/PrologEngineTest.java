@@ -46,7 +46,6 @@ import org.prolobjectlink.prolog.PrologQuery;
 import org.prolobjectlink.prolog.PrologStructure;
 import org.prolobjectlink.prolog.PrologTerm;
 import org.prolobjectlink.prolog.PrologVariable;
-import org.prolobjectlink.prolog.tuprolog.TuPrologOperator;
 
 import alice.tuprolog.Library;
 import alice.tuprolog.Operator;
@@ -1002,9 +1001,9 @@ public class PrologEngineTest extends PrologBaseTest {
 	@Test
 	public final void testOperator() {
 
-		// assertFalse(engine.currentOperator(1200, "xfx", "<=="));
-		// engine.operator(1200, "xfx", "<==");
-		// assertTrue(engine.currentOperator(1200, "xfx", "<=="));
+		assertFalse(engine.currentOperator(1200, "xfx", "<=="));
+		engine.operator(1200, "xfx", "<==");
+		assertTrue(engine.currentOperator(1200, "xfx", "<=="));
 
 	}
 
