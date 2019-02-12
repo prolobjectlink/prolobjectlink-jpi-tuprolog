@@ -33,7 +33,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.prolobjectlink.prolog.PrologAtom;
 import org.prolobjectlink.prolog.PrologConverter;
-import org.prolobjectlink.prolog.PrologConverterFactory;
 import org.prolobjectlink.prolog.PrologDouble;
 import org.prolobjectlink.prolog.PrologFloat;
 import org.prolobjectlink.prolog.PrologInteger;
@@ -42,7 +41,6 @@ import org.prolobjectlink.prolog.PrologLong;
 import org.prolobjectlink.prolog.PrologStructure;
 import org.prolobjectlink.prolog.PrologTerm;
 import org.prolobjectlink.prolog.PrologVariable;
-import org.prolobjectlink.prolog.tuprolog.TuPrologConverter;
 
 import alice.tuprolog.Double;
 import alice.tuprolog.Float;
@@ -56,7 +54,7 @@ public class PrologConverterTest extends PrologBaseTest {
 
 	private Term[][] termTable = new Term[7][5];
 	private Map<String, Term> termMap = new HashMap<String, Term>();
-	private PrologConverter<Term> converter = PrologConverterFactory.createPrologConverter(TuPrologConverter.class);
+	private PrologConverter<Term> converter = provider.getConverter();
 
 	@Before
 	public void setUp() throws Exception {
