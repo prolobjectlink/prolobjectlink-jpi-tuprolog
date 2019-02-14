@@ -49,7 +49,7 @@ public class TuPrologQuery extends AbstractQuery implements PrologQuery {
 
 	TuPrologQuery(AbstractEngine engine, String query) {
 		super(engine);
-		tuProlog = engine.unwrap(TuPrologEngine.class).engine;
+		tuProlog = ((TuPrologEngine) engine).engine;
 		try {
 			solution = tuProlog.solve("" + query + ".");
 		} catch (MalformedGoalException e) {
@@ -64,7 +64,7 @@ public class TuPrologQuery extends AbstractQuery implements PrologQuery {
 			for (int i = terms.length; i > 1; i--) {
 				term = new Struct(",", fromTerm(terms[i - 2], Term.class), term);
 			}
-			tuProlog = engine.unwrap(TuPrologEngine.class).engine;
+			tuProlog = ((TuPrologEngine) engine).engine;
 			solution = tuProlog.solve(term);
 		}
 	}
@@ -79,7 +79,7 @@ public class TuPrologQuery extends AbstractQuery implements PrologQuery {
 			}
 			query = new Struct(",", fromTerm(term, Term.class), query);
 		}
-		tuProlog = engine.unwrap(TuPrologEngine.class).engine;
+		tuProlog = ((TuPrologEngine) engine).engine;
 		solution = tuProlog.solve(query);
 	}
 
@@ -199,7 +199,7 @@ public class TuPrologQuery extends AbstractQuery implements PrologQuery {
 
 			while (hasMoreSolutions() && index < n) {
 				try {
-					TuPrologEngine pe = engine.unwrap(TuPrologEngine.class);
+					TuPrologEngine pe = (TuPrologEngine) engine;
 					solution = pe.engine.solveNext();
 					solutionMap = oneVariablesSolution();
 					solutionMaps[index++] = solutionMap;

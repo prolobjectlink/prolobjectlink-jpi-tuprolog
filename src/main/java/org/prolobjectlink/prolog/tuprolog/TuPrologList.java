@@ -25,7 +25,7 @@ import static org.prolobjectlink.prolog.PrologTermType.LIST_TYPE;
 
 import java.util.Iterator;
 
-import org.prolobjectlink.AbstractIterator;
+import org.prolobjectlink.prolog.AbstractIterator;
 import org.prolobjectlink.prolog.PrologList;
 import org.prolobjectlink.prolog.PrologProvider;
 import org.prolobjectlink.prolog.PrologTerm;
@@ -47,23 +47,23 @@ public class TuPrologList extends TuPrologTerm implements PrologList {
 		super(LIST_TYPE, provider);
 		Term[] terms = new Term[arguments.length];
 		for (int i = 0; i < arguments.length; i++) {
-			terms[i] = unwrap(arguments[i], TuPrologTerm.class).value;
+			terms[i] = ((TuPrologTerm) arguments[i]).value;
 		}
 		value = new Struct(terms);
 	}
 
 	protected TuPrologList(PrologProvider provider, PrologTerm head, PrologTerm tail) {
 		super(LIST_TYPE, provider);
-		Term h = unwrap(head, TuPrologTerm.class).value;
-		Term t = unwrap(tail, TuPrologTerm.class).value;
+		Term h = ((TuPrologTerm) head).value;
+		Term t = ((TuPrologTerm) tail).value;
 		value = new Struct(h, t);
 	}
 
 	protected TuPrologList(PrologProvider provider, PrologTerm[] arguments, PrologTerm tail) {
 		super(LIST_TYPE, provider);
-		value = unwrap(tail, TuPrologTerm.class).value;
+		value = ((TuPrologTerm) tail).value;
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			value = new Struct(unwrap(arguments[i], TuPrologTerm.class).value, value);
+			value = new Struct(((TuPrologTerm) arguments[i]).value, value);
 		}
 	}
 

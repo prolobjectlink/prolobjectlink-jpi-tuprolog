@@ -36,7 +36,7 @@ public class TuPrologStructure extends TuPrologTerm implements PrologStructure {
 		super(STRUCTURE_TYPE, provider);
 		Term[] terms = new Term[arguments.length];
 		for (int i = 0; i < arguments.length; i++) {
-			terms[i] = unwrap(arguments[i], TuPrologTerm.class).value;
+			terms[i] = ((TuPrologTerm) arguments[i]).value;
 		}
 		value = new Struct(removeQuoted(functor), terms);
 	}
@@ -48,8 +48,8 @@ public class TuPrologStructure extends TuPrologTerm implements PrologStructure {
 
 	TuPrologStructure(PrologProvider provider, PrologTerm left, String operator, PrologTerm right) {
 		super(STRUCTURE_TYPE, provider);
-		Term leftOperand = left.unwrap(TuPrologTerm.class).value;
-		Term rightOperand = right.unwrap(TuPrologTerm.class).value;
+		Term leftOperand = ((TuPrologTerm) left).value;
+		Term rightOperand = ((TuPrologTerm) right).value;
 		value = new Struct(operator, new Term[] { leftOperand, rightOperand });
 	}
 
