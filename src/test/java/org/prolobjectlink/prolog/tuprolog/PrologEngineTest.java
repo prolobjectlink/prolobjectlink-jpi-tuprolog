@@ -38,6 +38,7 @@ import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.prolobjectlink.prolog.Licenses;
 import org.prolobjectlink.prolog.PredicateIndicator;
@@ -563,6 +564,104 @@ public class PrologEngineTest extends PrologBaseTest {
 		engine.retract(provider.newStructure(mother, x, y), provider.newStructure(parent, x, y),
 				provider.newStructure(female, x));
 		assertEquals(0, engine.getProgramSize());
+	}
+
+	@Test
+	public final void testUnify() {
+
+		// with atom
+		PrologAtom atom = provider.newAtom("smith");
+		PrologAtom atom1 = provider.newAtom("doe");
+		// true because the atoms are equals
+		assertTrue(engine.unify(atom, atom));
+		// false because the atoms are different
+		assertFalse(engine.unify(atom, atom1));
+
+	}
+
+	@Test
+	public final void testMatch() {
+
+		// with atom
+		PrologAtom atom = provider.newAtom("smith");
+		PrologAtom atom1 = provider.newAtom("doe");
+		assertEquals(new HashMap<String, PrologTerm>(), engine.match(atom, atom));
+		assertEquals(new HashMap<String, PrologTerm>(), engine.match(atom, atom1));
+
+		// with variable
+		HashMap<String, PrologTerm> substitution = new HashMap<String, PrologTerm>(1);
+		substitution.put("X", provider.newAtom("smith"));
+		PrologVariable variable = provider.newVariable("X", 0);
+		assertEquals(substitution, engine.match(atom, variable));
+
+	}
+
+	@Test
+	public final void testContainsString() {
+
+		engine.assertz("parent( pam, bob)");
+		engine.assertz("parent( tom, bob)");
+		engine.assertz("parent( tom, liz)");
+		engine.assertz("parent( bob, ann)");
+		engine.assertz("parent( bob, pat)");
+		engine.assertz("parent( pat, jim)");
+		engine.assertz("female( pam)");
+		engine.assertz("male( tom)");
+		engine.assertz("male( bob)");
+		engine.assertz("female( liz)");
+		engine.assertz("female( ann)");
+		engine.assertz("female( pat)");
+		engine.assertz("male( jim)");
+		engine.assertz("offspring( Y, X):-parent( X, Y)");
+		engine.assertz("mother( X, Y):-parent( X, Y),female( X)");
+		engine.assertz("grandparent( X, Z):-parent( X, Y),parent( Y, Z)");
+		engine.assertz("sister( X, Y):-parent( Z, X),parent( Z, Y),female( X),different( X, Y)");
+		engine.assertz("predecessor( X, Z):-parent( X, Z)");
+		engine.assertz("predecessor( X, Z):-parent( X, Y),predecessor( Y, Z)");
+		engine.assertz("different( X, X) :- !, fail");
+		engine.assertz("different( X, Y)");
+
+		assertTrue(engine.contains("mother(X,Y)"));
+
+	}
+
+	@Test
+	public final void testContainsPrologTermPrologTermArray() {
+
+		engine.assertz("parent( pam, bob)");
+		engine.assertz("parent( tom, bob)");
+		engine.assertz("parent( tom, liz)");
+		engine.assertz("parent( bob, ann)");
+		engine.assertz("parent( bob, pat)");
+		engine.assertz("parent( pat, jim)");
+		engine.assertz("female( pam)");
+		engine.assertz("male( tom)");
+		engine.assertz("male( bob)");
+		engine.assertz("female( liz)");
+		engine.assertz("female( ann)");
+		engine.assertz("female( pat)");
+		engine.assertz("male( jim)");
+		engine.assertz("offspring( Y, X):-parent( X, Y)");
+		engine.assertz("mother( X, Y):-parent( X, Y),female( X)");
+		engine.assertz("grandparent( X, Z):-parent( X, Y),parent( Y, Z)");
+		engine.assertz("sister( X, Y):-parent( Z, X),parent( Z, Y),female( X),different( X, Y)");
+		engine.assertz("predecessor( X, Z):-parent( X, Z)");
+		engine.assertz("predecessor( X, Z):-parent( X, Y),predecessor( Y, Z)");
+		engine.assertz("different( X, X) :- !, fail");
+		engine.assertz("different( X, Y)");
+
+		x = provider.newVariable("X", 0);
+		y = provider.newVariable("Y", 1);
+		z = provider.newVariable("Z", 2);
+
+		assertTrue(engine.contains(provider.newStructure(mother, x, y)));
+
+		x = provider.newVariable("X", 0);
+		y = provider.newVariable("Y", 1);
+		z = provider.newVariable("Z", 2);
+
+		assertTrue(engine.contains(provider.newStructure(mother, x, y), provider.newStructure(grandparent, x, z)));
+
 	}
 
 	@Test
@@ -1300,6 +1399,22 @@ public class PrologEngineTest extends PrologBaseTest {
 
 		assertEquals(size, counter);
 
+	}
+
+	@Test
+	public final void testToString() {
+		assertEquals(engine.getName() + " " + engine.getVersion(), engine.toString());
+	}
+
+	@Test
+	public final void testEquals() {
+		assertEquals(provider.newEngine(), engine);
+	}
+
+	@Test
+	@Ignore
+	public final void testHashCode() {
+		assertEquals(provider.newEngine().hashCode(), engine.hashCode());
 	}
 
 }
