@@ -32,6 +32,7 @@ import org.prolobjectlink.prolog.PrologEngine;
 import org.prolobjectlink.prolog.PrologFloat;
 import org.prolobjectlink.prolog.PrologInteger;
 import org.prolobjectlink.prolog.PrologList;
+import org.prolobjectlink.prolog.PrologLogger;
 import org.prolobjectlink.prolog.PrologLong;
 import org.prolobjectlink.prolog.PrologProvider;
 import org.prolobjectlink.prolog.PrologStructure;
@@ -44,6 +45,8 @@ import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 
 public class TuProlog extends AbstractProvider implements PrologProvider {
+
+	private static final PrologLogger logger = new TuPrologLogger();
 
 	public TuProlog() {
 		super(new TuPrologConverter());
@@ -165,6 +168,10 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 
 	public PrologTerm newStructure(PrologTerm left, String operator, PrologTerm right) {
 		return new TuPrologStructure(this, left, operator, right);
+	}
+
+	public PrologLogger getLogger() {
+		return logger;
 	}
 
 	@Override
