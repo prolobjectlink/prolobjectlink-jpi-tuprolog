@@ -341,5 +341,10 @@ public class PrologProviderTest extends PrologBaseTest {
 				provider.toString());
 
 	}
+	
+	@Test
+	public final void testGetLogger() {
+		assertNotNull(provider.getLogger());
+	}
 
 }
