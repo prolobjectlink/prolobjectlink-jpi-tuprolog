@@ -21,10 +21,10 @@
  */
 package org.prolobjectlink.prolog.tuprolog;
 
-import static org.prolobjectlink.logging.LoggerConstants.DONT_WORRY;
-import static org.prolobjectlink.logging.LoggerConstants.FILE_NOT_FOUND;
-import static org.prolobjectlink.logging.LoggerConstants.IO;
-import static org.prolobjectlink.logging.LoggerConstants.SYNTAX_ERROR;
+import static org.prolobjectlink.prolog.LoggerConstants.DONT_WORRY;
+import static org.prolobjectlink.prolog.LoggerConstants.FILE_NOT_FOUND;
+import static org.prolobjectlink.prolog.LoggerConstants.IO;
+import static org.prolobjectlink.prolog.LoggerConstants.SYNTAX_ERROR;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,7 +37,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.prolobjectlink.logging.LoggerUtils;
 import org.prolobjectlink.prolog.AbstractEngine;
 import org.prolobjectlink.prolog.Licenses;
 import org.prolobjectlink.prolog.PredicateIndicator;
@@ -84,7 +83,7 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 				}
 			}
 		} catch (InvalidTheoryException e) {
-			LoggerUtils.error(getClass(), SYNTAX_ERROR, e);
+			getLogger().error(getClass(), SYNTAX_ERROR, e);
 		}
 		return false;
 	}
@@ -94,13 +93,13 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 			Theory theory = new Theory(new FileInputStream(path));
 			engine.setTheory(theory);
 		} catch (FileNotFoundException e) {
-			LoggerUtils.warn(getClass(), FILE_NOT_FOUND + path, e);
-			LoggerUtils.info(getClass(), DONT_WORRY + path);
+			getLogger().warn(getClass(), FILE_NOT_FOUND + path, e);
+			getLogger().info(getClass(), DONT_WORRY + path);
 		} catch (IOException e) {
-			LoggerUtils.warn(getClass(), IO + path, e);
-			LoggerUtils.info(getClass(), DONT_WORRY + path);
+			getLogger().warn(getClass(), IO + path, e);
+			getLogger().info(getClass(), DONT_WORRY + path);
 		} catch (InvalidTheoryException e) {
-			LoggerUtils.error(getClass(), SYNTAX_ERROR + path, e);
+			getLogger().error(getClass(), SYNTAX_ERROR + path, e);
 		}
 	}
 
@@ -110,15 +109,15 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 			writer = new FileWriter(path);
 			writer.write(engine.getTheoryManager().getTheory(true));
 		} catch (IOException e) {
-			LoggerUtils.warn(getClass(), IO + path, e);
-			LoggerUtils.info(getClass(), DONT_WORRY + path);
+			getLogger().warn(getClass(), IO + path, e);
+			getLogger().info(getClass(), DONT_WORRY + path);
 		} finally {
 			try {
 				if (writer != null) {
 					writer.close();
 				}
 			} catch (IOException e) {
-				LoggerUtils.error(getClass(), IO + path, e);
+				getLogger().error(getClass(), IO + path, e);
 			}
 		}
 	}
@@ -128,11 +127,11 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 		try {
 			manager.consult(new Theory(new FileInputStream(path)), true, null);
 		} catch (FileNotFoundException e) {
-			LoggerUtils.error(getClass(), FILE_NOT_FOUND + path, e);
+			getLogger().error(getClass(), FILE_NOT_FOUND + path, e);
 		} catch (IOException e) {
-			LoggerUtils.error(getClass(), IO + path, e);
+			getLogger().error(getClass(), IO + path, e);
 		} catch (InvalidTheoryException e) {
-			LoggerUtils.error(getClass(), SYNTAX_ERROR + path, e);
+			getLogger().error(getClass(), SYNTAX_ERROR + path, e);
 		}
 	}
 
@@ -184,7 +183,7 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 				}
 			}
 		} catch (InvalidTheoryException e) {
-			LoggerUtils.error(getClass(), SYNTAX_ERROR, e);
+			getLogger().error(getClass(), SYNTAX_ERROR, e);
 		}
 		return false;
 	}
@@ -201,7 +200,7 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 				}
 			}
 		} catch (InvalidTheoryException e) {
-			LoggerUtils.error(getClass(), SYNTAX_ERROR, e);
+			getLogger().error(getClass(), SYNTAX_ERROR, e);
 		}
 		return false;
 
@@ -320,7 +319,7 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 				}
 			}
 		} catch (InvalidTheoryException e) {
-			LoggerUtils.error(getClass(), SYNTAX_ERROR, e);
+			getLogger().error(getClass(), SYNTAX_ERROR, e);
 		}
 
 		return predicates;

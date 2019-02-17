@@ -26,10 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.prolobjectlink.logging.LoggerConstants;
-import org.prolobjectlink.logging.LoggerUtils;
 import org.prolobjectlink.prolog.AbstractEngine;
 import org.prolobjectlink.prolog.AbstractQuery;
+import org.prolobjectlink.prolog.LoggerConstants;
 import org.prolobjectlink.prolog.PrologQuery;
 import org.prolobjectlink.prolog.PrologTerm;
 
@@ -53,7 +52,7 @@ public class TuPrologQuery extends AbstractQuery implements PrologQuery {
 		try {
 			solution = tuProlog.solve("" + query + ".");
 		} catch (MalformedGoalException e) {
-			LoggerUtils.error(getClass(), LoggerConstants.SYNTAX_ERROR, e);
+			getLogger().error(getClass(), LoggerConstants.SYNTAX_ERROR, e);
 		}
 	}
 
