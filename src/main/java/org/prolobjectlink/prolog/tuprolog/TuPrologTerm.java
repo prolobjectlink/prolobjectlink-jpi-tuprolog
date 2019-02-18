@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.prolobjectlink.prolog.AbstractTerm;
-import org.prolobjectlink.prolog.LoggerConstants;
+import org.prolobjectlink.prolog.PrologLogger;
 import org.prolobjectlink.prolog.PrologProvider;
 import org.prolobjectlink.prolog.PrologTerm;
 
@@ -149,7 +149,7 @@ public abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 				map.put(v.getName(), toTerm(v.getTerm(), PrologTerm.class));
 			}
 		} catch (MalformedGoalException e) {
-			getLogger().error(getClass(), LoggerConstants.SYNTAX_ERROR, e);
+			getLogger().error(getClass(), PrologLogger.SYNTAX_ERROR, e);
 		} catch (NoSolutionException e) {
 			// do nothing
 		}

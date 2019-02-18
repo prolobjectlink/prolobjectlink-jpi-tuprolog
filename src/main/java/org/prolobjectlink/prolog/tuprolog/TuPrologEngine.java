@@ -21,10 +21,10 @@
  */
 package org.prolobjectlink.prolog.tuprolog;
 
-import static org.prolobjectlink.prolog.LoggerConstants.DONT_WORRY;
-import static org.prolobjectlink.prolog.LoggerConstants.FILE_NOT_FOUND;
-import static org.prolobjectlink.prolog.LoggerConstants.IO;
-import static org.prolobjectlink.prolog.LoggerConstants.SYNTAX_ERROR;
+import static org.prolobjectlink.prolog.PrologLogger.DONT_WORRY;
+import static org.prolobjectlink.prolog.PrologLogger.FILE_NOT_FOUND;
+import static org.prolobjectlink.prolog.PrologLogger.IO;
+import static org.prolobjectlink.prolog.PrologLogger.SYNTAX_ERROR;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
