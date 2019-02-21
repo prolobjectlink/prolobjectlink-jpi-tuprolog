@@ -39,7 +39,7 @@ import org.prolobjectlink.prolog.IntegerExpectedError;
 import org.prolobjectlink.prolog.ListExpectedError;
 import org.prolobjectlink.prolog.LongExpectedError;
 import org.prolobjectlink.prolog.NumberExpectedError;
-import org.prolobjectlink.prolog.RuntimeError;
+import org.prolobjectlink.prolog.PrologError;
 import org.prolobjectlink.prolog.StructureExpectedError;
 import org.prolobjectlink.prolog.SyntaxError;
 import org.prolobjectlink.prolog.UnknownTermError;
@@ -135,7 +135,7 @@ public class PrologErrorsTest {
 
 	@Test
 	public final void testRuntimeExpected() {
-		assertEquals("something is wrong", new RuntimeError("something is wrong").getMessage());
+		assertEquals("something is wrong", new PrologError("something is wrong").getMessage());
 	}
 
 	@Test
