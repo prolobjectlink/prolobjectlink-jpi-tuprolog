@@ -43,8 +43,6 @@ import org.prolobjectlink.prolog.PrologList;
 import org.prolobjectlink.prolog.PrologStructure;
 import org.prolobjectlink.prolog.PrologTerm;
 import org.prolobjectlink.prolog.PrologVariable;
-import org.prolobjectlink.prolog.tuprolog.TuProlog;
-import org.prolobjectlink.prolog.tuprolog.TuPrologConverter;
 
 public class PrologProviderTest extends PrologBaseTest {
 
@@ -197,8 +195,8 @@ public class PrologProviderTest extends PrologBaseTest {
 		assertEquals("[]/0", list.getIndicator());
 		assertEquals(0, list.getArity());
 
-		list = provider.newList(null);
-		assertEquals(provider.newList(null), list);
+		list = provider.newList((PrologTerm[]) null);
+		assertEquals(provider.newList((PrologTerm[]) null), list);
 		assertEquals(LIST_TYPE, list.getType());
 		assertEquals("[]", list.getFunctor());
 		assertEquals("[]/0", list.getIndicator());
@@ -341,7 +339,7 @@ public class PrologProviderTest extends PrologBaseTest {
 				provider.toString());
 
 	}
-	
+
 	@Test
 	public final void testGetLogger() {
 		assertNotNull(provider.getLogger());
