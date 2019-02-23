@@ -30,6 +30,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -381,6 +382,10 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 		if (engine != null) {
 			engine.clearTheory();
 		}
+	}
+
+	public final List<String> verify() {
+		return Arrays.asList("OK");
 	}
 
 }
