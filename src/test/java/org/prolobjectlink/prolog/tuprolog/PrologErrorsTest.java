@@ -26,24 +26,14 @@ import static org.junit.Assert.assertEquals;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.prolobjectlink.prolog.AtomExpectedError;
-import org.prolobjectlink.prolog.AtomicExpectedError;
 import org.prolobjectlink.prolog.CompoundExpectedError;
-import org.prolobjectlink.prolog.DomainError;
-import org.prolobjectlink.prolog.DoubleExpectedError;
-import org.prolobjectlink.prolog.FloatExpectedError;
 import org.prolobjectlink.prolog.FunctorError;
 import org.prolobjectlink.prolog.IndicatorError;
-import org.prolobjectlink.prolog.InstantiationError;
-import org.prolobjectlink.prolog.IntegerExpectedError;
 import org.prolobjectlink.prolog.ListExpectedError;
-import org.prolobjectlink.prolog.LongExpectedError;
-import org.prolobjectlink.prolog.NumberExpectedError;
 import org.prolobjectlink.prolog.PrologError;
 import org.prolobjectlink.prolog.StructureExpectedError;
 import org.prolobjectlink.prolog.SyntaxError;
 import org.prolobjectlink.prolog.UnknownTermError;
-import org.prolobjectlink.prolog.VariableExpectedError;
 
 /**
  * Not covered errors during test case coverage running.
@@ -62,38 +52,9 @@ public class PrologErrorsTest {
 	}
 
 	@Test
-	public final void testAtomExpected() {
-		assertEquals("The expected term is not an atom : " + getClass(),
-				new AtomExpectedError(getClass()).getMessage());
-	}
-
-	@Test
-	public final void testAtomicExpected() {
-		assertEquals("The expected term is not a atomic term : " + getClass(),
-				new AtomicExpectedError(getClass()).getMessage());
-	}
-
-	@Test
 	public final void testCompoundExpected() {
 		assertEquals("The expected term is not a compound term : " + getClass(),
 				new CompoundExpectedError(getClass()).getMessage());
-	}
-
-	@Test
-	public final void testDomainExpected() {
-		assertEquals("zero division", new DomainError("zero division").getMessage());
-	}
-
-	@Test
-	public final void testDoubleExpected() {
-		assertEquals("The expected term is not a double : " + getClass(),
-				new DoubleExpectedError(getClass()).getMessage());
-	}
-
-	@Test
-	public final void testFloatExpected() {
-		assertEquals("The expected term is not a float : " + getClass(),
-				new FloatExpectedError(getClass()).getMessage());
 	}
 
 	@Test
@@ -107,30 +68,8 @@ public class PrologErrorsTest {
 	}
 
 	@Test
-	public final void testInstantiationExpected() {
-		assertEquals("The term is not instantiated: " + getClass(), new InstantiationError(getClass()).getMessage());
-	}
-
-	@Test
-	public final void testIntegerExpected() {
-		assertEquals("The expected term is not an integer : " + getClass(),
-				new IntegerExpectedError(getClass()).getMessage());
-	}
-
-	@Test
 	public final void testListExpected() {
 		assertEquals("The expected term is not a list : " + getClass(), new ListExpectedError(getClass()).getMessage());
-	}
-
-	@Test
-	public final void testLongExpected() {
-		assertEquals("The expected term is not a long : " + getClass(), new LongExpectedError(getClass()).getMessage());
-	}
-
-	@Test
-	public final void testNumberExpected() {
-		assertEquals("The expected term is not a number : " + getClass(),
-				new NumberExpectedError(getClass()).getMessage());
 	}
 
 	@Test
@@ -154,12 +93,6 @@ public class PrologErrorsTest {
 	public final void testUnknowExpected() {
 		assertEquals("The object " + getClass() + " is not a correct prolog term",
 				new UnknownTermError(getClass()).getMessage());
-	}
-
-	@Test
-	public final void testVariableExpected() {
-		assertEquals("The expected term is not a variable : " + getClass(),
-				new VariableExpectedError(getClass()).getMessage());
 	}
 
 }
