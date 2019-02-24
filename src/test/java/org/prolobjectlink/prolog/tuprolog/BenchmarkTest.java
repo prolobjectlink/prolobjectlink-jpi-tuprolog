@@ -40,6 +40,7 @@ public class BenchmarkTest extends PrologBaseTest {
 	}
 
 	@Test
+	@Ignore
 	public final void test() {
 
 		PrologEngine engine = provider.newEngine();
@@ -124,16 +125,9 @@ public class BenchmarkTest extends PrologBaseTest {
 		engine.assertz(provider.newStructure("density", c, d), /* :- */
 				provider.newStructure("pop", c, p), provider.newStructure("area", c, a), provider.newStructure(d, "is",
 						provider.newStructure(provider.newStructure(p, "*", provider.newInteger(100)), "/", a)));
-		
-		
-		PrologEngine k=provider.newEngine();
-		k.assertz(provider.newStructure("density", c, d), /* :- */
-				provider.newStructure("pop", c, p), provider.newStructure("area", c, a), provider.newStructure(d, "is",
-						provider.newStructure(provider.newStructure(p, "*", provider.newInteger(100)), "/", a)));
-		System.out.println(k.getProgramClauses().iterator().next());
 
-		 PrologTerm[] oneSolution = engine.query("query").oneSolution();
-	
+		PrologTerm[] oneSolution = engine.query("query").oneSolution();
+
 	}
 
 }
