@@ -72,23 +72,6 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 		this.engine = engine;
 	}
 
-	private boolean exist(TheoryManager manager, String stringClause) {
-		Term toBeCheck = Term.createTerm(stringClause);
-		try {
-			Theory theory = new Theory(manager.getTheory(true));
-			Iterator<? extends Term> iterator = theory.iterator(engine);
-			while (iterator.hasNext()) {
-				Term term = iterator.next();
-				if (term.match(toBeCheck)) {
-					return true;
-				}
-			}
-		} catch (InvalidTheoryException e) {
-			getLogger().error(getClass(), SYNTAX_ERROR, e);
-		}
-		return false;
-	}
-
 	public void consult(String path) {
 		try {
 			Theory theory = new Theory(new FileInputStream(path));
@@ -143,7 +126,7 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 
 	public void asserta(String stringClause) {
 		TheoryManager manager = engine.getTheoryManager();
-		if (stringClause != null && !exist(manager, stringClause)) {
+		if (stringClause != null && !clause(stringClause)) {
 			manager.assertA((Struct) Term.createTerm(stringClause), true, null, false);
 		}
 	}
@@ -158,7 +141,7 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 
 	public void assertz(String stringClause) {
 		TheoryManager manager = engine.getTheoryManager();
-		if (stringClause != null && !exist(manager, stringClause)) {
+		if (stringClause != null && !clause(stringClause)) {
 			manager.assertZ((Struct) Term.createTerm(stringClause), true, null, false);
 		}
 	}
@@ -204,7 +187,6 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 			getLogger().error(getClass(), SYNTAX_ERROR, e);
 		}
 		return false;
-
 	}
 
 	public void retract(String stringClause) {
@@ -370,11 +352,8 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 		if (getClass() != obj.getClass())
 			return false;
 		TuPrologEngine other = (TuPrologEngine) obj;
-
-		// we need some criteria for engines compare
 		// tu-prolog engine not override equals from object
 		// current criteria is not null engine instances
-
 		return engine != null && other.engine != null;
 	}
 
