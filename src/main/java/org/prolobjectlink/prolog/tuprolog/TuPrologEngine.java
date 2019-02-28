@@ -40,7 +40,6 @@ import java.util.Set;
 
 import org.prolobjectlink.prolog.AbstractEngine;
 import org.prolobjectlink.prolog.Licenses;
-import org.prolobjectlink.prolog.PredicateIndicator;
 import org.prolobjectlink.prolog.PrologClause;
 import org.prolobjectlink.prolog.PrologEngine;
 import org.prolobjectlink.prolog.PrologIndicator;
@@ -219,7 +218,7 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 
 	public boolean currentPredicate(String functor, int arity) {
 		String newFunctor = removeQuoted(functor);
-		PrologIndicator pi = new PredicateIndicator(newFunctor, arity);
+		PrologIndicator pi = new TuPrologIndicator(newFunctor, arity);
 		return currentPredicates().contains(pi);
 	}
 
@@ -292,11 +291,11 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 							Struct headStruct = (Struct) head;
 							arity = headStruct.getArity();
 							functor = headStruct.getName();
-							PredicateIndicator pi = new PredicateIndicator(functor, arity);
+							TuPrologIndicator pi = new TuPrologIndicator(functor, arity);
 							predicates.add(pi);
 						}
 					} else {
-						PredicateIndicator pi = new PredicateIndicator(functor, arity);
+						TuPrologIndicator pi = new TuPrologIndicator(functor, arity);
 						predicates.add(pi);
 					}
 				}
@@ -319,7 +318,7 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 					String key = primitiveInfo.getKey();
 					String functor = key.substring(0, key.lastIndexOf('/'));
 					int arity = Integer.parseInt(key.substring(key.lastIndexOf('/') + 1));
-					PredicateIndicator pi = new PredicateIndicator(functor, arity);
+					TuPrologIndicator pi = new TuPrologIndicator(functor, arity);
 					builtins.add(pi);
 				}
 			}

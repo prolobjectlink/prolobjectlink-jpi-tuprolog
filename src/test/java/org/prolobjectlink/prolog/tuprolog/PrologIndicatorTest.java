@@ -26,11 +26,11 @@ import static org.junit.Assert.assertEquals;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.prolobjectlink.prolog.PredicateIndicator;
+import org.prolobjectlink.prolog.PrologIndicator;
 
 public class PrologIndicatorTest extends PrologBaseTest {
 
-	private final PredicateIndicator pi = new PredicateIndicator("functor", 3);
+	private final PrologIndicator pi = new TuPrologIndicator("functor", 3);
 
 	@Before
 	public void setUp() throws Exception {
@@ -62,12 +62,12 @@ public class PrologIndicatorTest extends PrologBaseTest {
 
 	@Test
 	public final void testHashCode() {
-		assertEquals(new PredicateIndicator("functor", 3).hashCode(), pi.hashCode());
+		assertEquals(new TuPrologIndicator("functor", 3).hashCode(), pi.hashCode());
 	}
 
 	@Test
 	public final void testEquals() {
-		assertEquals(new PredicateIndicator("functor", 3), pi);
+		assertEquals(new TuPrologIndicator("functor", 3), pi);
 	}
 
 }

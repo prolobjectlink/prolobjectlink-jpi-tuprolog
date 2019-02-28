@@ -23,19 +23,28 @@ package org.prolobjectlink.prolog.tuprolog;
 
 import org.prolobjectlink.prolog.AbstractClause;
 import org.prolobjectlink.prolog.PrologClause;
+import org.prolobjectlink.prolog.PrologIndicator;
 import org.prolobjectlink.prolog.PrologProvider;
 import org.prolobjectlink.prolog.PrologTerm;
 
 public final class TuPrologClause extends AbstractClause implements PrologClause {
 
+	private PrologIndicator indicator;
+
 	protected TuPrologClause(PrologProvider provider, PrologTerm head, boolean dynamic, boolean multifile,
 			boolean discontiguous) {
 		super(provider, head, dynamic, multifile, discontiguous);
+		this.indicator = new TuPrologIndicator(head.getFunctor(), head.getArity());
 	}
 
 	protected TuPrologClause(PrologProvider provider, PrologTerm head, PrologTerm body, boolean dynamic,
 			boolean multifile, boolean discontiguous) {
 		super(provider, head, body, dynamic, multifile, discontiguous);
+		this.indicator = new TuPrologIndicator(head.getFunctor(), head.getArity());
+	}
+
+	public PrologIndicator getPrologIndicator() {
+		return indicator;
 	}
 
 }

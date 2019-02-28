@@ -41,7 +41,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.prolobjectlink.prolog.Licenses;
-import org.prolobjectlink.prolog.PredicateIndicator;
 import org.prolobjectlink.prolog.PrologAtom;
 import org.prolobjectlink.prolog.PrologEngine;
 import org.prolobjectlink.prolog.PrologOperator;
@@ -1112,8 +1111,8 @@ public class PrologEngineTest extends PrologBaseTest {
 	public final void testCurrentPredicates() {
 		Prolog prolog = new Prolog();
 		String[] libraries = prolog.getCurrentLibraries();
-		Set<PredicateIndicator> builtins = new HashSet<PredicateIndicator>();
-		builtins = new HashSet<PredicateIndicator>(libraries.length);
+		Set<TuPrologIndicator> builtins = new HashSet<TuPrologIndicator>();
+		builtins = new HashSet<TuPrologIndicator>(libraries.length);
 		for (String libraryName : libraries) {
 			Library library = prolog.getLibrary(libraryName);
 			Collection<List<PrimitiveInfo>> c = library.getPrimitives().values();
@@ -1122,7 +1121,7 @@ public class PrologEngineTest extends PrologBaseTest {
 					String key = primitiveInfo.getKey();
 					String functor = key.substring(0, key.lastIndexOf('/'));
 					int arity = Integer.parseInt(key.substring(key.lastIndexOf('/') + 1));
-					PredicateIndicator pi = new PredicateIndicator(functor, arity);
+					TuPrologIndicator pi = new TuPrologIndicator(functor, arity);
 					builtins.add(pi);
 				}
 			}
