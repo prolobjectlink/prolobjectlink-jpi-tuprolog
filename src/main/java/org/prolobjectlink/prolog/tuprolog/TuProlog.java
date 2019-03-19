@@ -84,6 +84,10 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 		return new TuPrologEmpty(this);
 	}
 
+	public PrologTerm prologInclude(String file) {
+		return newStructure("include", newAtom(file));
+	}
+
 	// engine
 
 	public PrologEngine newEngine() {
