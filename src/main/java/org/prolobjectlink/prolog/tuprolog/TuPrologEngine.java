@@ -44,6 +44,7 @@ import org.prolobjectlink.prolog.PrologClause;
 import org.prolobjectlink.prolog.PrologEngine;
 import org.prolobjectlink.prolog.PrologIndicator;
 import org.prolobjectlink.prolog.PrologOperator;
+import org.prolobjectlink.prolog.PrologProgrammer;
 import org.prolobjectlink.prolog.PrologProvider;
 import org.prolobjectlink.prolog.PrologQuery;
 import org.prolobjectlink.prolog.PrologTerm;
@@ -264,10 +265,6 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 		return new PrologProgramIterator(cls);
 	}
 
-	public String getLicense() {
-		return Licenses.LGPL_V3;
-	}
-
 	public int getProgramSize() {
 		int counter = 0;
 		Iterator<? extends Term> i = engine.getTheory().iterator(engine);
@@ -329,6 +326,14 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 			}
 		}
 		return builtins;
+	}
+
+	public PrologProgrammer getProgrammer() {
+		return new TuPrologProgrammer(provider);
+	}
+
+	public String getLicense() {
+		return Licenses.LGPL_V3;
 	}
 
 	public String getVersion() {
