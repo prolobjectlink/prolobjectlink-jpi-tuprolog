@@ -35,6 +35,11 @@ import org.prolobjectlink.prolog.PrologTerm;
 
 import alice.tuprolog.Float;
 
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
 public final class TuPrologFloat extends TuPrologTerm implements PrologFloat {
 
 	TuPrologFloat(PrologProvider provider, Number value) {

@@ -44,6 +44,11 @@ import alice.tuprolog.Prolog;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
 public class TuProlog extends AbstractProvider implements PrologProvider {
 
 	private static final PrologLogger logger = new TuPrologLogger();

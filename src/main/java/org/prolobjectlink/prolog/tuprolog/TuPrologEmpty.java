@@ -27,6 +27,11 @@ import org.prolobjectlink.prolog.PrologTerm;
 
 import alice.tuprolog.Struct;
 
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
 public class TuPrologEmpty extends TuPrologList implements PrologList {
 
 	TuPrologEmpty(PrologProvider provider) {

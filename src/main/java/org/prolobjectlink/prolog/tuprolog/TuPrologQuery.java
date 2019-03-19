@@ -41,6 +41,11 @@ import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 import alice.tuprolog.Var;
 
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
 public class TuPrologQuery extends AbstractQuery implements PrologQuery {
 
 	private Prolog tuProlog;

@@ -34,6 +34,11 @@ import org.prolobjectlink.prolog.PrologOperatorSet;
 import alice.tuprolog.Operator;
 import alice.tuprolog.Prolog;
 
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
 final class TuPrologOperatorSet extends AbstractSet<PrologOperator> implements PrologOperatorSet {
 
 	protected final Set<PrologOperator> operators;

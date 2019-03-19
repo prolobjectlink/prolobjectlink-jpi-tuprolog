@@ -32,6 +32,11 @@ import org.prolobjectlink.prolog.PrologVariable;
 
 import alice.tuprolog.Var;
 
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
 public class TuPrologVariable extends TuPrologTerm implements PrologVariable {
 
 	TuPrologVariable(PrologProvider provider) {

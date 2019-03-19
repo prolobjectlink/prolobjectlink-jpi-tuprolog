@@ -45,7 +45,11 @@ import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 import alice.tuprolog.Var;
 
-/** @author Jose Zalacain @since 1.0 */
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
 public abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 
 	protected Term value;

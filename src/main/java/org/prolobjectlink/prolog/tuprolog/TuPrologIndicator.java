@@ -24,6 +24,11 @@ package org.prolobjectlink.prolog.tuprolog;
 import org.prolobjectlink.prolog.AbstractIndicator;
 import org.prolobjectlink.prolog.PrologIndicator;
 
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
 public final class TuPrologIndicator extends AbstractIndicator implements PrologIndicator {
 
 	public TuPrologIndicator(String functor, int arity) {

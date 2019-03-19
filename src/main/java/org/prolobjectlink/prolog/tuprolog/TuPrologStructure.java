@@ -30,6 +30,11 @@ import org.prolobjectlink.prolog.PrologTerm;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
 public class TuPrologStructure extends TuPrologTerm implements PrologStructure {
 
 	protected TuPrologStructure(PrologProvider provider, String functor, PrologTerm... arguments) {

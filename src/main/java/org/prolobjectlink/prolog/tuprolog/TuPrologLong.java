@@ -35,6 +35,11 @@ import org.prolobjectlink.prolog.PrologTerm;
 
 import alice.tuprolog.Long;
 
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
 public class TuPrologLong extends TuPrologTerm implements PrologLong {
 
 	TuPrologLong(PrologProvider provider, Number value) {

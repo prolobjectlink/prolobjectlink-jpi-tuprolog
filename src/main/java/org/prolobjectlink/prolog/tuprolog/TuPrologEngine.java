@@ -62,6 +62,11 @@ import alice.tuprolog.Term;
 import alice.tuprolog.Theory;
 import alice.tuprolog.TheoryManager;
 
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
 public final class TuPrologEngine extends AbstractEngine implements PrologEngine {
 
 	final Prolog engine;

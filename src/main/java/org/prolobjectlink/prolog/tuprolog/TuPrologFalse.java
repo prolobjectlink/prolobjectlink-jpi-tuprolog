@@ -28,6 +28,11 @@ import org.prolobjectlink.prolog.PrologTerm;
 
 import alice.tuprolog.Term;
 
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
 public final class TuPrologFalse extends TuPrologTerm implements PrologTerm {
 
 	protected TuPrologFalse(PrologProvider provider) {
