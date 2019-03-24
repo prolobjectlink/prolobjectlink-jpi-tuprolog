@@ -43,6 +43,7 @@ import alice.tuprolog.Parser;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
+import alice.tuprolog.lib.IOLibrary;
 
 /**
  * 
@@ -96,7 +97,14 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 	// engine
 
 	public PrologEngine newEngine() {
-		return new TuPrologEngine(this, new Prolog());
+		Prolog prolog = new Prolog();
+		String ioName = "alice.tuprolog.lib.IOLibrary";
+		IOLibrary ioLib = (IOLibrary) prolog.getLibrary(ioName);
+		if (ioLib != null) {
+			ioLib.setStandardInput(TuPrologConsole.STDIN);
+			ioLib.setStandardOutput(TuPrologConsole.STDOUT);
+		}
+		return new TuPrologEngine(this, prolog);
 	}
 
 	// parser helpers
