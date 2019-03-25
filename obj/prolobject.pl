@@ -52,6 +52,7 @@ object_new(Class,Argument,Object) :-
 	 java_object(Class,Argument,Object).
 	 
 object_list_to_array(Ars, Ac) :- 
+%	tu prolog don't have equivalent procedure
 	jpl_list_to_array(Ars, Ac).
 	 
 object_get(Object,Field,Result) :-
@@ -61,7 +62,8 @@ object_set(Object,Field,Value) :-
 	Object . Field <- set(Value).
 
 object_call(Object,Method,Arguments,Result) :- 
-	% concat method and arguments into MethodInformation
+	 Temporal=[Method|Arguments],
+	 MethodInformation=..Temporal,
 	 java_call(Object,MethodInformation,Result).
 	 
 object_call(Object,Method,Arguments) :- 
