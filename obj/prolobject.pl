@@ -61,6 +61,7 @@ object_get(Object,Field,Result) :-
 object_set(Object,Field,Value) :- 
 	Object . Field <- set(Value).
 
+% OK object_new('java.util.Date', [], Date),object_call(Date,getTime,[],X).
 object_call(Object,Method,Arguments,Result) :- 
 	 Temporal=[Method|Arguments],
 	 MethodInformation=..Temporal,
