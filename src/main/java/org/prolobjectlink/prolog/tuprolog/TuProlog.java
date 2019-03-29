@@ -24,6 +24,8 @@ package org.prolobjectlink.prolog.tuprolog;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.script.ScriptEngineFactory;
+
 import org.prolobjectlink.prolog.AbstractProvider;
 import org.prolobjectlink.prolog.PrologAtom;
 import org.prolobjectlink.prolog.PrologConverter;
@@ -44,6 +46,7 @@ import alice.tuprolog.Prolog;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 import alice.tuprolog.lib.IOLibrary;
+import alice.tuprolog.scriptengine.PrologScriptEngineFactory;
 
 /**
  * 
@@ -185,6 +188,10 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 
 	public PrologTerm newStructure(PrologTerm left, String operator, PrologTerm right) {
 		return new TuPrologStructure(this, left, operator, right);
+	}
+
+	public ScriptEngineFactory getScriptFactory() {
+		return PrologScriptEngineFactory.DEFAULT_FACTORY;
 	}
 
 	public PrologLogger getLogger() {
