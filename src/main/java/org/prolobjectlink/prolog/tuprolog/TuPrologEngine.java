@@ -38,6 +38,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.script.ScriptEngine;
+
 import org.prolobjectlink.prolog.AbstractEngine;
 import org.prolobjectlink.prolog.Licenses;
 import org.prolobjectlink.prolog.PrologClause;
@@ -62,6 +64,7 @@ import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 import alice.tuprolog.Theory;
 import alice.tuprolog.TheoryManager;
+import alice.tuprolog.scriptengine.PrologScriptEngine;
 
 /**
  * 
@@ -374,6 +377,10 @@ public final class TuPrologEngine extends AbstractEngine implements PrologEngine
 
 	public final List<String> verify() {
 		return Arrays.asList("OK");
+	}
+
+	public ScriptEngine getPrologScript() {
+		return new PrologScriptEngine();
 	}
 
 }
