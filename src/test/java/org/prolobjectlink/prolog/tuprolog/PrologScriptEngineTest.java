@@ -22,6 +22,8 @@
 package org.prolobjectlink.prolog.tuprolog;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.fail;
 
 import java.io.StringReader;
@@ -31,6 +33,7 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import javax.script.SimpleBindings;
+import javax.script.SimpleScriptContext;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -42,7 +45,9 @@ public class PrologScriptEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testCreateBindings() throws ScriptException {
-		assertEquals(0, engine.createBindings().size());
+		Bindings b = engine.createBindings();
+		b.put("X", 42.0);
+		assertEquals(true, engine.eval("X == 42.0.", b));
 	}
 
 	@Test
@@ -52,12 +57,16 @@ public class PrologScriptEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testSetContextScriptContext() {
-		fail("Not yet implemented");
+		ScriptContext old = engine.getContext();
+		engine.setContext(new SimpleScriptContext());
+		assertNotSame(old, engine.getContext());
 	}
 
 	@Test
-	public void testGetContext() {
-		fail("Not yet implemented");
+	public void testGetContext() throws ScriptException {
+		assertEquals(true, engine.eval("X is 5+3."));
+		assertEquals("8", engine.get("X"));
+		assertNotNull(engine.getContext());
 	}
 
 	@Test
@@ -69,13 +78,16 @@ public class PrologScriptEngineTest extends PrologBaseTest {
 	}
 
 	@Test
-	public void testSetBindingsBindingsInt() {
-		fail("Not yet implemented");
+	public void testSetBindingsBindingsInt() throws ScriptException {
+		bindings.put("X", 42.0);
+		engine.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
+		assertEquals(true, engine.eval("X == 42.0.", bindings));
 	}
 
 	@Test
-	public void testPutStringObject() {
-		fail("Not yet implemented");
+	public void testPutStringObject() throws ScriptException {
+		engine.put("X", 42.0);
+		assertEquals(true, engine.eval("X == 42.0."));
 	}
 
 	@Test
@@ -85,13 +97,16 @@ public class PrologScriptEngineTest extends PrologBaseTest {
 	}
 
 	@Test
-	public void testEvalStringScriptContext() {
-		fail("Not yet implemented");
+	public void testEvalStringScriptContext() throws ScriptException {
+		assertEquals(true, engine.eval("X is 5+3.", engine.getContext()));
+		assertEquals("8", engine.get("X"));
 	}
 
 	@Test
-	public void testEvalReaderScriptContext() {
-		fail("Not yet implemented");
+	@Ignore
+	public void testEvalReaderScriptContext() throws ScriptException {
+		assertEquals(true, engine.eval(new StringReader("X is 5+3."), engine.getContext()));
+		assertEquals("8", engine.get("X"));
 	}
 
 	@Test
@@ -103,8 +118,10 @@ public class PrologScriptEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testEvalStringBindings() throws ScriptException {
-		assertEquals(true, engine.eval("X is 5+3.", bindings));
+		assertEquals(0, engine.getBindings(ScriptContext.ENGINE_SCOPE).size());
+		assertEquals(true, engine.eval("X is 5+3."));
 		assertEquals("8", engine.get("X"));
+		assertEquals(5, engine.getBindings(ScriptContext.ENGINE_SCOPE).size());
 	}
 
 	@Test
@@ -121,8 +138,10 @@ public class PrologScriptEngineTest extends PrologBaseTest {
 	}
 
 	@Test
-	public void testGetScriptContextBindings() {
-		fail("Not yet implemented");
+	public void testGetScriptContextBindings() throws ScriptException {
+		assertEquals(true, engine.eval("X is 5+3."));
+		assertEquals("8", engine.get("X"));
+		assertNotNull(engine.getContext());
 	}
 
 }
