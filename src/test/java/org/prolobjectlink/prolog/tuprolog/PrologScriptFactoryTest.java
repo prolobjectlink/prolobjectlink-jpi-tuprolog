@@ -41,7 +41,7 @@ public class PrologScriptFactoryTest extends PrologBaseTest {
 
 	@Test
 	public void testGetEngineVersion() {
-		assertEquals("3.1", sef.getEngineVersion());
+		assertEquals(provider.newEngine().getVersion(), sef.getEngineVersion());
 	}
 
 	@Test
@@ -66,16 +66,16 @@ public class PrologScriptFactoryTest extends PrologBaseTest {
 
 	@Test
 	public void testGetLanguageVersion() {
-		assertEquals("3.1", sef.getLanguageVersion());
+		assertEquals(provider.newEngine().getVersion(), sef.getLanguageVersion());
 	}
 
 	@Test
 	public void testGetParameter() {
 		assertEquals("tuProlog", sef.getParameter("NAME"));
 		assertEquals("tuProlog", sef.getParameter("ENGINE"));
-		assertEquals("3.1", sef.getParameter("ENGINE_VERSION"));
+		assertEquals(provider.newEngine().getVersion(), sef.getParameter("ENGINE_VERSION"));
 		assertEquals("Prolog", sef.getParameter("LANGUAGE"));
-		assertEquals("3.1", sef.getParameter("LANGUAGE_VERSION"));
+		assertEquals(provider.newEngine().getVersion(), sef.getParameter("LANGUAGE_VERSION"));
 	}
 
 	@Test

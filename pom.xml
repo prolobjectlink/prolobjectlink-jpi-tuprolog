@@ -91,7 +91,7 @@
 		<dependency>
 			<groupId>it.unibo.alice.tuprolog</groupId>
 			<artifactId>tuprolog</artifactId>
-			<version>3.1</version>
+			<version>3.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
