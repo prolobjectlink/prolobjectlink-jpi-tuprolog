@@ -70,7 +70,7 @@ import alice.tuprolog.scriptengine.PrologScriptEngine;
  * @author Jose Zalacain
  * @since 1.0
  */
-public final class TuPrologEngine extends AbstractEngine implements PrologEngine {
+public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 
 	final Prolog engine;
 
