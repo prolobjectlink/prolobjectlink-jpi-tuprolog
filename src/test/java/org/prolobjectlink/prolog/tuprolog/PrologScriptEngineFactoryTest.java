@@ -30,7 +30,7 @@ import javax.script.ScriptEngineFactory;
 
 import org.junit.Test;
 
-public class PrologScriptFactoryTest extends PrologBaseTest {
+public class PrologScriptEngineFactoryTest extends PrologBaseTest {
 
 	private ScriptEngineFactory sef = provider.getScriptFactory();
 
