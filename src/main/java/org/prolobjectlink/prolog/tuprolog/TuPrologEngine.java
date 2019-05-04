@@ -339,7 +339,7 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 	}
 
 	public String getName() {
-		return "tuprolog";
+		return "tuProlog";
 	}
 
 	@Override

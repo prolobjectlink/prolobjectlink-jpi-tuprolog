@@ -1370,7 +1370,7 @@ public class PrologEngineTest extends PrologBaseTest {
 
 	@Test
 	public final void testGetName() {
-		assertEquals("tuprolog", engine.getName());
+		assertEquals("tuProlog", engine.getName());
 	}
 
 	@Test
