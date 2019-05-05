@@ -56,6 +56,8 @@ import alice.tuprolog.scriptengine.PrologScriptEngineFactory;
 public class TuProlog extends AbstractProvider implements PrologProvider {
 
 	private static final PrologLogger logger = new TuPrologLogger();
+	public static final String VERSION = Prolog.getVersion();
+	public static final String NAME = "tuProlog";
 
 	public TuProlog() {
 		super(new TuPrologConverter());

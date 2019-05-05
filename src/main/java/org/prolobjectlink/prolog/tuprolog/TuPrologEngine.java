@@ -335,11 +335,11 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 	}
 
 	public String getVersion() {
-		return Prolog.getVersion();
+		return TuProlog.VERSION;
 	}
 
 	public String getName() {
-		return "tuProlog";
+		return TuProlog.NAME;
 	}
 
 	@Override
