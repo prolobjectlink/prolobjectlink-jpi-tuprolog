@@ -24,7 +24,6 @@ package org.prolobjectlink.prolog.tuprolog;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.fail;
 
 import java.io.StringReader;
 
@@ -41,7 +40,7 @@ import org.junit.Test;
 public class PrologScriptEngineTest extends PrologBaseTest {
 
 	private final Bindings bindings = new SimpleBindings();
-	private final ScriptEngine engine = provider.newEngine().getPrologScript();
+	private final ScriptEngine engine = manager.getEngineByName(provider.getName());
 
 	@Test
 	public void testCreateBindings() throws ScriptException {
@@ -52,7 +51,7 @@ public class PrologScriptEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testGetFactory() {
-		assertEquals(provider.getScriptFactory(), engine.getFactory());
+		assertEquals(manager.getEngineByName(provider.getName()).getFactory(), engine.getFactory());
 	}
 
 	@Test
