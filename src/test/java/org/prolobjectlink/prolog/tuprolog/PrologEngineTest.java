@@ -579,23 +579,6 @@ public class PrologEngineTest extends PrologBaseTest {
 	}
 
 	@Test
-	public final void testMatch() {
-
-		// with atom
-		PrologAtom atom = provider.newAtom("smith");
-		PrologAtom atom1 = provider.newAtom("doe");
-		assertEquals(new HashMap<String, PrologTerm>(), engine.match(atom, atom));
-		assertEquals(new HashMap<String, PrologTerm>(), engine.match(atom, atom1));
-
-		// with variable
-		HashMap<String, PrologTerm> substitution = new HashMap<String, PrologTerm>(1);
-		substitution.put("X", provider.newAtom("smith"));
-		PrologVariable variable = provider.newVariable("X", 0);
-		assertEquals(substitution, engine.match(atom, variable));
-
-	}
-
-	@Test
 	public final void testContainsString() {
 
 		engine.assertz("parent( pam, bob)");

@@ -27,7 +27,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.prolobjectlink.prolog.PrologOperatorSet;
-import org.prolobjectlink.prolog.tuprolog.TuPrologOperatorSet;
 
 public class PrologOperatorSetTest {
 

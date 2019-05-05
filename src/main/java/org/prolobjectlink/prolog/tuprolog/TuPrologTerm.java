@@ -21,12 +21,9 @@
  */
 package org.prolobjectlink.prolog.tuprolog;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.prolobjectlink.prolog.AbstractTerm;
-import org.prolobjectlink.prolog.PrologLogger;
 import org.prolobjectlink.prolog.PrologProvider;
 import org.prolobjectlink.prolog.PrologTerm;
 
@@ -34,13 +31,10 @@ import alice.tuprolog.Double;
 import alice.tuprolog.Float;
 import alice.tuprolog.Int;
 import alice.tuprolog.Long;
-import alice.tuprolog.MalformedGoalException;
-import alice.tuprolog.NoSolutionException;
 import alice.tuprolog.Number;
 import alice.tuprolog.Operator;
 import alice.tuprolog.OperatorManager;
 import alice.tuprolog.Prolog;
-import alice.tuprolog.SolveInfo;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 import alice.tuprolog.Var;
@@ -143,23 +137,6 @@ public abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 		return value.match(fromTerm(term, Term.class));
 	}
 
-	public final Map<String, PrologTerm> match(PrologTerm term) {
-		Map<String, PrologTerm> map = new HashMap<String, PrologTerm>();
-		try {
-			String query = "unify(" + value + "," + term + ").";
-			SolveInfo solution = new Prolog().solve(query);
-			List<Var> variables = solution.getBindingVars();
-			for (Var v : variables) {
-				map.put(v.getName(), toTerm(v.getTerm(), PrologTerm.class));
-			}
-		} catch (MalformedGoalException e) {
-			getLogger().error(getClass(), PrologLogger.SYNTAX_ERROR, e);
-		} catch (NoSolutionException e) {
-			// do nothing
-		}
-		return map;
-	}
-
 	public final int compareTo(PrologTerm o) {
 		Term thisTerm = value;
 		Term otherTerm = fromTerm(o, Term.class);
@@ -190,8 +167,6 @@ public abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 		if (!(obj instanceof TuPrologTerm))
 			return false;
 		TuPrologTerm other = (TuPrologTerm) obj;
-//		if (type != other.type)
-//			return false;
 		if (value == null) {
 			if (other.value != null)
 				return false;

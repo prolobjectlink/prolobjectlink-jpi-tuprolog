@@ -22,7 +22,6 @@
 package org.prolobjectlink.prolog.tuprolog;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -31,8 +30,6 @@ import javax.script.ScriptEngineFactory;
 import javax.script.ScriptException;
 
 import org.junit.Test;
-
-import alice.tuprolog.scriptengine.PrologScriptEngineFactory;
 
 public class PrologScriptEngineManagerTest extends PrologBaseTest {
 
