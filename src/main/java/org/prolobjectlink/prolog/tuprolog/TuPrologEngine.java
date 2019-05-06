@@ -26,10 +26,12 @@ import static org.prolobjectlink.prolog.PrologLogger.FILE_NOT_FOUND;
 import static org.prolobjectlink.prolog.PrologLogger.IO;
 import static org.prolobjectlink.prolog.PrologLogger.SYNTAX_ERROR;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -123,6 +125,25 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 			getLogger().error(getClass(), IO + path, e);
 		} catch (InvalidTheoryException e) {
 			getLogger().error(getClass(), SYNTAX_ERROR + path, e);
+		}
+	}
+
+	public void include(Reader reader) {
+		TheoryManager manager = engine.getTheoryManager();
+		BufferedReader bfr = new BufferedReader(reader);
+		StringBuilder script = new StringBuilder();
+		try {
+			String line = bfr.readLine();
+			while (line != null) {
+				script.append(line);
+				script.append("\n");
+				line = bfr.readLine();
+			}
+			manager.consult(new Theory("" + script + ""), true, null);
+		} catch (InvalidTheoryException e) {
+			getLogger().error(getClass(), SYNTAX_ERROR + script, e);
+		} catch (IOException e) {
+			getLogger().warn(getClass(), IO + script, e);
 		}
 	}
 

@@ -26,6 +26,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Arrays;
 
+import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 
 import org.junit.Test;
@@ -46,7 +47,7 @@ public class PrologScriptEngineFactoryTest extends PrologBaseTest {
 
 	@Test
 	public void testGetExtensions() {
-		assertEquals(Arrays.asList("pro", "pl", "2p"), sef.getExtensions());
+		assertEquals(Arrays.asList("pro", "pl"), sef.getExtensions());
 	}
 
 	@Test
@@ -66,16 +67,16 @@ public class PrologScriptEngineFactoryTest extends PrologBaseTest {
 
 	@Test
 	public void testGetLanguageVersion() {
-		assertEquals(provider.newEngine().getVersion(), sef.getLanguageVersion());
+		assertEquals(provider.getVersion(), sef.getLanguageVersion());
 	}
 
 	@Test
 	public void testGetParameter() {
-		assertEquals("tuProlog", sef.getParameter("NAME"));
-		assertEquals("tuProlog", sef.getParameter("ENGINE"));
-		assertEquals(provider.newEngine().getVersion(), sef.getParameter("ENGINE_VERSION"));
-		assertEquals("Prolog", sef.getParameter("LANGUAGE"));
-		assertEquals(provider.newEngine().getVersion(), sef.getParameter("LANGUAGE_VERSION"));
+		assertEquals(provider.getName(), sef.getParameter(ScriptEngine.NAME));
+		assertEquals(provider.getName(), sef.getParameter(ScriptEngine.ENGINE));
+		assertEquals(provider.getVersion(), sef.getParameter(ScriptEngine.ENGINE_VERSION));
+		assertEquals("Prolog", sef.getParameter(ScriptEngine.LANGUAGE));
+		assertEquals(provider.getVersion(), sef.getParameter(ScriptEngine.LANGUAGE_VERSION));
 	}
 
 	@Test
@@ -85,8 +86,21 @@ public class PrologScriptEngineFactoryTest extends PrologBaseTest {
 
 	@Test
 	public void testGetProgram() {
-		assertEquals(
-				"black(cat),gray(elephant),big(bear),big(elephant),brown(bear),dark(Z) :- black(Z),dark(Z) :- brown(Z),small(cat).",
+		assertEquals("black(cat).\n"
+
+				+ "gray(elephant).\n"
+
+				+ "big(bear).\n"
+
+				+ "big(elephant).\n"
+
+				+ "brown(bear).\n"
+
+				+ "dark(Z) :- black(Z).\n"
+
+				+ "dark(Z) :- brown(Z).\n"
+
+				+ "small(cat).",
 				sef.getProgram("black(cat)", "gray(elephant)", "big(bear)", "big(elephant)", "brown(bear)",
 						"dark(Z) :- black(Z)", "dark(Z) :- brown(Z)", "small(cat)"));
 	}

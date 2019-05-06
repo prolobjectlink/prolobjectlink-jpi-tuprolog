@@ -1,6 +1,6 @@
 /*-
  * #%L
- * prolobjectlink-jpi-tuprolog
+ * prolobjectlink-jpi-jtrolog
  * %%
  * Copyright (C) 2012 - 2019 Prolobjectlink Project
  * %%
@@ -34,7 +34,6 @@ import javax.script.ScriptException;
 import javax.script.SimpleBindings;
 import javax.script.SimpleScriptContext;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class PrologScriptEngineTest extends PrologBaseTest {
@@ -46,7 +45,7 @@ public class PrologScriptEngineTest extends PrologBaseTest {
 	public void testCreateBindings() throws ScriptException {
 		Bindings b = engine.createBindings();
 		b.put("X", 42.0);
-		assertEquals(true, engine.eval("X == 42.0.", b));
+		assertEquals(true, engine.eval("?- X == 42.0.", b));
 	}
 
 	@Test
@@ -63,83 +62,80 @@ public class PrologScriptEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testGetContext() throws ScriptException {
-		assertEquals(true, engine.eval("X is 5+3."));
-		assertEquals("8", engine.get("X"));
+		assertEquals(true, engine.eval("?- X is 5+3."));
+		assertEquals(provider.newInteger(8), engine.get("X"));
 		assertNotNull(engine.getContext());
 	}
 
 	@Test
 	public void testGetBindingsInt() throws ScriptException {
 		assertEquals(0, engine.getBindings(ScriptContext.ENGINE_SCOPE).size());
-		assertEquals(true, engine.eval("X is 5+3."));
-		assertEquals("8", engine.get("X"));
-		assertEquals(5, engine.getBindings(ScriptContext.ENGINE_SCOPE).size());
+		assertEquals(true, engine.eval("?- X is 5+3."));
+		assertEquals(provider.newInteger(8), engine.get("X"));
+		assertEquals(1, engine.getBindings(ScriptContext.ENGINE_SCOPE).size());
 	}
 
 	@Test
 	public void testSetBindingsBindingsInt() throws ScriptException {
 		bindings.put("X", 42.0);
 		engine.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
-		assertEquals(true, engine.eval("X == 42.0.", bindings));
+		assertEquals(true, engine.eval("?- X == 42.0.", bindings));
 	}
 
 	@Test
 	public void testPutStringObject() throws ScriptException {
 		engine.put("X", 42.0);
-		assertEquals(true, engine.eval("X == 42.0."));
+		assertEquals(true, engine.eval("?- X == 42.0."));
 	}
 
 	@Test
 	public void testGetString() throws ScriptException {
-		assertEquals(true, engine.eval("X is 5+3."));
-		assertEquals("8", engine.get("X"));
+		assertEquals(true, engine.eval("?- X is 5+3."));
+		assertEquals(provider.newInteger(8), engine.get("X"));
 	}
 
 	@Test
 	public void testEvalStringScriptContext() throws ScriptException {
-		assertEquals(true, engine.eval("X is 5+3.", engine.getContext()));
-		assertEquals("8", engine.get("X"));
+		assertEquals(true, engine.eval("?- X is 5+3.", engine.getContext()));
+		assertEquals(provider.newInteger(8), engine.get("X"));
 	}
 
 	@Test
-	@Ignore
 	public void testEvalReaderScriptContext() throws ScriptException {
-		assertEquals(true, engine.eval(new StringReader("X is 5+3."), engine.getContext()));
-		assertEquals("8", engine.get("X"));
+		assertEquals(true, engine.eval(new StringReader("?- X is 5+3."), engine.getContext()));
+		assertEquals(provider.newInteger(8), engine.get("X"));
 	}
 
 	@Test
-	@Ignore
 	public void testEvalReaderBindings() throws ScriptException {
-		assertEquals(true, engine.eval(new StringReader("X is 5+3."), bindings));
-		assertEquals("8", engine.get("X"));
+		assertEquals(true, engine.eval(new StringReader("?- X is 5+3."), bindings));
+		assertEquals(provider.newInteger(8), engine.get("X"));
 	}
 
 	@Test
 	public void testEvalStringBindings() throws ScriptException {
 		assertEquals(0, engine.getBindings(ScriptContext.ENGINE_SCOPE).size());
-		assertEquals(true, engine.eval("X is 5+3."));
-		assertEquals("8", engine.get("X"));
-		assertEquals(5, engine.getBindings(ScriptContext.ENGINE_SCOPE).size());
+		assertEquals(true, engine.eval("?- X is 5+3."));
+		assertEquals(provider.newInteger(8), engine.get("X"));
+		assertEquals(1, engine.getBindings(ScriptContext.ENGINE_SCOPE).size());
 	}
 
 	@Test
-	@Ignore
 	public void testEvalReader() throws ScriptException {
-		assertEquals(true, engine.eval(new StringReader("X is 5+3.")));
-		assertEquals("8", engine.get("X"));
+		assertEquals(true, engine.eval(new StringReader("?- X is 5+3.")));
+		assertEquals(provider.newInteger(8), engine.get("X"));
 	}
 
 	@Test
 	public void testEvalString() throws ScriptException {
-		assertEquals(true, engine.eval("X is 5+3."));
-		assertEquals("8", engine.get("X"));
+		assertEquals(true, engine.eval("?- X is 5+3."));
+		assertEquals(provider.newInteger(8), engine.get("X"));
 	}
 
 	@Test
 	public void testGetScriptContextBindings() throws ScriptException {
-		assertEquals(true, engine.eval("X is 5+3."));
-		assertEquals("8", engine.get("X"));
+		assertEquals(true, engine.eval("?- X is 5+3."));
+		assertEquals(provider.newInteger(8), engine.get("X"));
 		assertNotNull(engine.getContext());
 	}
 

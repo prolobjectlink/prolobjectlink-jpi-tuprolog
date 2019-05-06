@@ -31,6 +31,10 @@ import org.prolobjectlink.prolog.PrologScriptEngineFactory;
 
 public final class TuPrologScriptFactory extends PrologScriptEngineFactory implements ScriptEngineFactory {
 
+	public TuPrologScriptFactory() {
+		super(new TuProlog().newEngine());
+	}
+
 	public TuPrologScriptFactory(PrologEngine engine) {
 		super(engine);
 	}

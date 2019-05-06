@@ -47,7 +47,7 @@ public class TuPrologInteger extends TuPrologTerm implements PrologInteger {
 	}
 
 	public PrologInteger getPrologInteger() {
-		return new TuPrologInteger(provider, getIntValue());
+		return new TuPrologInteger(provider, getIntegerValue());
 	}
 
 	public PrologFloat getPrologFloat() {
@@ -70,7 +70,7 @@ public class TuPrologInteger extends TuPrologTerm implements PrologInteger {
 		return ((Int) value).doubleValue();
 	}
 
-	public int getIntValue() {
+	public int getIntegerValue() {
 		return ((Int) value).intValue();
 	}
 
