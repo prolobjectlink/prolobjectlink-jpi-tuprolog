@@ -21,34 +21,14 @@
  */
 package org.prolobjectlink.prolog.tuprolog;
 
-import java.util.Iterator;
+import org.prolobjectlink.prolog.AbstractJavaConverter;
+import org.prolobjectlink.prolog.PrologJavaConverter;
+import org.prolobjectlink.prolog.PrologProvider;
 
-import javax.script.ScriptEngineFactory;
+public class TuPrologJavaConverter extends AbstractJavaConverter implements PrologJavaConverter {
 
-import org.prolobjectlink.prolog.ArrayIterator;
-import org.prolobjectlink.prolog.PrologScriptEngineFactory;
-
-public final class TuPrologScriptFactory extends PrologScriptEngineFactory implements ScriptEngineFactory {
-
-	public TuPrologScriptFactory() {
-		super(new TuProlog().newEngine());
-	}
-
-	public String getMethodCallSyntax(String obj, String m, String... args) {
-		StringBuilder result = new StringBuilder();
-		result.append(obj + " <- " + m);
-		Iterator<String> i = new ArrayIterator<String>(args);
-		if (i.hasNext()) {
-			result.append('(');
-			while (i.hasNext()) {
-				result.append(i.next());
-				if (i.hasNext()) {
-					result.append(',');
-				}
-			}
-			result.append(')');
-		}
-		return "" + result + "";
+	public TuPrologJavaConverter(PrologProvider provider) {
+		super(provider);
 	}
 
 }

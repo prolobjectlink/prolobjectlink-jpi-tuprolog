@@ -33,6 +33,7 @@ import org.prolobjectlink.prolog.PrologDouble;
 import org.prolobjectlink.prolog.PrologEngine;
 import org.prolobjectlink.prolog.PrologFloat;
 import org.prolobjectlink.prolog.PrologInteger;
+import org.prolobjectlink.prolog.PrologJavaConverter;
 import org.prolobjectlink.prolog.PrologList;
 import org.prolobjectlink.prolog.PrologLogger;
 import org.prolobjectlink.prolog.PrologLong;
@@ -192,8 +193,12 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 		return new TuPrologStructure(this, left, operator, right);
 	}
 
+	public PrologJavaConverter getJavaConverter() {
+		return new TuPrologJavaConverter(this);
+	}
+
 	public ScriptEngineFactory getScriptFactory() {
-		return PrologScriptEngineFactory.DEFAULT_FACTORY;
+		return new TuPrologScriptFactory();
 	}
 
 	public PrologLogger getLogger() {

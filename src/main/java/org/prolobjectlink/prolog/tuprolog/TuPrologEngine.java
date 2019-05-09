@@ -96,22 +96,21 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 		}
 	}
 
-	public void persist(String path) {
-		FileWriter writer = null;
+	public void consult(Reader reader) {
+		BufferedReader bfr = new BufferedReader(reader);
+		StringBuilder script = new StringBuilder();
 		try {
-			writer = new FileWriter(path);
-			writer.write(engine.getTheoryManager().getTheory(true));
-		} catch (IOException e) {
-			getLogger().warn(getClass(), IO + path, e);
-			getLogger().info(getClass(), DONT_WORRY + path);
-		} finally {
-			try {
-				if (writer != null) {
-					writer.close();
-				}
-			} catch (IOException e) {
-				getLogger().error(getClass(), IO + path, e);
+			String line = bfr.readLine();
+			while (line != null) {
+				script.append(line);
+				script.append("\n");
+				line = bfr.readLine();
 			}
+			engine.setTheory(new Theory("" + script + ""));
+		} catch (InvalidTheoryException e) {
+			getLogger().error(getClass(), SYNTAX_ERROR + script, e);
+		} catch (IOException e) {
+			getLogger().warn(getClass(), IO + script, e);
 		}
 	}
 
@@ -144,6 +143,25 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 			getLogger().error(getClass(), SYNTAX_ERROR + script, e);
 		} catch (IOException e) {
 			getLogger().warn(getClass(), IO + script, e);
+		}
+	}
+
+	public void persist(String path) {
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter(path);
+			writer.write(engine.getTheoryManager().getTheory(true));
+		} catch (IOException e) {
+			getLogger().warn(getClass(), IO + path, e);
+			getLogger().info(getClass(), DONT_WORRY + path);
+		} finally {
+			try {
+				if (writer != null) {
+					writer.close();
+				}
+			} catch (IOException e) {
+				getLogger().error(getClass(), IO + path, e);
+			}
 		}
 	}
 
