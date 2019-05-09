@@ -24,8 +24,6 @@ package org.prolobjectlink.prolog.tuprolog;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.script.ScriptEngineFactory;
-
 import org.prolobjectlink.prolog.AbstractProvider;
 import org.prolobjectlink.prolog.PrologAtom;
 import org.prolobjectlink.prolog.PrologConverter;
@@ -46,8 +44,6 @@ import alice.tuprolog.Parser;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
-import alice.tuprolog.lib.IOLibrary;
-import alice.tuprolog.scriptengine.PrologScriptEngineFactory;
 
 /**
  * 
@@ -104,12 +100,12 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 
 	public PrologEngine newEngine() {
 		Prolog prolog = new Prolog();
-		String ioName = "alice.tuprolog.lib.IOLibrary";
-		IOLibrary ioLib = (IOLibrary) prolog.getLibrary(ioName);
-		if (ioLib != null) {
-			ioLib.setStandardInput(TuPrologConsole.STDIN);
-			ioLib.setStandardOutput(TuPrologConsole.STDOUT);
-		}
+//		String ioName = IOLibrary.class.getName();
+//		IOLibrary ioLib = (IOLibrary) prolog.getLibrary(ioName);
+//		if (ioLib != null) {
+//			ioLib.setStandardInput(TuPrologConsole.STDIN);
+//			ioLib.setStandardOutput(TuPrologConsole.STDOUT);
+//		}
 		return new TuPrologEngine(this, prolog);
 	}
 
@@ -195,10 +191,6 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 
 	public PrologJavaConverter getJavaConverter() {
 		return new TuPrologJavaConverter(this);
-	}
-
-	public ScriptEngineFactory getScriptFactory() {
-		return new TuPrologScriptFactory();
 	}
 
 	public PrologLogger getLogger() {

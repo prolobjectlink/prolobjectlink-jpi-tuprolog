@@ -37,17 +37,17 @@ public final class TuPrologScriptFactory extends PrologScriptEngineFactory imple
 	public String getMethodCallSyntax(String obj, String m, String... args) {
 		StringBuilder result = new StringBuilder();
 		result.append(obj + " <- " + m);
+		result.append('(');
 		Iterator<String> i = new ArrayIterator<String>(args);
 		if (i.hasNext()) {
-			result.append('(');
 			while (i.hasNext()) {
 				result.append(i.next());
 				if (i.hasNext()) {
 					result.append(',');
 				}
 			}
-			result.append(')');
 		}
+		result.append(')');
 		return "" + result + "";
 	}
 

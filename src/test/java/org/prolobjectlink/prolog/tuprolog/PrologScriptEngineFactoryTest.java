@@ -112,7 +112,9 @@ public class PrologScriptEngineFactoryTest extends PrologBaseTest {
 
 	@Test
 	public void testGetMethodCallSyntax() {
+		assertEquals("OBJ1 <- compareTo(OBJ2,OBJ3)", sef.getMethodCallSyntax("OBJ1", "compareTo", "OBJ2", "OBJ3"));
 		assertEquals("OBJ1 <- equals(OBJ2)", sef.getMethodCallSyntax("OBJ1", "equals", "OBJ2"));
+		assertEquals("OBJ1 <- hashCode()", sef.getMethodCallSyntax("OBJ1", "hashCode"));
 	}
 
 }
