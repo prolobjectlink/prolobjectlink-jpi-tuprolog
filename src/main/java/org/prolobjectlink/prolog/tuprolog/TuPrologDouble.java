@@ -40,7 +40,7 @@ import alice.tuprolog.Double;
  * @author Jose Zalacain
  * @since 1.0
  */
-public final class TuPrologDouble extends TuPrologTerm implements PrologDouble {
+final class TuPrologDouble extends TuPrologTerm implements PrologDouble {
 
 	TuPrologDouble(PrologProvider provider, Number value) {
 		super(DOUBLE_TYPE, provider, new Double(value.doubleValue()));

@@ -34,7 +34,7 @@ import alice.tuprolog.Struct;
  * @author Jose Zalacain
  * @since 1.0
  */
-public final class TuPrologAtom extends TuPrologTerm implements PrologAtom {
+final class TuPrologAtom extends TuPrologTerm implements PrologAtom {
 
 	TuPrologAtom(PrologProvider provider, String value) {
 		super(ATOM_TYPE, provider, new Struct(value));

@@ -41,8 +41,8 @@ import alice.tuprolog.Prolog;
  */
 final class TuPrologOperatorSet extends AbstractSet<PrologOperator> implements PrologOperatorSet {
 
-	protected final Set<PrologOperator> operators;
-	protected final List<Operator> operatorsList;
+	private final Set<PrologOperator> operators;
+	private final List<Operator> operatorsList;
 
 	public TuPrologOperatorSet() {
 		Prolog engine = new Prolog();

@@ -33,7 +33,7 @@ import alice.tuprolog.Term;
  * @author Jose Zalacain
  * @since 1.0
  */
-public final class TuPrologTrue extends TuPrologTerm implements PrologTerm {
+final class TuPrologTrue extends TuPrologTerm implements PrologTerm {
 
 	TuPrologTrue(PrologProvider provider) {
 		super(TRUE_TYPE, provider, Term.TRUE);

@@ -37,13 +37,13 @@ import alice.tuprolog.Var;
  * @author Jose Zalacain
  * @since 1.0
  */
-public class TuPrologVariable extends TuPrologTerm implements PrologVariable {
+final class TuPrologVariable extends TuPrologTerm implements PrologVariable {
 
 	TuPrologVariable(PrologProvider provider) {
 		super(VARIABLE_TYPE, provider, new Var());
 	}
 
-	public TuPrologVariable(PrologProvider provider, String name) {
+	TuPrologVariable(PrologProvider provider, String name) {
 		super(VARIABLE_TYPE, provider, new Var(name));
 	}
 

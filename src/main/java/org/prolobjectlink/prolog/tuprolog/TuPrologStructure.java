@@ -35,9 +35,9 @@ import alice.tuprolog.Term;
  * @author Jose Zalacain
  * @since 1.0
  */
-public class TuPrologStructure extends TuPrologTerm implements PrologStructure {
+final class TuPrologStructure extends TuPrologTerm implements PrologStructure {
 
-	protected TuPrologStructure(PrologProvider provider, String functor, PrologTerm... arguments) {
+	TuPrologStructure(PrologProvider provider, String functor, PrologTerm... arguments) {
 		super(STRUCTURE_TYPE, provider);
 		Term[] terms = new Term[arguments.length];
 		for (int i = 0; i < arguments.length; i++) {
@@ -46,7 +46,7 @@ public class TuPrologStructure extends TuPrologTerm implements PrologStructure {
 		value = new Struct(removeQuoted(functor), terms);
 	}
 
-	protected TuPrologStructure(PrologProvider provider, String functor, Term... arguments) {
+	TuPrologStructure(PrologProvider provider, String functor, Term... arguments) {
 		super(STRUCTURE_TYPE, provider);
 		value = new Struct(removeQuoted(functor), arguments);
 	}

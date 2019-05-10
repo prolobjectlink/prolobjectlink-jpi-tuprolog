@@ -33,9 +33,9 @@ import alice.tuprolog.Term;
  * @author Jose Zalacain
  * @since 1.0
  */
-public final class TuPrologFalse extends TuPrologTerm implements PrologTerm {
+final class TuPrologFalse extends TuPrologTerm implements PrologTerm {
 
-	protected TuPrologFalse(PrologProvider provider) {
+	TuPrologFalse(PrologProvider provider) {
 		super(FALSE_TYPE, provider, Term.FALSE);
 	}
 

@@ -64,9 +64,9 @@ import alice.tuprolog.Var;
  * @author Jose Zalacain
  * @since 1.0
  */
-public class TuPrologConverter extends AbstractConverter<Term> implements PrologConverter<Term> {
+final class TuPrologConverter extends AbstractConverter<Term> implements PrologConverter<Term> {
 
-	protected static final TuPrologOperatorSet OPERATORS = new TuPrologOperatorSet();
+	private static final TuPrologOperatorSet OPERATORS = new TuPrologOperatorSet();
 
 	public PrologTerm toTerm(Term prologTerm) {
 		if (prologTerm.equals(Term.TRUE)) {

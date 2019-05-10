@@ -33,9 +33,9 @@ import alice.tuprolog.Struct;
  * @author Jose Zalacain
  * @since 1.0
  */
-public final class TuPrologNil extends TuPrologTerm implements PrologTerm {
+final class TuPrologNil extends TuPrologTerm implements PrologTerm {
 
-	protected TuPrologNil(PrologProvider provider) {
+	TuPrologNil(PrologProvider provider) {
 		super(NIL_TYPE, provider, new Struct("nil"));
 	}
 

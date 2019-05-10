@@ -29,9 +29,9 @@ import org.prolobjectlink.prolog.PrologOperator;
  * @author Jose Zalacain
  * @since 1.0
  */
-public final class TuPrologOperator extends AbstractOperator implements PrologOperator {
+final class TuPrologOperator extends AbstractOperator implements PrologOperator {
 
-	public TuPrologOperator(int priority, String specifier, String operator) {
+	TuPrologOperator(int priority, String specifier, String operator) {
 		super(priority, specifier, operator);
 	}
 

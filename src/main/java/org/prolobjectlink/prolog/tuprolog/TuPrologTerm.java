@@ -44,10 +44,10 @@ import alice.tuprolog.Var;
  * @author Jose Zalacain
  * @since 1.0
  */
-public abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
+abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 
 	protected Term value;
-	protected static final Prolog prolog = new Prolog();
+	private static final Prolog prolog = new Prolog();
 
 	public TuPrologTerm(int type, PrologProvider provider) {
 		super(type, provider);

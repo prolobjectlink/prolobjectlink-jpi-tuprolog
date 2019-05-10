@@ -40,7 +40,7 @@ import alice.tuprolog.Int;
  * @author Jose Zalacain
  * @since 1.0
  */
-public class TuPrologInteger extends TuPrologTerm implements PrologInteger {
+final class TuPrologInteger extends TuPrologTerm implements PrologInteger {
 
 	TuPrologInteger(PrologProvider provider, Number value) {
 		super(INTEGER_TYPE, provider, new Int(value.intValue()));

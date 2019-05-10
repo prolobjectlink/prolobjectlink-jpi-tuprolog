@@ -32,7 +32,7 @@ import alice.tuprolog.Struct;
  * @author Jose Zalacain
  * @since 1.0
  */
-public class TuPrologEmpty extends TuPrologList implements PrologList {
+final class TuPrologEmpty extends TuPrologList implements PrologList {
 
 	TuPrologEmpty(PrologProvider provider) {
 		super(provider);

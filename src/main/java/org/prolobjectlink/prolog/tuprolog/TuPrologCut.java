@@ -33,7 +33,7 @@ import alice.tuprolog.Struct;
  * @author Jose Zalacain
  * @since 1.0
  */
-public class TuPrologCut extends TuPrologTerm implements PrologTerm {
+final class TuPrologCut extends TuPrologTerm implements PrologTerm {
 
 	TuPrologCut(PrologProvider provider) {
 		super(CUT_TYPE, provider, new Struct("!"));

@@ -53,8 +53,8 @@ import alice.tuprolog.Term;
 public class TuProlog extends AbstractProvider implements PrologProvider {
 
 	private static final PrologLogger logger = new TuPrologLogger();
-	public static final String VERSION = Prolog.getVersion();
-	public static final String NAME = "tuProlog";
+	static final String VERSION = Prolog.getVersion();
+	static final String NAME = "tuProlog";
 
 	public TuProlog() {
 		super(new TuPrologConverter());
@@ -100,12 +100,6 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 
 	public PrologEngine newEngine() {
 		Prolog prolog = new Prolog();
-//		String ioName = IOLibrary.class.getName();
-//		IOLibrary ioLib = (IOLibrary) prolog.getLibrary(ioName);
-//		if (ioLib != null) {
-//			ioLib.setStandardInput(TuPrologConsole.STDIN);
-//			ioLib.setStandardOutput(TuPrologConsole.STDOUT);
-//		}
 		return new TuPrologEngine(this, prolog);
 	}
 

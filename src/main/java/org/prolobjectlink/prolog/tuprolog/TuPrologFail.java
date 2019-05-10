@@ -33,7 +33,7 @@ import alice.tuprolog.Struct;
  * @author Jose Zalacain
  * @since 1.0
  */
-public final class TuPrologFail extends TuPrologTerm implements PrologTerm {
+final class TuPrologFail extends TuPrologTerm implements PrologTerm {
 
 	TuPrologFail(PrologProvider provider) {
 		super(FAIL_TYPE, provider, new Struct("fail"));

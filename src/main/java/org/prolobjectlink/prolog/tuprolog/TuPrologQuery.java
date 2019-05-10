@@ -46,7 +46,7 @@ import alice.tuprolog.Var;
  * @author Jose Zalacain
  * @since 1.0
  */
-public class TuPrologQuery extends AbstractQuery implements PrologQuery {
+final class TuPrologQuery extends AbstractQuery implements PrologQuery {
 
 	private Prolog tuProlog;
 	private SolveInfo solution;
