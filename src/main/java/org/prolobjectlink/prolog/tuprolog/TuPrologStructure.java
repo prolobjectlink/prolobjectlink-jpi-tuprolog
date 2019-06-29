@@ -72,7 +72,7 @@ final class TuPrologStructure extends TuPrologTerm implements PrologStructure {
 		int arity = structure.getArity();
 		PrologTerm[] arguments = new PrologTerm[arity];
 		for (int i = 0; i < arity; i++) {
-			arguments[i] = provider.toTerm(structure.getArg(i), PrologTerm.class);
+			arguments[i] = toTerm(structure.getArg(i), PrologTerm.class);
 		}
 		return arguments;
 	}
@@ -93,6 +93,18 @@ final class TuPrologStructure extends TuPrologTerm implements PrologStructure {
 
 	public boolean hasIndicator(String functor, int arity) {
 		return getFunctor().equals(functor) && getArity() == arity;
+	}
+
+	public final PrologTerm getRight() {
+		return getArgument(1);
+	}
+
+	public final PrologTerm getLeft() {
+		return getArgument(0);
+	}
+
+	public final String getOperator() {
+		return getFunctor();
 	}
 
 }

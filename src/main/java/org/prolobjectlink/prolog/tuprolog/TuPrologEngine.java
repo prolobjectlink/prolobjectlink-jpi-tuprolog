@@ -29,8 +29,8 @@ import static org.prolobjectlink.prolog.PrologLogger.SYNTAX_ERROR;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.util.Arrays;
 import java.util.Collection;
@@ -39,8 +39,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import javax.script.ScriptEngine;
 
 import org.prolobjectlink.prolog.AbstractEngine;
 import org.prolobjectlink.prolog.Licenses;
@@ -65,7 +63,6 @@ import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 import alice.tuprolog.Theory;
 import alice.tuprolog.TheoryManager;
-import alice.tuprolog.scriptengine.PrologScriptEngine;
 
 /**
  * 
@@ -147,20 +144,16 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 	}
 
 	public void persist(String path) {
-		FileWriter writer = null;
+		PrintWriter writer = null;
 		try {
-			writer = new FileWriter(path);
+			writer = new PrintWriter(path);
 			writer.write(engine.getTheoryManager().getTheory(true));
 		} catch (IOException e) {
 			getLogger().warn(getClass(), IO + path, e);
 			getLogger().info(getClass(), DONT_WORRY + path);
 		} finally {
-			try {
-				if (writer != null) {
-					writer.close();
-				}
-			} catch (IOException e) {
-				getLogger().error(getClass(), IO + path, e);
+			if (writer != null) {
+				writer.close();
 			}
 		}
 	}
@@ -411,10 +404,6 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 
 	public final List<String> verify() {
 		return Arrays.asList("OK");
-	}
-
-	public ScriptEngine getPrologScript() {
-		return new PrologScriptEngine();
 	}
 
 }
