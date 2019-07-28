@@ -58,17 +58,17 @@
 	</issueManagement>
 
 	<repositories>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/repositories/central_bundles-18411/content/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/repositories/central_bundles-18442/content/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
 	<distributionManagement>
 		<snapshotRepository>
