@@ -189,6 +189,10 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 		return new TuPrologStructure(this, left, operator, right);
 	}
 
+	public PrologTerm newReference(Object reference) {
+		throw new UnsupportedOperationException("newReference(Object reference)");
+	}
+
 	public PrologJavaConverter getJavaConverter() {
 		return new TuPrologJavaConverter(this);
 	}
