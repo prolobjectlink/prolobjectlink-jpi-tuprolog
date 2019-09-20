@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TuPrologTerm.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">prolobjectlink-jpi-tuprolog</a> &gt; <a href="index.source.html" class="el_package">org.prolobjectlink.prolog.tuprolog</a> &gt; <span class="el_source">TuPrologTerm.java</span></div><h1>TuPrologTerm.java</h1><pre class="source lang-java linenums">/*
+ * #%L
+ * prolobjectlink-jpi-tuprolog
+ * %%
+ * Copyright (C) 2019 Prolobjectlink Project
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as 
+ * published by the Free Software Foundation, either version 2.1 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public 
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-2.1.html&gt;.
+ * #L%
+ */
+package org.prolobjectlink.prolog.tuprolog;
+
+import java.util.List;
+
+import org.prolobjectlink.prolog.AbstractTerm;
+import org.prolobjectlink.prolog.PrologProvider;
+import org.prolobjectlink.prolog.PrologTerm;
+
+import alice.tuprolog.Double;
+import alice.tuprolog.Float;
+import alice.tuprolog.Int;
+import alice.tuprolog.Long;
+import alice.tuprolog.Number;
+import alice.tuprolog.Operator;
+import alice.tuprolog.OperatorManager;
+import alice.tuprolog.Prolog;
+import alice.tuprolog.Struct;
+import alice.tuprolog.Term;
+import alice.tuprolog.Var;
+
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
+abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
+
+	protected Term value;
+<span class="fc" id="L50">	private static final Prolog prolog = new Prolog();</span>
+
+	public TuPrologTerm(int type, PrologProvider provider) {
+<span class="fc" id="L53">		super(type, provider);</span>
+<span class="fc" id="L54">	}</span>
+
+	public TuPrologTerm(int type, PrologProvider provider, Term value) {
+<span class="fc" id="L57">		super(type, provider);</span>
+<span class="fc" id="L58">		this.value = value;</span>
+<span class="fc" id="L59">	}</span>
+
+	public final boolean isAtom() {
+<span class="fc" id="L62">		return value.isAtom();</span>
+	}
+
+	public final boolean isNumber() {
+<span class="fc" id="L66">		return value instanceof Number;</span>
+	}
+
+	public final boolean isFloat() {
+<span class="fc" id="L70">		return value instanceof Float;</span>
+	}
+
+	public final boolean isDouble() {
+<span class="fc" id="L74">		return value instanceof Double;</span>
+	}
+
+	public final boolean isInteger() {
+<span class="fc" id="L78">		return value instanceof Int;</span>
+	}
+
+	public final boolean isLong() {
+<span class="fc" id="L82">		return value instanceof Long;</span>
+	}
+
+	public final boolean isVariable() {
+<span class="fc" id="L86">		return value instanceof Var;</span>
+	}
+
+	public final boolean isList() {
+<span class="fc" id="L90">		return value.isList();</span>
+	}
+
+	public final boolean isStructure() {
+<span class="fc bfc" id="L94" title="All 4 branches covered.">		if (!isAtom() &amp;&amp; !isList()) {</span>
+<span class="fc" id="L95">			return value instanceof Struct;</span>
+		}
+<span class="fc" id="L97">		return false;</span>
+	}
+
+	public final boolean isNil() {
+<span class="fc bfc" id="L101" title="All 4 branches covered.">		if (!isVariable() &amp;&amp; !isNumber()) {</span>
+<span class="fc" id="L102">			return hasIndicator(&quot;nil&quot;, 0);</span>
+		}
+<span class="fc" id="L104">		return false;</span>
+	}
+
+	public final boolean isEmptyList() {
+<span class="fc" id="L108">		return value.isEmptyList();</span>
+	}
+
+	public final boolean isEvaluable() {
+<span class="fc bfc" id="L112" title="All 2 branches covered.">		if (value instanceof Struct) {</span>
+<span class="fc" id="L113">			OperatorManager om = prolog.getOperatorManager();</span>
+<span class="fc" id="L114">			List&lt;Operator&gt; ol = om.getOperators();</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">			for (Operator operator : ol) {</span>
+<span class="fc bfc" id="L116" title="All 4 branches covered.">				if (!getFunctor().equals(&quot;.&quot;) &amp;&amp; operator.name.equals(getFunctor())) {</span>
+<span class="fc" id="L117">					return true;</span>
+				}
+<span class="fc" id="L119">			}</span>
+		}
+<span class="fc" id="L121">		return false;</span>
+	}
+
+	public final boolean isAtomic() {
+<span class="fc" id="L125">		return value.isAtomic();</span>
+	}
+
+	public final boolean isCompound() {
+<span class="fc" id="L129">		return value.isCompound();</span>
+	}
+
+	public final boolean isTrueType() {
+<span class="nc" id="L133">		return false;</span>
+	}
+
+	public final boolean isFalseType() {
+<span class="nc" id="L137">		return false;</span>
+	}
+
+	public final boolean isNullType() {
+<span class="nc" id="L141">		return false;</span>
+	}
+
+	public final boolean isVoidType() {
+<span class="nc" id="L145">		return false;</span>
+	}
+
+	public final boolean isObjectType() {
+<span class="nc" id="L149">		return false;</span>
+	}
+
+	public final boolean isReference() {
+<span class="nc" id="L153">		return false;</span>
+	}
+
+	public final Object getObject() {
+<span class="nc" id="L157">		return null;</span>
+	}
+
+	public final PrologTerm getTerm() {
+<span class="fc" id="L161">		return toTerm(value.getTerm(), PrologTerm.class);</span>
+	}
+
+	public final boolean unify(PrologTerm term) {
+<span class="fc" id="L165">		return value.match(fromTerm(term, Term.class));</span>
+	}
+
+	public final int compareTo(PrologTerm o) {
+<span class="fc" id="L169">		Term thisTerm = value;</span>
+<span class="fc" id="L170">		Term otherTerm = fromTerm(o, Term.class);</span>
+<span class="fc bfc" id="L171" title="All 4 branches covered.">		if (this == o || thisTerm.isEqual(otherTerm)) {</span>
+<span class="fc" id="L172">			return 0;</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">		} else if (thisTerm.isGreater(otherTerm)) {</span>
+<span class="fc" id="L174">			return 1;</span>
+		}
+<span class="fc" id="L176">		return -1;</span>
+	}
+
+	@Override
+	public final int hashCode() {
+<span class="fc" id="L181">		final int prime = 31;</span>
+<span class="fc" id="L182">		int result = 1;</span>
+<span class="fc" id="L183">		result = prime * result + type;</span>
+		// Term not implement hashCode()
+<span class="pc bpc" id="L185" title="1 of 2 branches missed.">		result = prime * result + ((value == null) ? 0 : value.toString().hashCode());</span>
+<span class="fc" id="L186">		return result;</span>
+	}
+
+	@Override
+	public final boolean equals(Object obj) {
+<span class="pc bpc" id="L191" title="1 of 2 branches missed.">		if (this == obj)</span>
+<span class="nc" id="L192">			return true;</span>
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">		if (obj == null)</span>
+<span class="nc" id="L194">			return false;</span>
+<span class="pc bpc" id="L195" title="1 of 2 branches missed.">		if (!(obj instanceof TuPrologTerm))</span>
+<span class="nc" id="L196">			return false;</span>
+<span class="fc" id="L197">		TuPrologTerm other = (TuPrologTerm) obj;</span>
+<span class="pc bpc" id="L198" title="1 of 2 branches missed.">		if (value == null) {</span>
+<span class="nc bnc" id="L199" title="All 2 branches missed.">			if (other.value != null)</span>
+<span class="nc" id="L200">				return false;</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">		} else if (value.toString().equals(other.value.toString())) {</span>
+<span class="fc" id="L202">			return true;</span>
+<span class="fc bfc" id="L203" title="All 2 branches covered.">		} else if (!value.unify(prolog, other.value)) {</span>
+<span class="fc" id="L204">			return false;</span>
+		}
+<span class="fc" id="L206">		return true;</span>
+	}
+
+	@Override
+	public final String toString() {
+<span class="fc" id="L211">		return &quot;&quot; + value + &quot;&quot;;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

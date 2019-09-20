@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TuPrologList.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">prolobjectlink-jpi-tuprolog</a> &gt; <a href="index.source.html" class="el_package">org.prolobjectlink.prolog.tuprolog</a> &gt; <span class="el_source">TuPrologList.java</span></div><h1>TuPrologList.java</h1><pre class="source lang-java linenums">/*
+ * #%L
+ * prolobjectlink-jpi-tuprolog
+ * %%
+ * Copyright (C) 2019 Prolobjectlink Project
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as 
+ * published by the Free Software Foundation, either version 2.1 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public 
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-2.1.html&gt;.
+ * #L%
+ */
+package org.prolobjectlink.prolog.tuprolog;
+
+import static org.prolobjectlink.prolog.PrologTermType.LIST_TYPE;
+
+import java.util.Iterator;
+
+import org.prolobjectlink.prolog.AbstractIterator;
+import org.prolobjectlink.prolog.PrologList;
+import org.prolobjectlink.prolog.PrologProvider;
+import org.prolobjectlink.prolog.PrologTerm;
+
+import alice.tuprolog.Struct;
+import alice.tuprolog.Term;
+
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
+class TuPrologList extends TuPrologTerm implements PrologList {
+
+	protected TuPrologList(PrologProvider provider) {
+<span class="fc" id="L44">		super(LIST_TYPE, provider, new Struct());</span>
+<span class="fc" id="L45">	}</span>
+
+	protected TuPrologList(PrologProvider provider, Term[] arguments) {
+<span class="fc" id="L48">		super(LIST_TYPE, provider, new Struct(arguments));</span>
+<span class="fc" id="L49">	}</span>
+
+	protected TuPrologList(PrologProvider provider, PrologTerm[] arguments) {
+<span class="fc" id="L52">		super(LIST_TYPE, provider);</span>
+<span class="fc" id="L53">		Term[] terms = new Term[arguments.length];</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">		for (int i = 0; i &lt; arguments.length; i++) {</span>
+<span class="fc" id="L55">			terms[i] = ((TuPrologTerm) arguments[i]).value;</span>
+		}
+<span class="fc" id="L57">		value = new Struct(terms);</span>
+<span class="fc" id="L58">	}</span>
+
+	protected TuPrologList(PrologProvider provider, PrologTerm head, PrologTerm tail) {
+<span class="fc" id="L61">		super(LIST_TYPE, provider);</span>
+<span class="fc" id="L62">		Term h = ((TuPrologTerm) head).value;</span>
+<span class="fc" id="L63">		Term t = ((TuPrologTerm) tail).value;</span>
+<span class="fc" id="L64">		value = new Struct(h, t);</span>
+<span class="fc" id="L65">	}</span>
+
+	protected TuPrologList(PrologProvider provider, PrologTerm[] arguments, PrologTerm tail) {
+<span class="fc" id="L68">		super(LIST_TYPE, provider);</span>
+<span class="fc" id="L69">		value = ((TuPrologTerm) tail).value;</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">		for (int i = arguments.length - 1; i &gt;= 0; --i) {</span>
+<span class="fc" id="L71">			value = new Struct(((TuPrologTerm) arguments[i]).value, value);</span>
+		}
+<span class="fc" id="L73">	}</span>
+
+	public int size() {
+<span class="fc" id="L76">		return ((Struct) value).listSize();</span>
+	}
+
+	public void clear() {
+<span class="fc" id="L80">		value = new Struct();</span>
+<span class="fc" id="L81">	}</span>
+
+	public boolean isEmpty() {
+<span class="fc" id="L84">		return ((Struct) value).isEmptyList();</span>
+	}
+
+	public Iterator&lt;PrologTerm&gt; iterator() {
+<span class="fc" id="L88">		Struct list = (Struct) value;</span>
+<span class="fc" id="L89">		return new TuPrologListIter(list);</span>
+	}
+
+	public PrologTerm getHead() {
+<span class="fc" id="L93">		Struct list = (Struct) value;</span>
+<span class="fc" id="L94">		return toTerm(list.listHead(), PrologTerm.class);</span>
+	}
+
+	public PrologTerm getTail() {
+<span class="fc" id="L98">		Struct list = (Struct) value;</span>
+<span class="fc" id="L99">		return toTerm(list.listTail(), PrologTerm.class);</span>
+	}
+
+	public int getArity() {
+<span class="fc" id="L103">		Struct list = (Struct) value;</span>
+<span class="fc" id="L104">		return list.getArity();</span>
+	}
+
+	public String getFunctor() {
+<span class="fc" id="L108">		Struct list = (Struct) value;</span>
+<span class="fc" id="L109">		return list.getName();</span>
+	}
+
+	public String getIndicator() {
+<span class="fc" id="L113">		return getFunctor() + &quot;/&quot; + getArity();</span>
+	}
+
+	public boolean hasIndicator(String functor, int arity) {
+<span class="pc bpc" id="L117" title="1 of 4 branches missed.">		return getFunctor().equals(functor) &amp;&amp; getArity() == arity;</span>
+	}
+
+	public PrologTerm[] getArguments() {
+<span class="fc" id="L121">		int index = 0;</span>
+<span class="fc" id="L122">		Struct list = (Struct) value;</span>
+<span class="fc" id="L123">		PrologTerm[] arguments = new PrologTerm[list.listSize()];</span>
+<span class="fc" id="L124">		Iterator&lt;? extends Term&gt; i = list.listIterator();</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">		while (i.hasNext()) {</span>
+<span class="fc" id="L126">			Term term = i.next();</span>
+<span class="fc" id="L127">			arguments[index++] = toTerm(term, PrologTerm.class);</span>
+<span class="fc" id="L128">		}</span>
+
+<span class="fc" id="L130">		return arguments;</span>
+	}
+
+	private class TuPrologListIter extends AbstractIterator&lt;PrologTerm&gt; implements Iterator&lt;PrologTerm&gt; {
+
+		private Iterator&lt;? extends Term&gt; i;
+
+<span class="fc" id="L137">		private TuPrologListIter(Struct list) {</span>
+<span class="fc" id="L138">			i = list.listIterator();</span>
+<span class="fc" id="L139">		}</span>
+
+		public boolean hasNext() {
+<span class="fc" id="L142">			return i.hasNext();</span>
+		}
+
+		public PrologTerm next() {
+<span class="fc" id="L146">			return toTerm(i.next(), PrologTerm.class);</span>
+		}
+
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
