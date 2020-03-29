@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TuPrologEngine.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">prolobjectlink-jpi-tuprolog</a> &gt; <a href="index.source.html" class="el_package">io.github.prolobjectlink.prolog.tuprolog</a> &gt; <span class="el_source">TuPrologEngine.java</span></div><h1>TuPrologEngine.java</h1><pre class="source lang-java linenums">/*
+ * #%L
+ * prolobjectlink-jpi-tuprolog
+ * %%
+ * Copyright (C) 2019 Prolobjectlink Project
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as 
+ * published by the Free Software Foundation, either version 2.1 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public 
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-2.1.html&gt;.
+ * #L%
+ */
+package io.github.prolobjectlink.prolog.tuprolog;
+
+import static io.github.prolobjectlink.prolog.PrologLogger.DONT_WORRY;
+import static io.github.prolobjectlink.prolog.PrologLogger.FILE_NOT_FOUND;
+import static io.github.prolobjectlink.prolog.PrologLogger.IO;
+import static io.github.prolobjectlink.prolog.PrologLogger.SYNTAX_ERROR;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import alice.tuprolog.Int;
+import alice.tuprolog.InvalidTheoryException;
+import alice.tuprolog.Library;
+import alice.tuprolog.MalformedGoalException;
+import alice.tuprolog.Operator;
+import alice.tuprolog.Parser;
+import alice.tuprolog.PrimitiveInfo;
+import alice.tuprolog.Prolog;
+import alice.tuprolog.Struct;
+import alice.tuprolog.Term;
+import alice.tuprolog.Theory;
+import alice.tuprolog.TheoryManager;
+import io.github.prolobjectlink.prolog.AbstractEngine;
+import io.github.prolobjectlink.prolog.Licenses;
+import io.github.prolobjectlink.prolog.PrologClause;
+import io.github.prolobjectlink.prolog.PrologEngine;
+import io.github.prolobjectlink.prolog.PrologIndicator;
+import io.github.prolobjectlink.prolog.PrologOperator;
+import io.github.prolobjectlink.prolog.PrologProvider;
+import io.github.prolobjectlink.prolog.PrologQuery;
+import io.github.prolobjectlink.prolog.PrologTerm;
+import io.github.prolobjectlink.prolog.SyntaxError;
+
+/**
+ * 
+ * @author Jose Zalacain
+ * @since 1.0
+ */
+public class TuPrologEngine extends AbstractEngine implements PrologEngine {
+
+	final Prolog engine;
+
+	protected TuPrologEngine(PrologProvider provider, Prolog engine) {
+<span class="fc" id="L76">		super(provider);</span>
+<span class="fc" id="L77">		this.engine = engine;</span>
+<span class="fc" id="L78">	}</span>
+
+	public void consult(String path) {
+		try {
+<span class="fc" id="L82">			Theory theory = new Theory(new FileInputStream(path));</span>
+<span class="fc" id="L83">			engine.setTheory(theory);</span>
+<span class="nc" id="L84">		} catch (FileNotFoundException e) {</span>
+<span class="nc" id="L85">			getLogger().warn(getClass(), FILE_NOT_FOUND + path, e);</span>
+<span class="nc" id="L86">			getLogger().info(getClass(), DONT_WORRY + path);</span>
+<span class="nc" id="L87">		} catch (IOException e) {</span>
+<span class="nc" id="L88">			getLogger().warn(getClass(), IO + path, e);</span>
+<span class="nc" id="L89">			getLogger().info(getClass(), DONT_WORRY + path);</span>
+<span class="nc" id="L90">		} catch (InvalidTheoryException e) {</span>
+<span class="nc" id="L91">			getLogger().error(getClass(), SYNTAX_ERROR + path, e);</span>
+<span class="pc" id="L92">		}</span>
+<span class="fc" id="L93">	}</span>
+
+	public void consult(Reader reader) {
+<span class="nc" id="L96">		BufferedReader bfr = new BufferedReader(reader);</span>
+<span class="nc" id="L97">		StringBuilder script = new StringBuilder();</span>
+		try {
+<span class="nc" id="L99">			String line = bfr.readLine();</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">			while (line != null) {</span>
+<span class="nc" id="L101">				script.append(line);</span>
+<span class="nc" id="L102">				script.append(&quot;\n&quot;);</span>
+<span class="nc" id="L103">				line = bfr.readLine();</span>
+			}
+<span class="nc" id="L105">			engine.setTheory(new Theory(&quot;&quot; + script + &quot;&quot;));</span>
+<span class="nc" id="L106">		} catch (InvalidTheoryException e) {</span>
+<span class="nc" id="L107">			getLogger().error(getClass(), SYNTAX_ERROR + script, e);</span>
+<span class="nc" id="L108">		} catch (IOException e) {</span>
+<span class="nc" id="L109">			getLogger().warn(getClass(), IO + script, e);</span>
+<span class="nc" id="L110">		}</span>
+<span class="nc" id="L111">	}</span>
+
+	public void include(String path) {
+<span class="fc" id="L114">		TheoryManager manager = engine.getTheoryManager();</span>
+		try {
+<span class="fc" id="L116">			manager.consult(new Theory(new FileInputStream(path)), true, null);</span>
+<span class="nc" id="L117">		} catch (FileNotFoundException e) {</span>
+<span class="nc" id="L118">			getLogger().error(getClass(), FILE_NOT_FOUND + path, e);</span>
+<span class="nc" id="L119">		} catch (IOException e) {</span>
+<span class="nc" id="L120">			getLogger().error(getClass(), IO + path, e);</span>
+<span class="nc" id="L121">		} catch (InvalidTheoryException e) {</span>
+<span class="nc" id="L122">			getLogger().error(getClass(), SYNTAX_ERROR + path, e);</span>
+<span class="pc" id="L123">		}</span>
+<span class="fc" id="L124">	}</span>
+
+	public void include(Reader reader) {
+<span class="fc" id="L127">		TheoryManager manager = engine.getTheoryManager();</span>
+<span class="fc" id="L128">		BufferedReader bfr = new BufferedReader(reader);</span>
+<span class="fc" id="L129">		StringBuilder script = new StringBuilder();</span>
+		try {
+<span class="fc" id="L131">			String line = bfr.readLine();</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">			while (line != null) {</span>
+<span class="fc" id="L133">				script.append(line);</span>
+<span class="fc" id="L134">				script.append(&quot;\n&quot;);</span>
+<span class="fc" id="L135">				line = bfr.readLine();</span>
+			}
+<span class="fc" id="L137">			manager.consult(new Theory(&quot;&quot; + script + &quot;&quot;), true, null);</span>
+<span class="nc" id="L138">		} catch (InvalidTheoryException e) {</span>
+<span class="nc" id="L139">			getLogger().error(getClass(), SYNTAX_ERROR + script, e);</span>
+<span class="nc" id="L140">		} catch (IOException e) {</span>
+<span class="nc" id="L141">			getLogger().warn(getClass(), IO + script, e);</span>
+<span class="pc" id="L142">		}</span>
+<span class="fc" id="L143">	}</span>
+
+	public void persist(String path) {
+<span class="fc" id="L146">		PrintWriter writer = null;</span>
+		try {
+<span class="fc" id="L148">			writer = new PrintWriter(path);</span>
+<span class="fc" id="L149">			writer.write(engine.getTheoryManager().getTheory(true));</span>
+<span class="nc" id="L150">		} catch (IOException e) {</span>
+<span class="nc" id="L151">			getLogger().warn(getClass(), IO + path, e);</span>
+<span class="nc" id="L152">			getLogger().info(getClass(), DONT_WORRY + path);</span>
+		} finally {
+<span class="pc bpc" id="L154" title="5 of 6 branches missed.">			if (writer != null) {</span>
+<span class="pc" id="L155">				writer.close();</span>
+			}
+		}
+<span class="fc" id="L158">	}</span>
+
+	public void abolish(String functor, int arity) {
+<span class="fc" id="L161">		Struct pi = new Struct(&quot;/&quot;, new Struct(functor), new Int(arity));</span>
+<span class="fc" id="L162">		engine.getTheoryManager().abolish(pi);</span>
+<span class="fc" id="L163">	}</span>
+
+	public void asserta(String stringClause) {
+<span class="fc" id="L166">		TheoryManager manager = engine.getTheoryManager();</span>
+<span class="pc bpc" id="L167" title="1 of 4 branches missed.">		if (stringClause != null &amp;&amp; !clause(stringClause)) {</span>
+<span class="fc" id="L168">			manager.assertA((Struct) Term.createTerm(stringClause), true, null, false);</span>
+		}
+<span class="fc" id="L170">	}</span>
+
+	public void asserta(PrologTerm head, PrologTerm... body) {
+<span class="pc bpc" id="L173" title="1 of 4 branches missed.">		boolean hasBody = body != null &amp;&amp; body.length &gt; 0;</span>
+<span class="fc bfc" id="L174" title="All 6 branches covered.">		if (hasBody ? !clause(head, body) : !clause(head)) {</span>
+<span class="fc" id="L175">			TheoryManager manager = engine.getTheoryManager();</span>
+<span class="fc" id="L176">			manager.assertA(fromTerm(head, body, Struct.class), true, null, false);</span>
+		}
+<span class="fc" id="L178">	}</span>
+
+	public void assertz(String stringClause) {
+<span class="fc" id="L181">		TheoryManager manager = engine.getTheoryManager();</span>
+<span class="pc bpc" id="L182" title="1 of 4 branches missed.">		if (stringClause != null &amp;&amp; !clause(stringClause)) {</span>
+<span class="fc" id="L183">			manager.assertZ((Struct) Term.createTerm(stringClause), true, null, false);</span>
+		}
+<span class="fc" id="L185">	}</span>
+
+	public void assertz(PrologTerm head, PrologTerm... body) {
+<span class="pc bpc" id="L188" title="1 of 4 branches missed.">		boolean hasBody = body != null &amp;&amp; body.length &gt; 0;</span>
+<span class="fc bfc" id="L189" title="All 6 branches covered.">		if (hasBody ? !clause(head, body) : !clause(head)) {</span>
+<span class="fc" id="L190">			TheoryManager manager = engine.getTheoryManager();</span>
+<span class="fc" id="L191">			manager.assertZ(fromTerm(head, body, Struct.class), true, null, false);</span>
+		}
+<span class="fc" id="L193">	}</span>
+
+	public boolean clause(String stringClause) {
+<span class="fc" id="L196">		Term toBeMatched = Term.createTerm(stringClause);</span>
+<span class="fc" id="L197">		TheoryManager manager = engine.getTheoryManager();</span>
+		try {
+<span class="fc" id="L199">			Theory theory = new Theory(manager.getTheory(true));</span>
+<span class="fc" id="L200">			Iterator&lt;? extends Term&gt; iterator = theory.iterator(engine);</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">			while (iterator.hasNext()) {</span>
+<span class="fc" id="L202">				Term term = iterator.next();</span>
+<span class="fc bfc" id="L203" title="All 2 branches covered.">				if (term.match(toBeMatched)) {</span>
+<span class="fc" id="L204">					return true;</span>
+				}
+<span class="fc" id="L206">			}</span>
+<span class="nc" id="L207">		} catch (InvalidTheoryException e) {</span>
+<span class="nc" id="L208">			getLogger().error(getClass(), SYNTAX_ERROR, e);</span>
+<span class="fc" id="L209">		}</span>
+<span class="fc" id="L210">		return false;</span>
+	}
+
+	public boolean clause(PrologTerm head, PrologTerm... body) {
+<span class="fc" id="L214">		TheoryManager manager = engine.getTheoryManager();</span>
+		try {
+<span class="fc" id="L216">			Theory theory = new Theory(manager.getTheory(true));</span>
+<span class="fc" id="L217">			Iterator&lt;? extends Term&gt; iterator = theory.iterator(engine);</span>
+<span class="fc bfc" id="L218" title="All 2 branches covered.">			while (iterator.hasNext()) {</span>
+<span class="fc" id="L219">				Term term = iterator.next();</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">				if (term.match(fromTerm(head, body, Struct.class))) {</span>
+<span class="fc" id="L221">					return true;</span>
+				}
+<span class="fc" id="L223">			}</span>
+<span class="nc" id="L224">		} catch (InvalidTheoryException e) {</span>
+<span class="nc" id="L225">			getLogger().error(getClass(), SYNTAX_ERROR, e);</span>
+<span class="fc" id="L226">		}</span>
+<span class="fc" id="L227">		return false;</span>
+	}
+
+	public void retract(String stringClause) {
+		try {
+<span class="fc" id="L232">			engine.solve(&quot;retract(&quot; + stringClause + &quot;).&quot;);</span>
+<span class="nc" id="L233">		} catch (MalformedGoalException e) {</span>
+<span class="nc" id="L234">			throw new SyntaxError(&quot;Syntax error&quot;, e);</span>
+<span class="fc" id="L235">		}</span>
+<span class="fc" id="L236">	}</span>
+
+	public void retract(PrologTerm head, PrologTerm... body) {
+<span class="fc" id="L239">		retract(&quot;&quot; + fromTerm(head, body, Struct.class) + &quot;&quot;);</span>
+<span class="fc" id="L240">	}</span>
+
+	public PrologQuery query(String stringQuery) {
+<span class="fc" id="L243">		return new TuPrologQuery(this, stringQuery);</span>
+	}
+
+	public PrologQuery query(PrologTerm[] terms) {
+<span class="nc" id="L247">		return new TuPrologQuery(this, terms);</span>
+	}
+
+	public PrologQuery query(PrologTerm term, PrologTerm... terms) {
+<span class="fc" id="L251">		return new TuPrologQuery(this, term, terms);</span>
+	}
+
+	public void operator(int priority, String specifier, String operator) {
+<span class="fc" id="L255">		engine.getOperatorManager().opNew(operator, specifier, priority);</span>
+<span class="fc" id="L256">	}</span>
+
+	public boolean currentPredicate(String functor, int arity) {
+<span class="fc" id="L259">		String newFunctor = removeQuoted(functor);</span>
+<span class="fc" id="L260">		PrologIndicator pi = new TuPrologIndicator(newFunctor, arity);</span>
+<span class="fc" id="L261">		return currentPredicates().contains(pi);</span>
+	}
+
+	public boolean currentOperator(int priority, String specifier, String operator) {
+<span class="fc bfc" id="L265" title="All 2 branches covered.">		return engine.getOperatorManager().opPrio(operator, specifier) == priority;</span>
+	}
+
+	public Set&lt;PrologOperator&gt; currentOperators() {
+<span class="fc" id="L269">		List&lt;Operator&gt; operatorsList = engine.getOperatorManager().getOperators();</span>
+<span class="fc" id="L270">		Set&lt;PrologOperator&gt; operators = new HashSet&lt;PrologOperator&gt;(operatorsList.size());</span>
+<span class="fc bfc" id="L271" title="All 2 branches covered.">		for (Operator operator : operatorsList) {</span>
+<span class="fc" id="L272">			String name = operator.name;</span>
+<span class="fc" id="L273">			int priority = operator.prio;</span>
+<span class="fc" id="L274">			String specifier = operator.type;</span>
+<span class="fc" id="L275">			PrologOperator op = new TuPrologOperator(priority, specifier, name);</span>
+<span class="fc" id="L276">			operators.add(op);</span>
+<span class="fc" id="L277">		}</span>
+<span class="fc" id="L278">		return operators;</span>
+	}
+
+	public Iterator&lt;PrologClause&gt; iterator() {
+<span class="fc" id="L282">		Collection&lt;PrologClause&gt; cls = new LinkedList&lt;PrologClause&gt;();</span>
+<span class="fc" id="L283">		Parser parser = new Parser(engine.getTheoryManager().getTheory(true));</span>
+<span class="fc bfc" id="L284" title="All 2 branches covered.">		for (Iterator&lt;Term&gt; iterator = parser.iterator(); iterator.hasNext();) {</span>
+<span class="fc" id="L285">			Term term = iterator.next();</span>
+<span class="pc bpc" id="L286" title="1 of 2 branches missed.">			if (term instanceof Struct) {</span>
+<span class="fc" id="L287">				Struct struct = (Struct) term;</span>
+<span class="pc bpc" id="L288" title="1 of 4 branches missed.">				if (struct.getName().equals(&quot;:-&quot;) &amp;&amp; struct.getArity() == 2) {</span>
+<span class="fc" id="L289">					PrologTerm head = toTerm(struct.getArg(0), PrologTerm.class);</span>
+<span class="fc" id="L290">					PrologTerm body = toTerm(struct.getArg(1), PrologTerm.class);</span>
+<span class="fc" id="L291">					cls.add(new TuPrologClause(provider, head, body, false, false, false));</span>
+<span class="fc" id="L292">				} else {</span>
+<span class="fc" id="L293">					PrologTerm head = toTerm(struct, PrologTerm.class);</span>
+<span class="fc" id="L294">					cls.add(new TuPrologClause(provider, head, false, false, false));</span>
+				}
+			}
+<span class="fc" id="L297">		}</span>
+<span class="fc" id="L298">		return new PrologProgramIterator(cls);</span>
+	}
+
+	public int getProgramSize() {
+<span class="fc" id="L302">		int counter = 0;</span>
+<span class="fc" id="L303">		Iterator&lt;? extends Term&gt; i = engine.getTheory().iterator(engine);</span>
+<span class="fc bfc" id="L304" title="All 2 branches covered.">		while (i.hasNext()) {</span>
+<span class="fc" id="L305">			i.next();</span>
+<span class="fc" id="L306">			counter++;</span>
+		}
+<span class="fc" id="L308">		return counter;</span>
+	}
+
+	public Set&lt;PrologIndicator&gt; getPredicates() {
+<span class="fc" id="L312">		Set&lt;PrologIndicator&gt; predicates = new HashSet&lt;PrologIndicator&gt;();</span>
+<span class="fc" id="L313">		TheoryManager manager = engine.getTheoryManager();</span>
+		try {
+<span class="fc" id="L315">			Theory theory = new Theory(manager.getTheory(true));</span>
+<span class="fc" id="L316">			Iterator&lt;? extends Term&gt; iterator = theory.iterator(engine);</span>
+<span class="fc bfc" id="L317" title="All 2 branches covered.">			while (iterator.hasNext()) {</span>
+<span class="fc" id="L318">				Term term = iterator.next();</span>
+<span class="pc bpc" id="L319" title="1 of 2 branches missed.">				if (term instanceof Struct) {</span>
+<span class="fc" id="L320">					Struct struct = (Struct) term;</span>
+<span class="fc" id="L321">					int arity = struct.getArity();</span>
+<span class="fc" id="L322">					String functor = struct.getName();</span>
+<span class="pc bpc" id="L323" title="1 of 4 branches missed.">					if (functor.equals(&quot;:-&quot;) &amp;&amp; arity == 2) {</span>
+<span class="fc" id="L324">						Term head = struct.getArg(0);</span>
+<span class="pc bpc" id="L325" title="1 of 2 branches missed.">						if (head instanceof Struct) {</span>
+<span class="fc" id="L326">							Struct headStruct = (Struct) head;</span>
+<span class="fc" id="L327">							arity = headStruct.getArity();</span>
+<span class="fc" id="L328">							functor = headStruct.getName();</span>
+<span class="fc" id="L329">							TuPrologIndicator pi = new TuPrologIndicator(functor, arity);</span>
+<span class="fc" id="L330">							predicates.add(pi);</span>
+						}
+<span class="fc" id="L332">					} else {</span>
+<span class="fc" id="L333">						TuPrologIndicator pi = new TuPrologIndicator(functor, arity);</span>
+<span class="fc" id="L334">						predicates.add(pi);</span>
+					}
+				}
+<span class="fc" id="L337">			}</span>
+<span class="nc" id="L338">		} catch (InvalidTheoryException e) {</span>
+<span class="nc" id="L339">			getLogger().error(getClass(), SYNTAX_ERROR, e);</span>
+<span class="fc" id="L340">		}</span>
+
+<span class="fc" id="L342">		return predicates;</span>
+	}
+
+	public Set&lt;PrologIndicator&gt; getBuiltIns() {
+<span class="fc" id="L346">		String[] libraries = engine.getCurrentLibraries();</span>
+<span class="fc" id="L347">		Set&lt;PrologIndicator&gt; builtins = new HashSet&lt;PrologIndicator&gt;();</span>
+<span class="fc bfc" id="L348" title="All 2 branches covered.">		for (String libraryName : libraries) {</span>
+<span class="fc" id="L349">			Library library = engine.getLibrary(libraryName);</span>
+<span class="fc" id="L350">			Collection&lt;List&lt;PrimitiveInfo&gt;&gt; c = library.getPrimitives().values();</span>
+<span class="fc bfc" id="L351" title="All 2 branches covered.">			for (List&lt;PrimitiveInfo&gt; list : c) {</span>
+<span class="fc bfc" id="L352" title="All 2 branches covered.">				for (PrimitiveInfo primitiveInfo : list) {</span>
+<span class="fc" id="L353">					String key = primitiveInfo.getKey();</span>
+<span class="fc" id="L354">					String functor = key.substring(0, key.lastIndexOf('/'));</span>
+<span class="fc" id="L355">					int arity = Integer.parseInt(key.substring(key.lastIndexOf('/') + 1));</span>
+<span class="fc" id="L356">					TuPrologIndicator pi = new TuPrologIndicator(functor, arity);</span>
+<span class="fc" id="L357">					builtins.add(pi);</span>
+<span class="fc" id="L358">				}</span>
+<span class="fc" id="L359">			}</span>
+		}
+<span class="fc" id="L361">		return builtins;</span>
+	}
+
+	public String getLicense() {
+<span class="fc" id="L365">		return Licenses.LGPL_V3;</span>
+	}
+
+	public String getVersion() {
+<span class="fc" id="L369">		return TuProlog.VERSION;</span>
+	}
+
+	public String getName() {
+<span class="fc" id="L373">		return TuProlog.NAME;</span>
+	}
+
+	@Override
+	public int hashCode() {
+<span class="fc" id="L378">		final int prime = 31;</span>
+<span class="fc" id="L379">		int result = 1;</span>
+<span class="pc bpc" id="L380" title="1 of 2 branches missed.">		result = prime * result + ((engine == null) ? 0 : engine.hashCode());</span>
+<span class="fc" id="L381">		return result;</span>
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+<span class="fc bfc" id="L386" title="All 2 branches covered.">		if (this == obj)</span>
+<span class="fc" id="L387">			return true;</span>
+<span class="pc bpc" id="L388" title="1 of 2 branches missed.">		if (obj == null)</span>
+<span class="nc" id="L389">			return false;</span>
+<span class="pc bpc" id="L390" title="1 of 2 branches missed.">		if (getClass() != obj.getClass())</span>
+<span class="nc" id="L391">			return false;</span>
+<span class="fc" id="L392">		TuPrologEngine other = (TuPrologEngine) obj;</span>
+		// tu-prolog engine not override equals from object
+		// current criteria is not null engine instances
+<span class="pc bpc" id="L395" title="2 of 4 branches missed.">		return engine != null &amp;&amp; other.engine != null;</span>
+	}
+
+	public void dispose() {
+<span class="pc bpc" id="L399" title="1 of 2 branches missed.">		if (engine != null) {</span>
+<span class="fc" id="L400">			engine.clearTheory();</span>
+		}
+<span class="fc" id="L402">	}</span>
+
+	public final List&lt;String&gt; verify() {
+<span class="nc" id="L405">		return Arrays.asList(&quot;OK&quot;);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
