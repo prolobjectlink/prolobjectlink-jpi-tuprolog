@@ -31,24 +31,24 @@ import io.github.prolobjectlink.prolog.PrologScriptEngineFactory;
 public final class TuPrologScriptFactory extends PrologScriptEngineFactory implements ScriptEngineFactory {
 
 	public TuPrologScriptFactory() {
-<span class="fc" id="L34">		super(new TuProlog().newEngine());</span>
-<span class="fc" id="L35">	}</span>
+<span class="nc" id="L34">		super(new TuProlog().newEngine());</span>
+<span class="nc" id="L35">	}</span>
 
 	public String getMethodCallSyntax(String obj, String m, String... args) {
-<span class="fc" id="L38">		StringBuilder result = new StringBuilder();</span>
-<span class="fc" id="L39">		result.append(obj + &quot; &lt;- &quot; + m);</span>
-<span class="fc" id="L40">		result.append('(');</span>
-<span class="fc" id="L41">		Iterator&lt;String&gt; i = new ArrayIterator&lt;String&gt;(args);</span>
-<span class="fc bfc" id="L42" title="All 2 branches covered.">		if (i.hasNext()) {</span>
-<span class="fc bfc" id="L43" title="All 2 branches covered.">			while (i.hasNext()) {</span>
-<span class="fc" id="L44">				result.append(i.next());</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">				if (i.hasNext()) {</span>
-<span class="fc" id="L46">					result.append(',');</span>
+<span class="nc" id="L38">		StringBuilder result = new StringBuilder();</span>
+<span class="nc" id="L39">		result.append(obj + &quot; &lt;- &quot; + m);</span>
+<span class="nc" id="L40">		result.append('(');</span>
+<span class="nc" id="L41">		Iterator&lt;String&gt; i = new ArrayIterator&lt;String&gt;(args);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">		if (i.hasNext()) {</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">			while (i.hasNext()) {</span>
+<span class="nc" id="L44">				result.append(i.next());</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">				if (i.hasNext()) {</span>
+<span class="nc" id="L46">					result.append(',');</span>
 				}
 			}
 		}
-<span class="fc" id="L50">		result.append(')');</span>
-<span class="fc" id="L51">		return &quot;&quot; + result + &quot;&quot;;</span>
+<span class="nc" id="L50">		result.append(')');</span>
+<span class="nc" id="L51">		return &quot;&quot; + result + &quot;&quot;;</span>
 	}
 
 }

@@ -35,27 +35,27 @@ import io.github.prolobjectlink.prolog.PrologTerm;
 final class TuPrologNil extends TuPrologTerm implements PrologTerm {
 
 	TuPrologNil(PrologProvider provider) {
-<span class="fc" id="L38">		super(NIL_TYPE, provider, new Struct(&quot;nil&quot;));</span>
-<span class="fc" id="L39">	}</span>
+<span class="nc" id="L38">		super(NIL_TYPE, provider, new Struct(&quot;nil&quot;));</span>
+<span class="nc" id="L39">	}</span>
 
 	public PrologTerm[] getArguments() {
-<span class="fc" id="L42">		return new PrologTerm[0];</span>
+<span class="nc" id="L42">		return new PrologTerm[0];</span>
 	}
 
 	public int getArity() {
-<span class="fc" id="L46">		return 0;</span>
+<span class="nc" id="L46">		return 0;</span>
 	}
 
 	public String getFunctor() {
-<span class="fc" id="L50">		return &quot;&quot; + value + &quot;&quot;;</span>
+<span class="nc" id="L50">		return &quot;&quot; + value + &quot;&quot;;</span>
 	}
 
 	public String getIndicator() {
-<span class="fc" id="L54">		return getFunctor() + &quot;/&quot; + getArity();</span>
+<span class="nc" id="L54">		return getFunctor() + &quot;/&quot; + getArity();</span>
 	}
 
 	public boolean hasIndicator(String functor, int arity) {
-<span class="fc bfc" id="L58" title="All 4 branches covered.">		return getFunctor().equals(functor) &amp;&amp; getArity() == arity;</span>
+<span class="nc bnc" id="L58" title="All 4 branches missed.">		return getFunctor().equals(functor) &amp;&amp; getArity() == arity;</span>
 	}
 
 }

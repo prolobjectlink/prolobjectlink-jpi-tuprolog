@@ -34,32 +34,32 @@ import io.github.prolobjectlink.prolog.PrologTerm;
 final class TuPrologEmpty extends TuPrologList implements PrologList {
 
 	TuPrologEmpty(PrologProvider provider) {
-<span class="fc" id="L37">		super(provider);</span>
-<span class="fc" id="L38">	}</span>
+<span class="nc" id="L37">		super(provider);</span>
+<span class="nc" id="L38">	}</span>
 
 	@Override
 	public PrologTerm[] getArguments() {
-<span class="fc" id="L42">		return new PrologTerm[0];</span>
+<span class="nc" id="L42">		return new PrologTerm[0];</span>
 	}
 
 	@Override
 	public int getArity() {
-<span class="fc" id="L47">		return ((Struct) value).getArity();</span>
+<span class="nc" id="L47">		return ((Struct) value).getArity();</span>
 	}
 
 	@Override
 	public String getFunctor() {
-<span class="fc" id="L52">		return ((Struct) value).getName();</span>
+<span class="nc" id="L52">		return ((Struct) value).getName();</span>
 	}
 
 	@Override
 	public String getIndicator() {
-<span class="fc" id="L57">		return getFunctor() + &quot;/&quot; + getArity();</span>
+<span class="nc" id="L57">		return getFunctor() + &quot;/&quot; + getArity();</span>
 	}
 
 	@Override
 	public boolean hasIndicator(String functor, int arity) {
-<span class="pc bpc" id="L62" title="1 of 4 branches missed.">		return getFunctor().equals(functor) &amp;&amp; getArity() == arity;</span>
+<span class="nc bnc" id="L62" title="All 4 branches missed.">		return getFunctor().equals(functor) &amp;&amp; getArity() == arity;</span>
 	}
 
 }

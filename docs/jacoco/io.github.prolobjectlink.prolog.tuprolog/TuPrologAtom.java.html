@@ -36,35 +36,35 @@ import io.github.prolobjectlink.prolog.PrologTerm;
 final class TuPrologAtom extends TuPrologTerm implements PrologAtom {
 
 	TuPrologAtom(PrologProvider provider, String value) {
-<span class="fc" id="L39">		super(ATOM_TYPE, provider, new Struct(value));</span>
-<span class="fc" id="L40">	}</span>
+<span class="nc" id="L39">		super(ATOM_TYPE, provider, new Struct(value));</span>
+<span class="nc" id="L40">	}</span>
 
 	public String getStringValue() {
-<span class="fc" id="L43">		return getFunctor();</span>
+<span class="nc" id="L43">		return getFunctor();</span>
 	}
 
 	public void setStringValue(String value) {
-<span class="fc" id="L47">		this.value = new Struct(value);</span>
-<span class="fc" id="L48">	}</span>
+<span class="nc" id="L47">		this.value = new Struct(value);</span>
+<span class="nc" id="L48">	}</span>
 
 	public PrologTerm[] getArguments() {
-<span class="fc" id="L51">		return new TuPrologAtom[0];</span>
+<span class="nc" id="L51">		return new TuPrologAtom[0];</span>
 	}
 
 	public int getArity() {
-<span class="fc" id="L55">		return 0;</span>
+<span class="nc" id="L55">		return 0;</span>
 	}
 
 	public String getFunctor() {
-<span class="fc" id="L59">		return &quot;&quot; + value + &quot;&quot;;</span>
+<span class="nc" id="L59">		return &quot;&quot; + value + &quot;&quot;;</span>
 	}
 
 	public String getIndicator() {
-<span class="fc" id="L63">		return getFunctor() + &quot;/&quot; + getArity();</span>
+<span class="nc" id="L63">		return getFunctor() + &quot;/&quot; + getArity();</span>
 	}
 
 	public boolean hasIndicator(String functor, int arity) {
-<span class="pc bpc" id="L67" title="1 of 4 branches missed.">		return getFunctor().equals(functor) &amp;&amp; getArity() == arity;</span>
+<span class="nc bnc" id="L67" title="All 4 branches missed.">		return getFunctor().equals(functor) &amp;&amp; getArity() == arity;</span>
 	}
 
 }

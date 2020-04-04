@@ -38,37 +38,37 @@ import io.github.prolobjectlink.prolog.PrologLogger;
  * @author Jose Zalacain
  * @since 1.0
  */
-<span class="pc bpc" id="L41" title="1 of 2 branches missed.">final class TuPrologLogger extends AbstractLogger implements PrologLogger {</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">final class TuPrologLogger extends AbstractLogger implements PrologLogger {</span>
 
 	private static final String MESSAGE = &quot;Logger File Handler can't be created&quot;;
-<span class="fc" id="L44">	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);</span>
+<span class="nc" id="L44">	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);</span>
 
 	TuPrologLogger() {
-<span class="fc" id="L47">		this(Level.INFO);</span>
-<span class="fc" id="L48">	}</span>
+<span class="nc" id="L47">		this(Level.INFO);</span>
+<span class="nc" id="L48">	}</span>
 
-<span class="fc" id="L50">	private TuPrologLogger(Level level) {</span>
-<span class="fc" id="L51">		LOGGER.setLevel(level);</span>
-<span class="fc" id="L52">		Logger rootlogger = LOGGER.getParent();</span>
-<span class="fc" id="L53">		SimpleDateFormat f = new SimpleDateFormat(&quot;yyyy.MM.dd&quot;);</span>
-<span class="fc" id="L54">		String date = f.format(new Date());</span>
-<span class="fc" id="L55">		Formatter formatter = new TuPrologFormatter();</span>
-<span class="fc bfc" id="L56" title="All 2 branches covered.">		for (Handler h : rootlogger.getHandlers()) {</span>
-<span class="fc" id="L57">			h.setFormatter(formatter);</span>
-<span class="fc" id="L58">			h.setLevel(level);</span>
+<span class="nc" id="L50">	private TuPrologLogger(Level level) {</span>
+<span class="nc" id="L51">		LOGGER.setLevel(level);</span>
+<span class="nc" id="L52">		Logger rootlogger = LOGGER.getParent();</span>
+<span class="nc" id="L53">		SimpleDateFormat f = new SimpleDateFormat(&quot;yyyy.MM.dd&quot;);</span>
+<span class="nc" id="L54">		String date = f.format(new Date());</span>
+<span class="nc" id="L55">		Formatter formatter = new TuPrologFormatter();</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">		for (Handler h : rootlogger.getHandlers()) {</span>
+<span class="nc" id="L57">			h.setFormatter(formatter);</span>
+<span class="nc" id="L58">			h.setLevel(level);</span>
 		}
-<span class="fc" id="L60">		FileHandler file = null;</span>
+<span class="nc" id="L60">		FileHandler file = null;</span>
 		try {
-<span class="fc" id="L62">			file = new FileHandler(&quot;%t/prolobjectlink-&quot; + date + &quot;.log&quot;, true);</span>
+<span class="nc" id="L62">			file = new FileHandler(&quot;%t/prolobjectlink-&quot; + date + &quot;.log&quot;, true);</span>
 <span class="nc" id="L63">		} catch (SecurityException e) {</span>
 <span class="nc" id="L64">			rootlogger.log(Level.SEVERE, MESSAGE, e);</span>
 <span class="nc" id="L65">		} catch (IOException e) {</span>
 <span class="nc" id="L66">			rootlogger.log(Level.SEVERE, MESSAGE, e);</span>
-<span class="pc" id="L67">		}</span>
-<span class="pc bpc" id="L68" title="2 of 4 branches missed.">		assert file != null;</span>
-<span class="fc" id="L69">		file.setFormatter(formatter);</span>
-<span class="fc" id="L70">		LOGGER.addHandler(file);</span>
-<span class="fc" id="L71">	}</span>
+		}
+<span class="nc bnc" id="L68" title="All 4 branches missed.">		assert file != null;</span>
+<span class="nc" id="L69">		file.setFormatter(formatter);</span>
+<span class="nc" id="L70">		LOGGER.addHandler(file);</span>
+<span class="nc" id="L71">	}</span>
 
 	public void log(Object sender, Level level, Object message, Throwable throwable) {
 <span class="nc" id="L74">		LOGGER.log(level, sender + &quot;\n&quot; + message, throwable);</span>

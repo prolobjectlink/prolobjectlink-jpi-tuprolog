@@ -38,18 +38,18 @@ final class TuPrologClause extends AbstractClause implements PrologClause {
 
 	TuPrologClause(PrologProvider provider, PrologTerm head, boolean dynamic, boolean multifile,
 			boolean discontiguous) {
-<span class="fc" id="L41">		super(provider, head, dynamic, multifile, discontiguous);</span>
-<span class="fc" id="L42">		this.indicator = new TuPrologIndicator(head.getFunctor(), head.getArity());</span>
-<span class="fc" id="L43">	}</span>
+<span class="nc" id="L41">		super(provider, head, dynamic, multifile, discontiguous);</span>
+<span class="nc" id="L42">		this.indicator = new TuPrologIndicator(head.getFunctor(), head.getArity());</span>
+<span class="nc" id="L43">	}</span>
 
 	TuPrologClause(PrologProvider provider, PrologTerm head, PrologTerm body, boolean dynamic, boolean multifile,
 			boolean discontiguous) {
-<span class="fc" id="L47">		super(provider, head, body, dynamic, multifile, discontiguous);</span>
-<span class="fc" id="L48">		this.indicator = new TuPrologIndicator(head.getFunctor(), head.getArity());</span>
-<span class="fc" id="L49">	}</span>
+<span class="nc" id="L47">		super(provider, head, body, dynamic, multifile, discontiguous);</span>
+<span class="nc" id="L48">		this.indicator = new TuPrologIndicator(head.getFunctor(), head.getArity());</span>
+<span class="nc" id="L49">	}</span>
 
 	public PrologIndicator getPrologIndicator() {
-<span class="fc" id="L52">		return indicator;</span>
+<span class="nc" id="L52">		return indicator;</span>
 	}
 
 }

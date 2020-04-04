@@ -43,54 +43,54 @@ final class TuPrologOperatorSet extends AbstractSet&lt;PrologOperator&gt; implem
 	private final Set&lt;PrologOperator&gt; operators;
 	private final List&lt;Operator&gt; operatorsList;
 
-<span class="fc" id="L46">	public TuPrologOperatorSet() {</span>
-<span class="fc" id="L47">		Prolog engine = new Prolog();</span>
-<span class="fc" id="L48">		operatorsList = engine.getOperatorManager().getOperators();</span>
-<span class="fc" id="L49">		operators = new HashSet&lt;PrologOperator&gt;(operatorsList.size());</span>
-<span class="fc bfc" id="L50" title="All 2 branches covered.">		for (Operator operator : operatorsList) {</span>
-<span class="fc" id="L51">			String name = operator.name;</span>
-<span class="fc" id="L52">			int priority = operator.prio;</span>
-<span class="fc" id="L53">			String specifier = operator.type;</span>
-<span class="fc" id="L54">			AbstractOperator op = new TuPrologOperator(priority, specifier, name);</span>
-<span class="fc" id="L55">			operators.add(op);</span>
-<span class="fc" id="L56">		}</span>
-<span class="fc" id="L57">	}</span>
+<span class="nc" id="L46">	public TuPrologOperatorSet() {</span>
+<span class="nc" id="L47">		Prolog engine = new Prolog();</span>
+<span class="nc" id="L48">		operatorsList = engine.getOperatorManager().getOperators();</span>
+<span class="nc" id="L49">		operators = new HashSet&lt;PrologOperator&gt;(operatorsList.size());</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">		for (Operator operator : operatorsList) {</span>
+<span class="nc" id="L51">			String name = operator.name;</span>
+<span class="nc" id="L52">			int priority = operator.prio;</span>
+<span class="nc" id="L53">			String specifier = operator.type;</span>
+<span class="nc" id="L54">			AbstractOperator op = new TuPrologOperator(priority, specifier, name);</span>
+<span class="nc" id="L55">			operators.add(op);</span>
+		}
+<span class="nc" id="L57">	}</span>
 
 	public boolean currentOp(String opreator) {
-<span class="fc bfc" id="L60" title="All 2 branches covered.">		for (Operator op : operatorsList) {</span>
-<span class="fc bfc" id="L61" title="All 2 branches covered.">			if (op.name.equals(opreator)) {</span>
-<span class="fc" id="L62">				return true;</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">		for (Operator op : operatorsList) {</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">			if (op.name.equals(opreator)) {</span>
+<span class="nc" id="L62">				return true;</span>
 			}
-<span class="fc" id="L64">		}</span>
-<span class="fc" id="L65">		return false;</span>
+		}
+<span class="nc" id="L65">		return false;</span>
 	}
 
 	@Override
 	public Iterator&lt;PrologOperator&gt; iterator() {
-<span class="fc" id="L70">		return operators.iterator();</span>
+<span class="nc" id="L70">		return operators.iterator();</span>
 	}
 
 	@Override
 	public int size() {
-<span class="fc" id="L75">		return operators.size();</span>
+<span class="nc" id="L75">		return operators.size();</span>
 	}
 
 	@Override
 	public int hashCode() {
-<span class="fc" id="L80">		final int prime = 31;</span>
-<span class="fc" id="L81">		int result = super.hashCode();</span>
-<span class="fc" id="L82">		result = prime * result + operators.hashCode();</span>
-<span class="fc" id="L83">		return result;</span>
+<span class="nc" id="L80">		final int prime = 31;</span>
+<span class="nc" id="L81">		int result = super.hashCode();</span>
+<span class="nc" id="L82">		result = prime * result + operators.hashCode();</span>
+<span class="nc" id="L83">		return result;</span>
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-<span class="fc bfc" id="L88" title="All 2 branches covered.">		if (this == obj)</span>
-<span class="fc" id="L89">			return true;</span>
-<span class="fc bfc" id="L90" title="All 2 branches covered.">		if (!super.equals(obj))</span>
-<span class="fc" id="L91">			return false;</span>
-<span class="fc" id="L92">		TuPrologOperatorSet other = (TuPrologOperatorSet) obj;</span>
-<span class="fc" id="L93">		return operators.equals(other.operators);</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">		if (this == obj)</span>
+<span class="nc" id="L89">			return true;</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">		if (!super.equals(obj))</span>
+<span class="nc" id="L91">			return false;</span>
+<span class="nc" id="L92">		TuPrologOperatorSet other = (TuPrologOperatorSet) obj;</span>
+<span class="nc" id="L93">		return operators.equals(other.operators);</span>
 
 	}
 

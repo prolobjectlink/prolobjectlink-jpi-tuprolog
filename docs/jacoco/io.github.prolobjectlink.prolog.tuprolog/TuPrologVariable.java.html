@@ -39,27 +39,27 @@ import io.github.prolobjectlink.prolog.PrologVariable;
 final class TuPrologVariable extends TuPrologTerm implements PrologVariable {
 
 	TuPrologVariable(PrologProvider provider) {
-<span class="fc" id="L42">		super(VARIABLE_TYPE, provider, new Var());</span>
-<span class="fc" id="L43">	}</span>
+<span class="nc" id="L42">		super(VARIABLE_TYPE, provider, new Var());</span>
+<span class="nc" id="L43">	}</span>
 
 	TuPrologVariable(PrologProvider provider, String name) {
-<span class="fc" id="L46">		super(VARIABLE_TYPE, provider, new Var(name));</span>
-<span class="fc" id="L47">	}</span>
+<span class="nc" id="L46">		super(VARIABLE_TYPE, provider, new Var(name));</span>
+<span class="nc" id="L47">	}</span>
 
 	public boolean isAnonymous() {
-<span class="fc" id="L50">		return ((Var) value).isAnonymous();</span>
+<span class="nc" id="L50">		return ((Var) value).isAnonymous();</span>
 	}
 
 	public String getName() {
-<span class="fc" id="L54">		return ((Var) value).getName();</span>
+<span class="nc" id="L54">		return ((Var) value).getName();</span>
 	}
 
 	public void setName(String name) {
-<span class="fc" id="L58">		this.value = new Var(name);</span>
-<span class="fc" id="L59">	}</span>
+<span class="nc" id="L58">		this.value = new Var(name);</span>
+<span class="nc" id="L59">	}</span>
 
 	public PrologTerm[] getArguments() {
-<span class="fc" id="L62">		return new TuPrologVariable[0];</span>
+<span class="nc" id="L62">		return new TuPrologVariable[0];</span>
 	}
 
 	public int getArity() {
@@ -71,7 +71,7 @@ final class TuPrologVariable extends TuPrologTerm implements PrologVariable {
 	}
 
 	public String getIndicator() {
-<span class="fc" id="L74">		throw new IndicatorError(this);</span>
+<span class="nc" id="L74">		throw new IndicatorError(this);</span>
 	}
 
 	public boolean hasIndicator(String functor, int arity) {
