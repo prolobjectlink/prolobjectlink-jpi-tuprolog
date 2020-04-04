@@ -6,6 +6,7 @@
 	<artifactId>prolobjectlink-jpi-tuprolog</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<name>prolobjectlink-jpi-tuprolog</name>
+	<packaging>bundle</packaging>
 	<description>Java Prolog Implementation over TuProlog</description>
 
 	<url>https://prolobjectlink.github.io/${project.name}</url>
@@ -436,7 +437,7 @@
 					<instructions>
 						<Bundle-Name>TuProlog Java Prolog Interface Implementation</Bundle-Name>
 						<Export-Package>${project.groupId}.prolog.tuprolog</Export-Package>
-						<Import-Package>javax.script;${project.groupId}.*;provide:=true</Import-Package>
+						<Import-Package>javax.script;alice.tuprolog;${project.groupId}.*;provide:=true</Import-Package>
 						<Bundle-SymbolicName>${project.groupId}.prolog.tuprolog.plugin;singleton:=true</Bundle-SymbolicName>
 						<Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
 					</instructions>

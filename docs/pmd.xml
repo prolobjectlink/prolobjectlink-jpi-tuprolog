@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="4.2.5" timestamp="2020-04-03T21:09:51.932">
+<file name="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologConverter.java">
+<violation beginline="22" endline="217" begincolumn="1" endcolumn="3" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="io.github.prolobjectlink.prolog.tuprolog" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
+Too many static imports may lead to messy code
+</violation>
+</file>
+<file name="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologQuery.java">
+<violation beginline="106" endline="108" begincolumn="27" endcolumn="25" rule="EmptyCatchBlock" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologQuery" method="oneSolution" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="122" endline="124" begincolumn="27" endcolumn="25" rule="EmptyCatchBlock" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologQuery" method="oneVariablesSolution" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="136" endline="138" begincolumn="19" endcolumn="17" rule="EmptyCatchBlock" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologQuery" method="nextSolution" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="149" endline="151" begincolumn="19" endcolumn="17" rule="EmptyCatchBlock" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologQuery" method="nextVariablesSolution" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="177" endline="179" begincolumn="35" endcolumn="33" rule="EmptyCatchBlock" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologQuery" method="nSolutions" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="209" endline="211" begincolumn="35" endcolumn="33" rule="EmptyCatchBlock" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologQuery" method="nVariablesSolutions" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="240" endline="242" begincolumn="27" endcolumn="25" rule="EmptyCatchBlock" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologQuery" method="allSolutions" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="275" endline="277" begincolumn="27" endcolumn="25" rule="EmptyCatchBlock" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologQuery" method="all" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+</file>
+<file name="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologStructure.java">
+<violation beginline="97" endline="99" begincolumn="22" endcolumn="9" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologStructure" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
+Unnecessary final modifier in final class
+</violation>
+<violation beginline="101" endline="103" begincolumn="22" endcolumn="9" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologStructure" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
+Unnecessary final modifier in final class
+</violation>
+<violation beginline="105" endline="107" begincolumn="22" endcolumn="9" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologStructure" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
+Unnecessary final modifier in final class
+</violation>
+</file>
+</pmd>
