@@ -169,6 +169,13 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 		}
 	}
 
+	public void asserta(PrologTerm term) {
+		TheoryManager manager = engine.getTheoryManager();
+		if (term != null && !clause(term)) {
+			manager.assertA(fromTerm(term, Struct.class), true, null, false);
+		}
+	}
+
 	public void asserta(PrologTerm head, PrologTerm... body) {
 		boolean hasBody = body != null && body.length > 0;
 		if (hasBody ? !clause(head, body) : !clause(head)) {
@@ -181,6 +188,13 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 		TheoryManager manager = engine.getTheoryManager();
 		if (stringClause != null && !clause(stringClause)) {
 			manager.assertZ((Struct) Term.createTerm(stringClause), true, null, false);
+		}
+	}
+
+	public void assertz(PrologTerm term) {
+		TheoryManager manager = engine.getTheoryManager();
+		if (term != null && !clause(term)) {
+			manager.assertZ(fromTerm(term, Struct.class), true, null, false);
 		}
 	}
 
@@ -201,6 +215,23 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 			while (iterator.hasNext()) {
 				Term term = iterator.next();
 				if (term.match(toBeMatched)) {
+					return true;
+				}
+			}
+		} catch (InvalidTheoryException e) {
+			getLogger().error(getClass(), SYNTAX_ERROR, e);
+		}
+		return false;
+	}
+
+	public boolean clause(PrologTerm head) {
+		TheoryManager manager = engine.getTheoryManager();
+		try {
+			Theory theory = new Theory(manager.getTheory(true));
+			Iterator<? extends Term> iterator = theory.iterator(engine);
+			while (iterator.hasNext()) {
+				Term term = iterator.next();
+				if (term.match(fromTerm(head, Struct.class))) {
 					return true;
 				}
 			}
@@ -235,12 +266,20 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 		}
 	}
 
+	public void retract(PrologTerm head) {
+		retract("" + fromTerm(head, Struct.class) + "");
+	}
+
 	public void retract(PrologTerm head, PrologTerm... body) {
 		retract("" + fromTerm(head, body, Struct.class) + "");
 	}
 
 	public PrologQuery query(String stringQuery) {
 		return new TuPrologQuery(this, stringQuery);
+	}
+
+	public PrologQuery query(PrologTerm term) {
+		return new TuPrologQuery(this, term);
 	}
 
 	public PrologQuery query(PrologTerm[] terms) {

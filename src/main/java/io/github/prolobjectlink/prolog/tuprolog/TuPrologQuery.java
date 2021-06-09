@@ -60,6 +60,13 @@ final class TuPrologQuery extends AbstractQuery implements PrologQuery {
 		}
 	}
 
+	TuPrologQuery(AbstractEngine engine, PrologTerm term) {
+		super(engine);
+		Term query = fromTerm(term, Term.class);
+		tuProlog = ((TuPrologEngine) engine).engine;
+		solution = tuProlog.solve(query);
+	}
+
 	TuPrologQuery(AbstractEngine engine, PrologTerm[] terms) {
 		super(engine);
 		if (terms != null && terms.length > 0) {

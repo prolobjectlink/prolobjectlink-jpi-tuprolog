@@ -12,13 +12,13 @@ prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologCut
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologClause,0,38,0,0,0,7,0,3,0,3
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologFormatter,182,3,18,0,43,1,10,1,1,1
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologFail,0,52,1,3,0,7,1,7,0,6
-prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologEngine,318,778,22,68,47,169,22,56,3,30
+prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologEngine,336,865,32,70,49,190,30,59,3,35
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologFloat,0,86,0,0,0,15,0,14,0,14
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologTrue,0,49,1,3,0,7,1,7,0,6
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologEmpty,0,43,1,3,0,7,1,7,0,6
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologAtom,0,62,1,3,0,10,1,9,0,8
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologNil,0,52,0,4,0,7,0,8,0,6
-prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologQuery,160,528,39,61,35,116,36,32,3,15
+prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologQuery,160,549,40,60,35,121,37,32,3,16
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologStructure,11,174,1,7,3,30,4,13,3,10
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologInteger,0,86,0,0,0,15,0,14,0,14
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologIndicator,0,5,0,0,0,2,0,1,0,1
