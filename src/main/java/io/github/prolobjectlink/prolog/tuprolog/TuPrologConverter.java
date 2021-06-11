@@ -31,6 +31,7 @@ import static io.github.prolobjectlink.prolog.PrologTermType.INTEGER_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.LIST_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.LONG_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.NIL_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.OBJECT_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.STRUCTURE_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.TRUE_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.VARIABLE_TYPE;
@@ -180,6 +181,8 @@ final class TuPrologConverter extends AbstractConverter<Term> implements PrologC
 			String functor = term.getFunctor();
 			Term[] arguments = fromTermArray(((PrologStructure) term).getArguments());
 			return new Struct(functor, arguments);
+		case OBJECT_TYPE:
+			return TuPrologReference.set(term.getObject());
 		default:
 			throw new UnknownTermError(term);
 		}

@@ -189,20 +189,36 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 	}
 
 	public PrologTerm newReference(Object reference) {
-<span class="nc" id="L192">		throw new UnsupportedOperationException(&quot;newReference(Object reference)&quot;);</span>
+<span class="fc" id="L192">		return new TuPrologReference(this, reference);</span>
+	}
+
+	public PrologTerm falseReference() {
+<span class="fc" id="L196">		return newReference(false);</span>
+	}
+
+	public PrologTerm trueReference() {
+<span class="fc" id="L200">		return newReference(true);</span>
+	}
+
+	public PrologTerm nullReference() {
+<span class="fc" id="L204">		return newReference(null);</span>
+	}
+
+	public PrologTerm voidReference() {
+<span class="fc" id="L208">		return newReference(void.class);</span>
 	}
 
 	public PrologJavaConverter getJavaConverter() {
-<span class="fc" id="L196">		return new TuPrologJavaConverter(this);</span>
+<span class="fc" id="L212">		return new TuPrologJavaConverter(this);</span>
 	}
 
 	public PrologLogger getLogger() {
-<span class="fc" id="L200">		return logger;</span>
+<span class="fc" id="L216">		return logger;</span>
 	}
 
 	@Override
 	public String toString() {
-<span class="fc" id="L205">		return &quot;TuProlog [converter=&quot; + converter + &quot;]&quot;;</span>
+<span class="fc" id="L221">		return &quot;TuProlog [converter=&quot; + converter + &quot;]&quot;;</span>
 	}
 
 }

@@ -128,31 +128,31 @@ abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 		return value.isCompound();
 	}
 
-	public final boolean isTrueType() {
+	public boolean isTrueType() {
 		return false;
 	}
 
-	public final boolean isFalseType() {
+	public boolean isFalseType() {
 		return false;
 	}
 
-	public final boolean isNullType() {
+	public boolean isNullType() {
 		return false;
 	}
 
-	public final boolean isVoidType() {
+	public boolean isVoidType() {
 		return false;
 	}
 
-	public final boolean isObjectType() {
+	public boolean isObjectType() {
 		return false;
 	}
 
-	public final boolean isReference() {
+	public boolean isReference() {
 		return false;
 	}
 
-	public final Object getObject() {
+	public Object getObject() {
 		return null;
 	}
 
