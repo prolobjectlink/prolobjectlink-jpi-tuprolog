@@ -30,6 +30,8 @@ import static io.github.prolobjectlink.prolog.PrologTermType.FLOAT_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.INTEGER_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.LIST_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.LONG_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.MAP_ENTRY_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.MAP_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.NIL_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.OBJECT_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.STRUCTURE_TYPE;
@@ -51,10 +53,8 @@ import io.github.prolobjectlink.prolog.PrologConverter;
 import io.github.prolobjectlink.prolog.PrologDouble;
 import io.github.prolobjectlink.prolog.PrologFloat;
 import io.github.prolobjectlink.prolog.PrologInteger;
-import io.github.prolobjectlink.prolog.PrologList;
 import io.github.prolobjectlink.prolog.PrologLong;
 import io.github.prolobjectlink.prolog.PrologProvider;
-import io.github.prolobjectlink.prolog.PrologStructure;
 import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologVariable;
 import io.github.prolobjectlink.prolog.UnknownTermError;
@@ -175,11 +175,13 @@ final class TuPrologConverter extends AbstractConverter<Term> implements PrologC
 				sharedPrologVariables.put(name, variable);
 			}
 			return variable;
+		case MAP_TYPE:
 		case LIST_TYPE:
-			return new Struct(fromTermArray(((PrologList) term).getArguments()));
+			return new Struct(fromTermArray(term.getArguments()));
 		case STRUCTURE_TYPE:
+		case MAP_ENTRY_TYPE:
 			String functor = term.getFunctor();
-			Term[] arguments = fromTermArray(((PrologStructure) term).getArguments());
+			Term[] arguments = fromTermArray(term.getArguments());
 			return new Struct(functor, arguments);
 		case OBJECT_TYPE:
 			return TuPrologReference.set(term.getObject());
