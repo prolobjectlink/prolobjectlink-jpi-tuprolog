@@ -30,6 +30,8 @@ import static io.github.prolobjectlink.prolog.PrologTermType.FLOAT_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.INTEGER_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.LIST_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.LONG_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.MAP_ENTRY_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.MAP_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.NIL_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.OBJECT_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.STRUCTURE_TYPE;
@@ -51,10 +53,8 @@ import io.github.prolobjectlink.prolog.PrologConverter;
 import io.github.prolobjectlink.prolog.PrologDouble;
 import io.github.prolobjectlink.prolog.PrologFloat;
 import io.github.prolobjectlink.prolog.PrologInteger;
-import io.github.prolobjectlink.prolog.PrologList;
 import io.github.prolobjectlink.prolog.PrologLong;
 import io.github.prolobjectlink.prolog.PrologProvider;
-import io.github.prolobjectlink.prolog.PrologStructure;
 import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologVariable;
 import io.github.prolobjectlink.prolog.UnknownTermError;
@@ -175,46 +175,48 @@ import io.github.prolobjectlink.prolog.UnknownTermError;
 <span class="fc" id="L175">				sharedPrologVariables.put(name, variable);</span>
 			}
 <span class="fc" id="L177">			return variable;</span>
+		case MAP_TYPE:
 		case LIST_TYPE:
-<span class="fc" id="L179">			return new Struct(fromTermArray(((PrologList) term).getArguments()));</span>
+<span class="fc" id="L180">			return new Struct(fromTermArray(term.getArguments()));</span>
 		case STRUCTURE_TYPE:
-<span class="fc" id="L181">			String functor = term.getFunctor();</span>
-<span class="fc" id="L182">			Term[] arguments = fromTermArray(((PrologStructure) term).getArguments());</span>
-<span class="fc" id="L183">			return new Struct(functor, arguments);</span>
+		case MAP_ENTRY_TYPE:
+<span class="fc" id="L183">			String functor = term.getFunctor();</span>
+<span class="fc" id="L184">			Term[] arguments = fromTermArray(term.getArguments());</span>
+<span class="fc" id="L185">			return new Struct(functor, arguments);</span>
 		case OBJECT_TYPE:
-<span class="fc" id="L185">			return TuPrologReference.set(term.getObject());</span>
+<span class="fc" id="L187">			return TuPrologReference.set(term.getObject());</span>
 		default:
-<span class="nc" id="L187">			throw new UnknownTermError(term);</span>
+<span class="nc" id="L189">			throw new UnknownTermError(term);</span>
 		}
 	}
 
 	public Term[] fromTermArray(PrologTerm[] terms) {
-<span class="fc" id="L192">		Term[] prologTerms = new Term[terms.length];</span>
-<span class="fc bfc" id="L193" title="All 2 branches covered.">		for (int i = 0; i &lt; terms.length; i++) {</span>
-<span class="fc" id="L194">			prologTerms[i] = fromTerm(terms[i]);</span>
+<span class="fc" id="L194">		Term[] prologTerms = new Term[terms.length];</span>
+<span class="fc bfc" id="L195" title="All 2 branches covered.">		for (int i = 0; i &lt; terms.length; i++) {</span>
+<span class="fc" id="L196">			prologTerms[i] = fromTerm(terms[i]);</span>
 		}
-<span class="fc" id="L196">		return prologTerms;</span>
+<span class="fc" id="L198">		return prologTerms;</span>
 	}
 
 	public Term fromTerm(PrologTerm head, PrologTerm[] body) {
-<span class="fc" id="L200">		Term clauseHead = fromTerm(head);</span>
-<span class="fc bfc" id="L201" title="All 4 branches covered.">		if (body != null &amp;&amp; body.length &gt; 0) {</span>
-<span class="fc" id="L202">			Term clauseBody = fromTerm(body[body.length - 1]);</span>
-<span class="fc bfc" id="L203" title="All 2 branches covered.">			for (int i = body.length - 2; i &gt;= 0; --i) {</span>
-<span class="fc" id="L204">				clauseBody = new Struct(&quot;,&quot;, new Term[] { fromTerm(body[i]), clauseBody });</span>
+<span class="fc" id="L202">		Term clauseHead = fromTerm(head);</span>
+<span class="fc bfc" id="L203" title="All 4 branches covered.">		if (body != null &amp;&amp; body.length &gt; 0) {</span>
+<span class="fc" id="L204">			Term clauseBody = fromTerm(body[body.length - 1]);</span>
+<span class="fc bfc" id="L205" title="All 2 branches covered.">			for (int i = body.length - 2; i &gt;= 0; --i) {</span>
+<span class="fc" id="L206">				clauseBody = new Struct(&quot;,&quot;, new Term[] { fromTerm(body[i]), clauseBody });</span>
 			}
-<span class="fc" id="L206">			return new Struct(&quot;:-&quot;, clauseHead, clauseBody);</span>
+<span class="fc" id="L208">			return new Struct(&quot;:-&quot;, clauseHead, clauseBody);</span>
 		}
-<span class="fc" id="L208">		return clauseHead;</span>
+<span class="fc" id="L210">		return clauseHead;</span>
 	}
 
 	public PrologProvider createProvider() {
-<span class="fc" id="L212">		return new TuProlog(this);</span>
+<span class="fc" id="L214">		return new TuProlog(this);</span>
 	}
 
 	@Override
 	public String toString() {
-<span class="fc" id="L217">		return &quot;TuPrologConverter&quot;;</span>
+<span class="fc" id="L219">		return &quot;TuPrologConverter&quot;;</span>
 	}
 
 }

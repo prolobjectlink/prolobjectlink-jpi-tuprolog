@@ -23,6 +23,7 @@ package io.github.prolobjectlink.prolog.tuprolog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import alice.tuprolog.Parser;
 import alice.tuprolog.Prolog;
@@ -51,174 +52,197 @@ import io.github.prolobjectlink.prolog.PrologVariable;
  */
 public class TuProlog extends AbstractProvider implements PrologProvider {
 
-<span class="fc" id="L54">	private static final PrologLogger logger = new TuPrologLogger();</span>
-<span class="fc" id="L55">	static final String VERSION = Prolog.getVersion();</span>
+<span class="fc" id="L55">	private static final PrologLogger logger = new TuPrologLogger();</span>
+<span class="fc" id="L56">	static final String VERSION = Prolog.getVersion();</span>
 	static final String NAME = &quot;tuProlog&quot;;
 
 	public TuProlog() {
-<span class="fc" id="L59">		super(new TuPrologConverter());</span>
-<span class="fc" id="L60">	}</span>
+<span class="fc" id="L60">		super(new TuPrologConverter());</span>
+<span class="fc" id="L61">	}</span>
 
 	public TuProlog(PrologConverter&lt;Term&gt; converter) {
-<span class="fc" id="L63">		super(converter);</span>
-<span class="fc" id="L64">	}</span>
+<span class="fc" id="L64">		super(converter);</span>
+<span class="fc" id="L65">	}</span>
 
 	public boolean isCompliant() {
-<span class="fc" id="L67">		return false;</span>
+<span class="fc" id="L68">		return false;</span>
 	}
 
 	public PrologTerm prologNil() {
-<span class="fc" id="L71">		return new TuPrologNil(this);</span>
+<span class="fc" id="L72">		return new TuPrologNil(this);</span>
 	}
 
 	public PrologTerm prologCut() {
-<span class="fc" id="L75">		return new TuPrologCut(this);</span>
+<span class="fc" id="L76">		return new TuPrologCut(this);</span>
 	}
 
 	public PrologTerm prologFail() {
-<span class="fc" id="L79">		return new TuPrologFail(this);</span>
+<span class="fc" id="L80">		return new TuPrologFail(this);</span>
 	}
 
 	public PrologTerm prologTrue() {
-<span class="fc" id="L83">		return new TuPrologTrue(this);</span>
+<span class="fc" id="L84">		return new TuPrologTrue(this);</span>
 	}
 
 	public PrologTerm prologFalse() {
-<span class="fc" id="L87">		return new TuPrologFalse(this);</span>
+<span class="fc" id="L88">		return new TuPrologFalse(this);</span>
 	}
 
 	public PrologTerm prologEmpty() {
-<span class="fc" id="L91">		return new TuPrologEmpty(this);</span>
+<span class="fc" id="L92">		return new TuPrologEmpty(this);</span>
 	}
 
 	public PrologTerm prologInclude(String file) {
-<span class="nc" id="L95">		return newStructure(&quot;include&quot;, newAtom(file));</span>
+<span class="nc" id="L96">		return newStructure(&quot;include&quot;, newAtom(file));</span>
 	}
 
 	// engine
 
 	public PrologEngine newEngine() {
-<span class="fc" id="L101">		Prolog prolog = new Prolog();</span>
-<span class="fc" id="L102">		return new TuPrologEngine(this, prolog);</span>
+<span class="fc" id="L102">		Prolog prolog = new Prolog();</span>
+<span class="fc" id="L103">		return new TuPrologEngine(this, prolog);</span>
 	}
 
 	public PrologEngine newEngine(String path) {
-<span class="nc" id="L106">		PrologEngine engine = newEngine();</span>
-<span class="nc" id="L107">		engine.consult(path);</span>
-<span class="nc" id="L108">		return engine;</span>
+<span class="nc" id="L107">		PrologEngine engine = newEngine();</span>
+<span class="nc" id="L108">		engine.consult(path);</span>
+<span class="nc" id="L109">		return engine;</span>
 	}
 
 	// parser helpers
 
 	public PrologTerm parseTerm(String term) {
-<span class="fc" id="L114">		return toTerm(Term.createTerm(term), PrologTerm.class);</span>
+<span class="fc" id="L115">		return toTerm(Term.createTerm(term), PrologTerm.class);</span>
 	}
 
 	public PrologTerm[] parseTerms(String stringTerms) {
-<span class="fc" id="L118">		List&lt;PrologTerm&gt; list = new ArrayList&lt;PrologTerm&gt;();</span>
-<span class="fc" id="L119">		Parser parser = new Parser(stringTerms);</span>
-<span class="fc" id="L120">		Term term = parser.nextTerm(false);</span>
-<span class="fc bfc" id="L121" title="All 2 branches covered.">		while (term instanceof Struct) {</span>
-<span class="fc" id="L122">			Struct struct = (Struct) term;</span>
-<span class="fc bfc" id="L123" title="All 4 branches covered.">			if (struct.getName().equals(&quot;,&quot;) &amp;&amp; struct.getArity() == 2) {</span>
-<span class="fc" id="L124">				list.add(toTerm(struct.getArg(0), PrologTerm.class));</span>
-<span class="fc" id="L125">				term = struct.getArg(1);</span>
+<span class="fc" id="L119">		List&lt;PrologTerm&gt; list = new ArrayList&lt;PrologTerm&gt;();</span>
+<span class="fc" id="L120">		Parser parser = new Parser(stringTerms);</span>
+<span class="fc" id="L121">		Term term = parser.nextTerm(false);</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">		while (term instanceof Struct) {</span>
+<span class="fc" id="L123">			Struct struct = (Struct) term;</span>
+<span class="fc bfc" id="L124" title="All 4 branches covered.">			if (struct.getName().equals(&quot;,&quot;) &amp;&amp; struct.getArity() == 2) {</span>
+<span class="fc" id="L125">				list.add(toTerm(struct.getArg(0), PrologTerm.class));</span>
+<span class="fc" id="L126">				term = struct.getArg(1);</span>
 			} else {
-<span class="fc" id="L127">				list.add(toTerm(term, PrologTerm.class));</span>
-<span class="fc" id="L128">				term = parser.nextTerm(false);</span>
+<span class="fc" id="L128">				list.add(toTerm(term, PrologTerm.class));</span>
+<span class="fc" id="L129">				term = parser.nextTerm(false);</span>
 			}
-<span class="fc" id="L130">		}</span>
-<span class="fc" id="L131">		return list.toArray(new PrologTerm[0]);</span>
+<span class="fc" id="L131">		}</span>
+<span class="fc" id="L132">		return list.toArray(new PrologTerm[0]);</span>
 	}
 
 	// terms
 
 	public PrologAtom newAtom(String functor) {
-<span class="fc" id="L137">		return new TuPrologAtom(this, functor);</span>
+<span class="fc" id="L138">		return new TuPrologAtom(this, functor);</span>
 	}
 
 	public PrologFloat newFloat(Number value) {
-<span class="fc" id="L141">		return new TuPrologFloat(this, value);</span>
+<span class="fc" id="L142">		return new TuPrologFloat(this, value);</span>
 	}
 
 	public PrologDouble newDouble(Number value) {
-<span class="fc" id="L145">		return new TuPrologDouble(this, value);</span>
+<span class="fc" id="L146">		return new TuPrologDouble(this, value);</span>
 	}
 
 	public PrologInteger newInteger(Number value) {
-<span class="fc" id="L149">		return new TuPrologInteger(this, value);</span>
+<span class="fc" id="L150">		return new TuPrologInteger(this, value);</span>
 	}
 
 	public PrologLong newLong(Number value) {
-<span class="fc" id="L153">		return new TuPrologLong(this, value);</span>
+<span class="fc" id="L154">		return new TuPrologLong(this, value);</span>
 	}
 
 	public PrologVariable newVariable(int position) {
-<span class="fc" id="L157">		return new TuPrologVariable(this);</span>
+<span class="fc" id="L158">		return new TuPrologVariable(this);</span>
 	}
 
 	public PrologVariable newVariable(String name, int position) {
-<span class="fc" id="L161">		return new TuPrologVariable(this, name);</span>
+<span class="fc" id="L162">		return new TuPrologVariable(this, name);</span>
 	}
 
 	public PrologList newList() {
-<span class="fc" id="L165">		return new TuPrologEmpty(this);</span>
+<span class="fc" id="L166">		return new TuPrologEmpty(this);</span>
 	}
 
 	public PrologList newList(PrologTerm[] arguments) {
-<span class="fc bfc" id="L169" title="All 4 branches covered.">		if (arguments != null &amp;&amp; arguments.length &gt; 0) {</span>
-<span class="fc" id="L170">			return new TuPrologList(this, arguments);</span>
+<span class="fc bfc" id="L170" title="All 4 branches covered.">		if (arguments != null &amp;&amp; arguments.length &gt; 0) {</span>
+<span class="fc" id="L171">			return new TuPrologList(this, arguments);</span>
 		}
-<span class="fc" id="L172">		return new TuPrologEmpty(this);</span>
+<span class="fc" id="L173">		return new TuPrologEmpty(this);</span>
 	}
 
 	public PrologList newList(PrologTerm head, PrologTerm tail) {
-<span class="fc" id="L176">		return new TuPrologList(this, head, tail);</span>
+<span class="fc" id="L177">		return new TuPrologList(this, head, tail);</span>
 	}
 
 	public PrologList newList(PrologTerm[] arguments, PrologTerm tail) {
-<span class="fc" id="L180">		return new TuPrologList(this, arguments, tail);</span>
+<span class="fc" id="L181">		return new TuPrologList(this, arguments, tail);</span>
 	}
 
 	public PrologStructure newStructure(String functor, PrologTerm... arguments) {
-<span class="fc" id="L184">		return new TuPrologStructure(this, functor, arguments);</span>
+<span class="fc" id="L185">		return new TuPrologStructure(this, functor, arguments);</span>
 	}
 
 	public PrologTerm newStructure(PrologTerm left, String operator, PrologTerm right) {
-<span class="fc" id="L188">		return new TuPrologStructure(this, left, operator, right);</span>
+<span class="fc" id="L189">		return new TuPrologStructure(this, left, operator, right);</span>
+	}
+
+	public final PrologTerm newEntry(PrologTerm key, PrologTerm value) {
+<span class="fc" id="L193">		return new TuPrologEntry(this, key, value);</span>
+	}
+
+	public final PrologTerm newEntry(Object key, Object value) {
+<span class="nc" id="L197">		PrologJavaConverter transformer = getJavaConverter();</span>
+<span class="nc" id="L198">		PrologTerm keyTerm = transformer.toTerm(key);</span>
+<span class="nc" id="L199">		PrologTerm valueTerm = transformer.toTerm(value);</span>
+<span class="nc" id="L200">		return new TuPrologEntry(this, keyTerm, valueTerm);</span>
+	}
+
+	public final PrologTerm newMap(Map&lt;PrologTerm, PrologTerm&gt; map) {
+<span class="nc" id="L204">		return new TuPrologMap(this, map);</span>
+	}
+
+	public final PrologTerm newMap(int initialCapacity) {
+<span class="fc" id="L208">		return new TuPrologMap(this, initialCapacity);</span>
+	}
+
+	public final PrologTerm newMap() {
+<span class="fc" id="L212">		return new TuPrologMap(this);</span>
 	}
 
 	public PrologTerm newReference(Object reference) {
-<span class="fc" id="L192">		return new TuPrologReference(this, reference);</span>
+<span class="fc" id="L216">		return new TuPrologReference(this, reference);</span>
 	}
 
 	public PrologTerm falseReference() {
-<span class="fc" id="L196">		return newReference(false);</span>
+<span class="fc" id="L220">		return newReference(false);</span>
 	}
 
 	public PrologTerm trueReference() {
-<span class="fc" id="L200">		return newReference(true);</span>
+<span class="fc" id="L224">		return newReference(true);</span>
 	}
 
 	public PrologTerm nullReference() {
-<span class="fc" id="L204">		return newReference(null);</span>
+<span class="fc" id="L228">		return newReference(null);</span>
 	}
 
 	public PrologTerm voidReference() {
-<span class="fc" id="L208">		return newReference(void.class);</span>
+<span class="fc" id="L232">		return newReference(void.class);</span>
 	}
 
 	public PrologJavaConverter getJavaConverter() {
-<span class="fc" id="L212">		return new TuPrologJavaConverter(this);</span>
+<span class="fc" id="L236">		return new TuPrologJavaConverter(this);</span>
 	}
 
 	public PrologLogger getLogger() {
-<span class="fc" id="L216">		return logger;</span>
+<span class="fc" id="L240">		return logger;</span>
 	}
 
 	@Override
 	public String toString() {
-<span class="fc" id="L221">		return &quot;TuProlog [converter=&quot; + converter + &quot;]&quot;;</span>
+<span class="fc" id="L245">		return &quot;TuProlog [converter=&quot; + converter + &quot;]&quot;;</span>
 	}
 
 }

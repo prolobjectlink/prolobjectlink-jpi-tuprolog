@@ -23,6 +23,7 @@ package io.github.prolobjectlink.prolog.tuprolog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import alice.tuprolog.Parser;
 import alice.tuprolog.Prolog;
@@ -186,6 +187,29 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 
 	public PrologTerm newStructure(PrologTerm left, String operator, PrologTerm right) {
 		return new TuPrologStructure(this, left, operator, right);
+	}
+
+	public final PrologTerm newEntry(PrologTerm key, PrologTerm value) {
+		return new TuPrologEntry(this, key, value);
+	}
+
+	public final PrologTerm newEntry(Object key, Object value) {
+		PrologJavaConverter transformer = getJavaConverter();
+		PrologTerm keyTerm = transformer.toTerm(key);
+		PrologTerm valueTerm = transformer.toTerm(value);
+		return new TuPrologEntry(this, keyTerm, valueTerm);
+	}
+
+	public final PrologTerm newMap(Map<PrologTerm, PrologTerm> map) {
+		return new TuPrologMap(this, map);
+	}
+
+	public final PrologTerm newMap(int initialCapacity) {
+		return new TuPrologMap(this, initialCapacity);
+	}
+
+	public final PrologTerm newMap() {
+		return new TuPrologMap(this);
 	}
 
 	public PrologTerm newReference(Object reference) {
