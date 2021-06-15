@@ -1,10 +1,10 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologEntry,22,125,12,10,8,30,10,14,0,13
-prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologReference,19,82,4,6,4,17,4,16,1,14
+prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologReference,14,42,0,0,4,11,1,8,1,8
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologVariable,10,42,0,0,2,10,2,7,2,7
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologOperator,0,6,0,0,0,2,0,1,0,1
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologOperatorSet,0,117,0,10,0,29,0,11,0,6
-prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologTerm,25,239,6,32,11,57,12,37,7,23
+prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologTerm,14,276,7,37,5,63,7,45,1,29
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologDouble,0,79,0,0,0,13,0,12,0,12
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologList,0,191,0,6,0,43,0,17,0,14
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologConsole,6,6,0,0,2,2,1,1,1,1
