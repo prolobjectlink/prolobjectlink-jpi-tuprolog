@@ -151,7 +151,7 @@ abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 	}
 
 	public final boolean isReference() {
-		return isObjectType() || isNullType();
+		return isObjectType();
 	}
 
 	public Object getObject() {
