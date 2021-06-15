@@ -21,6 +21,8 @@
  */
 package io.github.prolobjectlink.prolog.tuprolog;
 
+import static io.github.prolobjectlink.prolog.PrologTermType.OBJECT_TYPE;
+
 import java.util.List;
 
 import alice.tuprolog.Double;
@@ -128,28 +130,28 @@ abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 		return value.isCompound();
 	}
 
-	public boolean isTrueType() {
-		return false;
+	public final boolean isTrueType() {
+		return getObject().equals(true);
 	}
 
-	public boolean isFalseType() {
-		return false;
+	public final boolean isFalseType() {
+		return getObject().equals(false);
 	}
 
-	public boolean isNullType() {
-		return false;
+	public final boolean isNullType() {
+		return getObject() == null;
 	}
 
-	public boolean isVoidType() {
-		return false;
+	public final boolean isVoidType() {
+		return getObject() == void.class;
 	}
 
-	public boolean isObjectType() {
-		return false;
+	public final boolean isObjectType() {
+		return getType() == OBJECT_TYPE;
 	}
 
-	public boolean isReference() {
-		return false;
+	public final boolean isReference() {
+		return isObjectType() || isNullType();
 	}
 
 	public Object getObject() {
