@@ -408,6 +408,10 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 		return TuProlog.VERSION;
 	}
 
+	public final String getVendor() {
+		return TuProlog.NAME;
+	}
+
 	public String getName() {
 		return TuProlog.NAME;
 	}
