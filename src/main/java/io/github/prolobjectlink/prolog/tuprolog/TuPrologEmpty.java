@@ -52,14 +52,4 @@ final class TuPrologEmpty extends TuPrologList implements PrologList {
 		return ((Struct) value).getName();
 	}
 
-	@Override
-	public String getIndicator() {
-		return getFunctor() + "/" + getArity();
-	}
-
-	@Override
-	public boolean hasIndicator(String functor, int arity) {
-		return getFunctor().equals(functor) && getArity() == arity;
-	}
-
 }

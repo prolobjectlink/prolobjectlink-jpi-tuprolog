@@ -86,14 +86,6 @@ final class TuPrologStructure extends TuPrologTerm implements PrologStructure {
 		return structure.getName();
 	}
 
-	public String getIndicator() {
-		return getFunctor() + "/" + getArity();
-	}
-
-	public boolean hasIndicator(String functor, int arity) {
-		return getFunctor().equals(functor) && getArity() == arity;
-	}
-
 	public final PrologTerm getRight() {
 		return getArgument(1);
 	}

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TuPrologVariable.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">prolobjectlink-jpi-tuprolog</a> &gt; <a href="index.source.html" class="el_package">io.github.prolobjectlink.prolog.tuprolog</a> &gt; <span class="el_source">TuPrologVariable.java</span></div><h1>TuPrologVariable.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TuPrologVariable.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">prolobjectlink-jpi-tuprolog</a> &gt; <a href="index.source.html" class="el_package">io.github.prolobjectlink.prolog.tuprolog</a> &gt; <span class="el_source">TuPrologVariable.java</span></div><h1>TuPrologVariable.java</h1><pre class="source lang-java linenums">/*
  * #%L
  * prolobjectlink-jpi-tuprolog
  * %%
@@ -26,7 +26,6 @@ import static io.github.prolobjectlink.prolog.PrologTermType.VARIABLE_TYPE;
 import alice.tuprolog.Var;
 import io.github.prolobjectlink.prolog.ArityError;
 import io.github.prolobjectlink.prolog.FunctorError;
-import io.github.prolobjectlink.prolog.IndicatorError;
 import io.github.prolobjectlink.prolog.PrologProvider;
 import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologVariable;
@@ -39,47 +38,39 @@ import io.github.prolobjectlink.prolog.PrologVariable;
 final class TuPrologVariable extends TuPrologTerm implements PrologVariable {
 
 	TuPrologVariable(PrologProvider provider) {
-<span class="fc" id="L42">		super(VARIABLE_TYPE, provider, new Var());</span>
-<span class="fc" id="L43">	}</span>
+<span class="fc" id="L41">		super(VARIABLE_TYPE, provider, new Var());</span>
+<span class="fc" id="L42">	}</span>
 
 	TuPrologVariable(PrologProvider provider, String name) {
-<span class="fc" id="L46">		super(VARIABLE_TYPE, provider, new Var(name));</span>
-<span class="fc" id="L47">	}</span>
+<span class="fc" id="L45">		super(VARIABLE_TYPE, provider, new Var(name));</span>
+<span class="fc" id="L46">	}</span>
 
 	public boolean isAnonymous() {
-<span class="fc" id="L50">		return ((Var) value).isAnonymous();</span>
+<span class="fc" id="L49">		return ((Var) value).isAnonymous();</span>
 	}
 
 	public String getName() {
-<span class="fc" id="L54">		return ((Var) value).getName();</span>
+<span class="fc" id="L53">		return ((Var) value).getName();</span>
 	}
 
 	public void setName(String name) {
-<span class="fc" id="L58">		this.value = new Var(name);</span>
-<span class="fc" id="L59">	}</span>
+<span class="fc" id="L57">		this.value = new Var(name);</span>
+<span class="fc" id="L58">	}</span>
 
 	public PrologTerm[] getArguments() {
-<span class="fc" id="L62">		return new TuPrologVariable[0];</span>
+<span class="fc" id="L61">		return new TuPrologVariable[0];</span>
 	}
 
 	public int getArity() {
-<span class="nc" id="L66">		throw new ArityError(this);</span>
+<span class="nc" id="L65">		throw new ArityError(this);</span>
 	}
 
 	public String getFunctor() {
-<span class="nc" id="L70">		throw new FunctorError(this);</span>
-	}
-
-	public String getIndicator() {
-<span class="fc" id="L74">		throw new IndicatorError(this);</span>
-	}
-
-	public boolean hasIndicator(String functor, int arity) {
-<span class="nc" id="L78">		return false;</span>
+<span class="fc" id="L69">		throw new FunctorError(this);</span>
 	}
 
 	public int getPosition() {
-<span class="nc" id="L82">		throw new UnsupportedOperationException(&quot;getPosition()&quot;);</span>
+<span class="nc" id="L73">		throw new UnsupportedOperationException(&quot;getPosition()&quot;);</span>
 	}
 
 }
