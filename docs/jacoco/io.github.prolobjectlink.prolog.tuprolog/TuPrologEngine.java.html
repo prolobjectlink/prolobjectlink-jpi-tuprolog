@@ -408,40 +408,44 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 <span class="fc" id="L408">		return TuProlog.VERSION;</span>
 	}
 
+	public final String getVendor() {
+<span class="nc" id="L412">		return TuProlog.NAME;</span>
+	}
+
 	public String getName() {
-<span class="fc" id="L412">		return TuProlog.NAME;</span>
+<span class="fc" id="L416">		return TuProlog.NAME;</span>
 	}
 
 	@Override
 	public int hashCode() {
-<span class="fc" id="L417">		final int prime = 31;</span>
-<span class="fc" id="L418">		int result = 1;</span>
-<span class="pc bpc" id="L419" title="1 of 2 branches missed.">		result = prime * result + ((engine == null) ? 0 : engine.hashCode());</span>
-<span class="fc" id="L420">		return result;</span>
+<span class="fc" id="L421">		final int prime = 31;</span>
+<span class="fc" id="L422">		int result = 1;</span>
+<span class="pc bpc" id="L423" title="1 of 2 branches missed.">		result = prime * result + ((engine == null) ? 0 : engine.hashCode());</span>
+<span class="fc" id="L424">		return result;</span>
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-<span class="fc bfc" id="L425" title="All 2 branches covered.">		if (this == obj)</span>
-<span class="fc" id="L426">			return true;</span>
-<span class="pc bpc" id="L427" title="1 of 2 branches missed.">		if (obj == null)</span>
-<span class="nc" id="L428">			return false;</span>
-<span class="pc bpc" id="L429" title="1 of 2 branches missed.">		if (getClass() != obj.getClass())</span>
-<span class="nc" id="L430">			return false;</span>
-<span class="fc" id="L431">		TuPrologEngine other = (TuPrologEngine) obj;</span>
+<span class="fc bfc" id="L429" title="All 2 branches covered.">		if (this == obj)</span>
+<span class="fc" id="L430">			return true;</span>
+<span class="pc bpc" id="L431" title="1 of 2 branches missed.">		if (obj == null)</span>
+<span class="nc" id="L432">			return false;</span>
+<span class="pc bpc" id="L433" title="1 of 2 branches missed.">		if (getClass() != obj.getClass())</span>
+<span class="nc" id="L434">			return false;</span>
+<span class="fc" id="L435">		TuPrologEngine other = (TuPrologEngine) obj;</span>
 		// tu-prolog engine not override equals from object
 		// current criteria is not null engine instances
-<span class="pc bpc" id="L434" title="2 of 4 branches missed.">		return engine != null &amp;&amp; other.engine != null;</span>
+<span class="pc bpc" id="L438" title="2 of 4 branches missed.">		return engine != null &amp;&amp; other.engine != null;</span>
 	}
 
 	public void dispose() {
-<span class="pc bpc" id="L438" title="1 of 2 branches missed.">		if (engine != null) {</span>
-<span class="fc" id="L439">			engine.clearTheory();</span>
+<span class="pc bpc" id="L442" title="1 of 2 branches missed.">		if (engine != null) {</span>
+<span class="fc" id="L443">			engine.clearTheory();</span>
 		}
-<span class="fc" id="L441">	}</span>
+<span class="fc" id="L445">	}</span>
 
 	public final List&lt;String&gt; verify() {
-<span class="nc" id="L444">		return Arrays.asList(&quot;OK&quot;);</span>
+<span class="nc" id="L448">		return Arrays.asList(&quot;OK&quot;);</span>
 	}
 
 }

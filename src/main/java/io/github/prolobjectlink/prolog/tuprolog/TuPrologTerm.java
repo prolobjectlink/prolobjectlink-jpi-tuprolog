@@ -154,10 +154,6 @@ abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 		return isObjectType();
 	}
 
-	public Object getObject() {
-		return null;
-	}
-
 	public final PrologTerm getTerm() {
 		return toTerm(value.getTerm(), PrologTerm.class);
 	}
