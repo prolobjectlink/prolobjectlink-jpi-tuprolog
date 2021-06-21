@@ -15,7 +15,7 @@ prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologCla
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologFormatter,182,3,18,0,43,1,10,1,1,1
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologFail,0,26,0,0,0,5,0,4,0,4
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologEngine,338,865,32,70,50,190,31,59,4,35
-prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologMap.PrologMapIterator,4,54,0,2,1,10,1,3,1,2
+prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologMap.PrologMapIterator,0,58,0,2,0,11,0,4,0,3
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologFloat,0,79,0,0,0,13,0,12,0,12
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologTrue,0,23,0,0,0,5,0,4,0,4
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologEmpty,0,17,0,0,0,5,0,4,0,4
@@ -30,5 +30,5 @@ prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuProlog,44
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologFalse,0,23,0,0,0,5,0,4,0,4
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologLogger,34,88,3,5,6,20,4,4,1,3
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologJavaConverter,0,4,0,0,0,2,0,1,0,1
-prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologMap,16,289,10,16,6,71,9,32,0,28
+prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologMap,18,306,12,20,7,76,11,33,0,28
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologLong,0,79,0,0,0,13,0,12,0,12
