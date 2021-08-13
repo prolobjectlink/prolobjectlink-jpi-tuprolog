@@ -54,6 +54,7 @@ import alice.tuprolog.PrimitiveInfo;
 import alice.tuprolog.Prolog;
 import io.github.prolobjectlink.prolog.Licenses;
 import io.github.prolobjectlink.prolog.PrologAtom;
+import io.github.prolobjectlink.prolog.PrologClause;
 import io.github.prolobjectlink.prolog.PrologEngine;
 import io.github.prolobjectlink.prolog.PrologOperator;
 import io.github.prolobjectlink.prolog.PrologQuery;
@@ -63,6 +64,7 @@ import io.github.prolobjectlink.prolog.PrologVariable;
 
 public class PrologEngineTest extends PrologBaseTest {
 
+	private PredecessorMapping predecessorMapping = new PredecessorMapping();
 	private ParentMapping parentMapping = new ParentMapping();
 	private PrologEngine engine;
 	private PrologQuery query;
@@ -1685,22 +1687,48 @@ public class PrologEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testAbolishClassOfQ() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		assertFalse(engine.contains(Parent.class));
+		engine.assertz(Parent.class);
+		assertTrue(engine.contains(Parent.class));
+		engine.abolish(Parent.class);
+		assertFalse(engine.contains(Parent.class));
 	}
 
 	@Test
 	public void testAssertaO() {
-		fail("Not yet implemented");
+		Parent parent = new Parent("tom", "bob");
+		PrologEngine engine = provider.newEngine();
+		assertFalse(engine.contains(parent));
+		engine.asserta(parent);
+		assertTrue(engine.contains(parent));
 	}
 
 	@Test
 	public void testAssertaClassOfQ() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		assertFalse(engine.contains(Parent.class));
+		engine.asserta(Parent.class);
+		assertTrue(engine.contains(Parent.class));
 	}
 
 	@Test
 	public void testAssertaOOArray() {
-		fail("Not yet implemented");
+		// TODO
+		Parent parent = new Parent();
+		Predecessor predecessor = new Predecessor();
+		PrologEngine engine = provider.newEngine();
+		engine.register(predecessorMapping);
+		engine.register(parentMapping);
+		assertFalse(engine.contains(predecessor));
+		engine.asserta(predecessor, parent, predecessor);
+		for (PrologClause prologClause : engine) {
+			System.out.println(prologClause);
+		}
+		assertTrue(engine.contains(predecessor));
+		engine.unregister(predecessorMapping);
+		engine.unregister(parentMapping);
+		engine.dispose();
 	}
 
 	@Test
@@ -1710,12 +1738,19 @@ public class PrologEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testAssertzO() {
-		fail("Not yet implemented");
+		Parent parent = new Parent("tom", "bob");
+		PrologEngine engine = provider.newEngine();
+		assertFalse(engine.contains(parent));
+		engine.assertz(parent);
+		assertTrue(engine.contains(parent));
 	}
 
 	@Test
 	public void testAssertzClassOfQ() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		assertFalse(engine.contains(Parent.class));
+		engine.assertz(Parent.class);
+		assertTrue(engine.contains(Parent.class));
 	}
 
 	@Test
@@ -1730,12 +1765,22 @@ public class PrologEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testClauseO() {
-		fail("Not yet implemented");
+		Parent parent = new Parent("tom", "bob");
+		PrologEngine engine = provider.newEngine();
+		assertFalse(engine.clause(parent));
+		engine.assertz(parent);
+		assertTrue(engine.clause(parent));
 	}
 
 	@Test
 	public void testClauseClassOfQ() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		assertFalse(engine.clause(Parent.class));
+		engine.assertz(Parent.class);
+		assertTrue(engine.clause(Parent.class));
+		engine.unregister(parentMapping);
+		engine.dispose();
 	}
 
 	@Test
@@ -1745,12 +1790,23 @@ public class PrologEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testRetractO() {
-		fail("Not yet implemented");
+		Parent parent = new Parent("tom", "bob");
+		PrologEngine engine = provider.newEngine();
+		assertFalse(engine.contains(parent));
+		engine.assertz(parent);
+		assertTrue(engine.contains(parent));
+		engine.retract(parent);
+		assertFalse(engine.contains(parent));
 	}
 
 	@Test
 	public void testRetractClassOfQ() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		assertFalse(engine.contains(Parent.class));
+		engine.asserta(Parent.class);
+		assertTrue(engine.contains(Parent.class));
+		engine.retract(Parent.class);
+		assertFalse(engine.contains(Parent.class));
 	}
 
 	@Test
@@ -1768,6 +1824,7 @@ public class PrologEngineTest extends PrologBaseTest {
 		assertTrue(engine.unify(String.class, String.class));
 		assertTrue(engine.unify(Integer.class, Integer.class));
 		assertTrue(engine.unify(Double.class, Double.class));
+		assertFalse(engine.unify(Double.class, Double.class));
 	}
 
 	@Test
@@ -1775,16 +1832,30 @@ public class PrologEngineTest extends PrologBaseTest {
 		assertTrue(engine.unify("a", "a"));
 		assertTrue(engine.unify(100, 100));
 		assertTrue(engine.unify(3.14, 3.14));
+		assertFalse(engine.unify(3.14, 100));
 	}
 
 	@Test
 	public void testContainsO() {
-		fail("Not yet implemented");
+		Parent parent = new Parent("tom", "bob");
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		assertFalse(engine.contains(parent));
+		engine.assertz(parent);
+		assertTrue(engine.contains(parent));
+		engine.unregister(parentMapping);
+		engine.dispose();
 	}
 
 	@Test
 	public void testContainsClassOfQ() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		assertFalse(engine.contains(Parent.class));
+		engine.assertz(Parent.class);
+		assertTrue(engine.contains(Parent.class));
+		engine.unregister(parentMapping);
+		engine.dispose();
 	}
 
 	@Test
@@ -1799,12 +1870,30 @@ public class PrologEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testQueryO() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		engine.consult("family.pl");
+
+		famillySolutionMap.put("Name", pam);
+		famillySolutionMap.put("Child", bob);
+
+		solutionMap = engine.query(new Parent()).one();
+		assertEquals(famillySolutionMap, solutionMap);
+		engine.dispose();
 	}
 
 	@Test
 	public void testQueryClassOfQ() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		engine.consult("family.pl");
+
+		famillySolutionMap.put("Name", pam);
+		famillySolutionMap.put("Child", bob);
+
+		solutionMap = engine.query(Parent.class).one();
+		assertEquals(famillySolutionMap, solutionMap);
+		engine.dispose();
 	}
 
 	@Test
