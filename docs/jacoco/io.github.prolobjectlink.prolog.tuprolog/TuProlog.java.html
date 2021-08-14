@@ -190,14 +190,14 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 	}
 
 	public final PrologTerm newEntry(Object key, Object value) {
-<span class="nc" id="L193">		PrologJavaConverter transformer = getJavaConverter();</span>
-<span class="nc" id="L194">		PrologTerm keyTerm = transformer.toTerm(key);</span>
-<span class="nc" id="L195">		PrologTerm valueTerm = transformer.toTerm(value);</span>
-<span class="nc" id="L196">		return new TuPrologEntry(this, keyTerm, valueTerm);</span>
+<span class="fc" id="L193">		PrologJavaConverter transformer = getJavaConverter();</span>
+<span class="fc" id="L194">		PrologTerm keyTerm = transformer.toTerm(key);</span>
+<span class="fc" id="L195">		PrologTerm valueTerm = transformer.toTerm(value);</span>
+<span class="fc" id="L196">		return new TuPrologEntry(this, keyTerm, valueTerm);</span>
 	}
 
 	public final PrologTerm newMap(Map&lt;PrologTerm, PrologTerm&gt; map) {
-<span class="nc" id="L200">		return new TuPrologMap(this, map);</span>
+<span class="fc" id="L200">		return new TuPrologMap(this, map);</span>
 	}
 
 	public final PrologTerm newMap(int initialCapacity) {
@@ -228,17 +228,71 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 <span class="fc" id="L228">		return newReference(void.class);</span>
 	}
 
+	public PrologTerm newField(PrologTerm name) {
+<span class="fc" id="L232">		return new TuPrologField(this, name);</span>
+	}
+
+	public PrologTerm newField(String name) {
+<span class="nc" id="L236">		return new TuPrologField(this, name);</span>
+	}
+
+	public PrologTerm newField(PrologTerm name, PrologTerm type) {
+<span class="fc" id="L240">		return new TuPrologTypedField(this, name, type);</span>
+	}
+
+	public PrologTerm newField(String name, String type) {
+<span class="fc" id="L244">		PrologTerm oname = newVariable(name, 0);</span>
+<span class="fc" id="L245">		PrologTerm otype = newVariable(type, 1);</span>
+<span class="fc" id="L246">		return new TuPrologTypedField(this, oname, otype);</span>
+	}
+
+	public PrologTerm newResult(PrologTerm name) {
+<span class="fc" id="L250">		return new TuPrologResult(this, name);</span>
+	}
+
+	public PrologTerm newResult(String name) {
+<span class="nc" id="L254">		return new TuPrologResult(this, name);</span>
+	}
+
+	public PrologTerm newResult(PrologTerm name, PrologTerm type) {
+<span class="fc" id="L258">		return new TuPrologTypedResult(this, name, type);</span>
+	}
+
+	public PrologTerm newResult(String name, String type) {
+<span class="nc" id="L262">		PrologTerm oname = newVariable(name, 0);</span>
+<span class="nc" id="L263">		PrologTerm otype = newVariable(type, 1);</span>
+<span class="nc" id="L264">		return new TuPrologTypedResult(this, oname, otype);</span>
+	}
+
+	public PrologTerm newParameter(PrologTerm name) {
+<span class="fc" id="L268">		return new TuPrologParameter(this, name);</span>
+	}
+
+	public PrologTerm newParameter(String name) {
+<span class="nc" id="L272">		return new TuPrologParameter(this, name);</span>
+	}
+
+	public PrologTerm newParameter(PrologTerm name, PrologTerm type) {
+<span class="fc" id="L276">		return new TuPrologTypedParameter(this, name, type);</span>
+	}
+
+	public PrologTerm newParameter(String name, String type) {
+<span class="nc" id="L280">		PrologTerm oname = newVariable(name, 0);</span>
+<span class="nc" id="L281">		PrologTerm otype = newVariable(type, 1);</span>
+<span class="nc" id="L282">		return new TuPrologTypedParameter(this, oname, otype);</span>
+	}
+
 	public PrologJavaConverter getJavaConverter() {
-<span class="fc" id="L232">		return new TuPrologJavaConverter(this);</span>
+<span class="fc" id="L286">		return new TuPrologJavaConverter(this);</span>
 	}
 
 	public PrologLogger getLogger() {
-<span class="fc" id="L236">		return logger;</span>
+<span class="fc" id="L290">		return logger;</span>
 	}
 
 	@Override
 	public String toString() {
-<span class="fc" id="L241">		return &quot;TuProlog [converter=&quot; + converter + &quot;]&quot;;</span>
+<span class="fc" id="L295">		return &quot;TuProlog [converter=&quot; + converter + &quot;]&quot;;</span>
 	}
 
 }

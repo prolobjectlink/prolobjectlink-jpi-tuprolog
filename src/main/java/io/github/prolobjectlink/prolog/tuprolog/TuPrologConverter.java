@@ -37,6 +37,9 @@ import static io.github.prolobjectlink.prolog.PrologTermType.OBJECT_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.STRUCTURE_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.TRUE_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.VARIABLE_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.FIELD_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.PARAMETER_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.RESULT_TYPE;
 
 import java.util.Iterator;
 
@@ -51,10 +54,13 @@ import io.github.prolobjectlink.prolog.AbstractConverter;
 import io.github.prolobjectlink.prolog.PrologAtom;
 import io.github.prolobjectlink.prolog.PrologConverter;
 import io.github.prolobjectlink.prolog.PrologDouble;
+import io.github.prolobjectlink.prolog.PrologField;
 import io.github.prolobjectlink.prolog.PrologFloat;
 import io.github.prolobjectlink.prolog.PrologInteger;
 import io.github.prolobjectlink.prolog.PrologLong;
+import io.github.prolobjectlink.prolog.PrologParameter;
 import io.github.prolobjectlink.prolog.PrologProvider;
+import io.github.prolobjectlink.prolog.PrologResult;
 import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologVariable;
 import io.github.prolobjectlink.prolog.UnknownTermError;
@@ -185,6 +191,15 @@ final class TuPrologConverter extends AbstractConverter<Term> implements PrologC
 			return new Struct(functor, arguments);
 		case OBJECT_TYPE:
 			return TuPrologReference.set(term.getObject());
+		case PARAMETER_TYPE:
+			name = ((PrologParameter) term).getName();
+			return new Var(name);
+		case RESULT_TYPE:
+			name = ((PrologResult) term).getName();
+			return new Var(name);
+		case FIELD_TYPE:
+			name = ((PrologField) term).getName();
+			return new Var(name);
 		default:
 			throw new UnknownTermError(term);
 		}

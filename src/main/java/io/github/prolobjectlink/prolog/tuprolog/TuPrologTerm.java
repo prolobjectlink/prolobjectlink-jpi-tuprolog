@@ -154,6 +154,14 @@ abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 		return isObjectType();
 	}
 
+	public final boolean isVariableBound() {
+		return isVariable() && value.getTerm() != value;
+	}
+
+	public final boolean isVariableNotBound() {
+		return isVariable() && value.getTerm() == value;
+	}
+
 	public final PrologTerm getTerm() {
 		return toTerm(value.getTerm(), PrologTerm.class);
 	}

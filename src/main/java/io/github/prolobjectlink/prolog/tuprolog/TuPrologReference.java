@@ -44,7 +44,6 @@ public class TuPrologReference extends TuPrologTerm implements PrologReference {
 		super(OBJECT_TYPE, provider, set(reference));
 	}
 
-	@Override
 	public Class<?> getReferenceType() {
 		return getObject().getClass();
 	}

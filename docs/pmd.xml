@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.2.5" timestamp="2021-06-12T15:23:44.764">
+<pmd version="4.2.5" timestamp="2021-08-14T07:06:55.470">
 <file name="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologConverter.java">
-<violation beginline="22" endline="222" begincolumn="1" endcolumn="3" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="io.github.prolobjectlink.prolog.tuprolog" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
+<violation beginline="22" endline="237" begincolumn="1" endcolumn="3" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="io.github.prolobjectlink.prolog.tuprolog" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
 Too many static imports may lead to messy code
+</violation>
+</file>
+<file name="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologField.java">
+<violation beginline="42" endline="44" begincolumn="9" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologField" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'position'.
+</violation>
+<violation beginline="46" endline="48" begincolumn="9" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologField" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'position'.
+</violation>
+</file>
+<file name="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologParameter.java">
+<violation beginline="42" endline="44" begincolumn="9" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologParameter" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'position'.
+</violation>
+<violation beginline="46" endline="48" begincolumn="9" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologParameter" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'position'.
 </violation>
 </file>
 <file name="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologQuery.java">
@@ -29,6 +45,14 @@ Avoid empty catch blocks
 </violation>
 <violation beginline="282" endline="284" begincolumn="27" endcolumn="25" rule="EmptyCatchBlock" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologQuery" method="all" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
 Avoid empty catch blocks
+</violation>
+</file>
+<file name="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologResult.java">
+<violation beginline="42" endline="44" begincolumn="9" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologResult" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'position'.
+</violation>
+<violation beginline="46" endline="48" begincolumn="9" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologResult" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'position'.
 </violation>
 </file>
 <file name="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologStructure.java">

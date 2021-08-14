@@ -49,7 +49,7 @@ import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologTermType;
 import io.github.prolobjectlink.prolog.PrologVariable;
 
-public class PrologMapTest extends PrologBaseTest {
+public class PrologMapTest extends PrologCollectionTest {
 
 	PrologTerm map = provider.newMap();
 

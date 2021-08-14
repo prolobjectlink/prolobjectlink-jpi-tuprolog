@@ -147,65 +147,73 @@ abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 	}
 
 	public final boolean isObjectType() {
-<span class="pc bpc" id="L150" title="1 of 2 branches missed.">		return getType() == OBJECT_TYPE;</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">		return getType() == OBJECT_TYPE;</span>
 	}
 
 	public final boolean isReference() {
 <span class="fc" id="L154">		return isObjectType();</span>
 	}
 
+	public final boolean isVariableBound() {
+<span class="pc bpc" id="L158" title="1 of 4 branches missed.">		return isVariable() &amp;&amp; value.getTerm() != value;</span>
+	}
+
+	public final boolean isVariableNotBound() {
+<span class="pc bpc" id="L162" title="1 of 4 branches missed.">		return isVariable() &amp;&amp; value.getTerm() == value;</span>
+	}
+
 	public final PrologTerm getTerm() {
-<span class="fc" id="L158">		return toTerm(value.getTerm(), PrologTerm.class);</span>
+<span class="fc" id="L166">		return toTerm(value.getTerm(), PrologTerm.class);</span>
 	}
 
 	public final boolean unify(PrologTerm term) {
-<span class="fc" id="L162">		return value.match(fromTerm(term, Term.class));</span>
+<span class="fc" id="L170">		return value.match(fromTerm(term, Term.class));</span>
 	}
 
 	public final int compareTo(PrologTerm o) {
-<span class="fc" id="L166">		Term thisTerm = value;</span>
-<span class="fc" id="L167">		Term otherTerm = fromTerm(o, Term.class);</span>
-<span class="fc bfc" id="L168" title="All 4 branches covered.">		if (this == o || thisTerm.isEqual(otherTerm)) {</span>
-<span class="fc" id="L169">			return 0;</span>
-<span class="fc bfc" id="L170" title="All 2 branches covered.">		} else if (thisTerm.isGreater(otherTerm)) {</span>
-<span class="fc" id="L171">			return 1;</span>
+<span class="fc" id="L174">		Term thisTerm = value;</span>
+<span class="fc" id="L175">		Term otherTerm = fromTerm(o, Term.class);</span>
+<span class="fc bfc" id="L176" title="All 4 branches covered.">		if (this == o || thisTerm.isEqual(otherTerm)) {</span>
+<span class="fc" id="L177">			return 0;</span>
+<span class="fc bfc" id="L178" title="All 2 branches covered.">		} else if (thisTerm.isGreater(otherTerm)) {</span>
+<span class="fc" id="L179">			return 1;</span>
 		}
-<span class="fc" id="L173">		return -1;</span>
+<span class="fc" id="L181">		return -1;</span>
 	}
 
 	@Override
 	public final int hashCode() {
-<span class="fc" id="L178">		final int prime = 31;</span>
-<span class="fc" id="L179">		int result = 1;</span>
-<span class="fc" id="L180">		result = prime * result + type;</span>
+<span class="fc" id="L186">		final int prime = 31;</span>
+<span class="fc" id="L187">		int result = 1;</span>
+<span class="fc" id="L188">		result = prime * result + type;</span>
 		// Term not implement hashCode()
-<span class="pc bpc" id="L182" title="1 of 2 branches missed.">		result = prime * result + ((value == null) ? 0 : value.toString().hashCode());</span>
-<span class="fc" id="L183">		return result;</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">		result = prime * result + ((value == null) ? 0 : value.toString().hashCode());</span>
+<span class="fc" id="L191">		return result;</span>
 	}
 
 	@Override
 	public final boolean equals(Object obj) {
-<span class="fc bfc" id="L188" title="All 2 branches covered.">		if (this == obj)</span>
-<span class="fc" id="L189">			return true;</span>
-<span class="pc bpc" id="L190" title="1 of 2 branches missed.">		if (obj == null)</span>
-<span class="nc" id="L191">			return false;</span>
-<span class="pc bpc" id="L192" title="1 of 2 branches missed.">		if (!(obj instanceof TuPrologTerm))</span>
-<span class="nc" id="L193">			return false;</span>
-<span class="fc" id="L194">		TuPrologTerm other = (TuPrologTerm) obj;</span>
-<span class="pc bpc" id="L195" title="1 of 2 branches missed.">		if (value == null) {</span>
-<span class="nc bnc" id="L196" title="All 2 branches missed.">			if (other.value != null)</span>
-<span class="nc" id="L197">				return false;</span>
-<span class="fc bfc" id="L198" title="All 2 branches covered.">		} else if (value.toString().equals(other.value.toString())) {</span>
-<span class="fc" id="L199">			return true;</span>
-<span class="fc bfc" id="L200" title="All 2 branches covered.">		} else if (!value.unify(prolog, other.value)) {</span>
-<span class="fc" id="L201">			return false;</span>
+<span class="fc bfc" id="L196" title="All 2 branches covered.">		if (this == obj)</span>
+<span class="fc" id="L197">			return true;</span>
+<span class="pc bpc" id="L198" title="1 of 2 branches missed.">		if (obj == null)</span>
+<span class="nc" id="L199">			return false;</span>
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">		if (!(obj instanceof TuPrologTerm))</span>
+<span class="nc" id="L201">			return false;</span>
+<span class="fc" id="L202">		TuPrologTerm other = (TuPrologTerm) obj;</span>
+<span class="pc bpc" id="L203" title="1 of 2 branches missed.">		if (value == null) {</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">			if (other.value != null)</span>
+<span class="nc" id="L205">				return false;</span>
+<span class="fc bfc" id="L206" title="All 2 branches covered.">		} else if (value.toString().equals(other.value.toString())) {</span>
+<span class="fc" id="L207">			return true;</span>
+<span class="fc bfc" id="L208" title="All 2 branches covered.">		} else if (!value.unify(prolog, other.value)) {</span>
+<span class="fc" id="L209">			return false;</span>
 		}
-<span class="fc" id="L203">		return true;</span>
+<span class="fc" id="L211">		return true;</span>
 	}
 
 	@Override
 	public final String toString() {
-<span class="fc" id="L208">		return &quot;&quot; + value + &quot;&quot;;</span>
+<span class="fc" id="L216">		return &quot;&quot; + value + &quot;&quot;;</span>
 	}
 
 }

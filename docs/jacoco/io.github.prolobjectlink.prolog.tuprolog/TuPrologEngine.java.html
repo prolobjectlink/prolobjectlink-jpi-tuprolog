@@ -284,7 +284,7 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 	}
 
 	public PrologQuery query(PrologTerm[] terms) {
-<span class="nc" id="L287">		return new TuPrologQuery(this, terms);</span>
+<span class="fc" id="L287">		return new TuPrologQuery(this, terms);</span>
 	}
 
 	public PrologQuery query(PrologTerm term, PrologTerm... terms) {
@@ -424,10 +424,10 @@ public class TuPrologEngine extends AbstractEngine implements PrologEngine {
 
 	@Override
 	public int hashCode() {
-<span class="fc" id="L427">		final int prime = 31;</span>
-<span class="fc" id="L428">		int result = 1;</span>
-<span class="pc bpc" id="L429" title="1 of 2 branches missed.">		result = prime * result + ((engine == null) ? 0 : engine.hashCode());</span>
-<span class="fc" id="L430">		return result;</span>
+<span class="nc" id="L427">		final int prime = 31;</span>
+<span class="nc" id="L428">		int result = 1;</span>
+<span class="nc bnc" id="L429" title="All 2 branches missed.">		result = prime * result + ((engine == null) ? 0 : engine.hashCode());</span>
+<span class="nc" id="L430">		return result;</span>
 	}
 
 	@Override

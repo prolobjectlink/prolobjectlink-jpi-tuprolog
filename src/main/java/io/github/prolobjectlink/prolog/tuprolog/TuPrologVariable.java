@@ -23,6 +23,7 @@ package io.github.prolobjectlink.prolog.tuprolog;
 
 import static io.github.prolobjectlink.prolog.PrologTermType.VARIABLE_TYPE;
 
+import alice.tuprolog.Term;
 import alice.tuprolog.Var;
 import io.github.prolobjectlink.prolog.ArityError;
 import io.github.prolobjectlink.prolog.FunctorError;
@@ -35,7 +36,7 @@ import io.github.prolobjectlink.prolog.PrologVariable;
  * @author Jose Zalacain
  * @since 1.0
  */
-final class TuPrologVariable extends TuPrologTerm implements PrologVariable {
+class TuPrologVariable extends TuPrologTerm implements PrologVariable {
 
 	TuPrologVariable(PrologProvider provider) {
 		super(VARIABLE_TYPE, provider, new Var());
@@ -43,6 +44,18 @@ final class TuPrologVariable extends TuPrologTerm implements PrologVariable {
 
 	TuPrologVariable(PrologProvider provider, String name) {
 		super(VARIABLE_TYPE, provider, new Var(name));
+	}
+
+	TuPrologVariable(int type, PrologProvider provider) {
+		super(type, provider);
+	}
+
+	TuPrologVariable(int type, PrologProvider provider, String name) {
+		super(type, provider, new Var(name));
+	}
+
+	TuPrologVariable(int type, PrologProvider provider, Term var) {
+		super(type, provider, var);
 	}
 
 	public boolean isAnonymous() {

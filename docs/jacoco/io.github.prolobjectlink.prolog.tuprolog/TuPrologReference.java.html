@@ -44,38 +44,37 @@ public class TuPrologReference extends TuPrologTerm implements PrologReference {
 <span class="fc" id="L44">		super(OBJECT_TYPE, provider, set(reference));</span>
 <span class="fc" id="L45">	}</span>
 
-	@Override
 	public Class&lt;?&gt; getReferenceType() {
-<span class="nc" id="L49">		return getObject().getClass();</span>
+<span class="nc" id="L48">		return getObject().getClass();</span>
 	}
 
 	public int getArity() {
-<span class="fc" id="L53">		Struct object = (Struct) value;</span>
-<span class="fc" id="L54">		return object.getArity();</span>
+<span class="fc" id="L52">		Struct object = (Struct) value;</span>
+<span class="fc" id="L53">		return object.getArity();</span>
 	}
 
 	public String getFunctor() {
-<span class="fc" id="L58">		Struct object = (Struct) value;</span>
-<span class="fc" id="L59">		return object.getName();</span>
+<span class="fc" id="L57">		Struct object = (Struct) value;</span>
+<span class="fc" id="L58">		return object.getName();</span>
 	}
 
 	public PrologTerm[] getArguments() {
-<span class="fc" id="L63">		return new PrologTerm[0];</span>
+<span class="fc" id="L62">		return new PrologTerm[0];</span>
 	}
 
 	public Object getObject() {
-<span class="fc" id="L67">		return get((Struct) value);</span>
+<span class="fc" id="L66">		return get((Struct) value);</span>
 	}
 
 	static Struct set(Object reference) {
-<span class="fc" id="L71">		return OO_LIBRARY.register(reference);</span>
+<span class="fc" id="L70">		return OO_LIBRARY.register(reference);</span>
 	}
 
 	static Object get(Struct id) {
 		try {
-<span class="fc" id="L76">			return OO_LIBRARY.getRegisteredObject(id);</span>
-<span class="nc" id="L77">		} catch (InvalidObjectIdException e) {</span>
-<span class="nc" id="L78">			throw new PrologError(e.getMessage(), e);</span>
+<span class="fc" id="L75">			return OO_LIBRARY.getRegisteredObject(id);</span>
+<span class="nc" id="L76">		} catch (InvalidObjectIdException e) {</span>
+<span class="nc" id="L77">			throw new PrologError(e.getMessage(), e);</span>
 		}
 	}
 

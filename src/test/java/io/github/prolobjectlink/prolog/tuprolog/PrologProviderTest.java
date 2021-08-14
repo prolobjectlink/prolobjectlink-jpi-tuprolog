@@ -29,8 +29,8 @@ import static io.github.prolobjectlink.prolog.PrologTermType.STRUCTURE_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.VARIABLE_TYPE;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -44,8 +44,6 @@ import io.github.prolobjectlink.prolog.PrologList;
 import io.github.prolobjectlink.prolog.PrologStructure;
 import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologVariable;
-import io.github.prolobjectlink.prolog.tuprolog.TuProlog;
-import io.github.prolobjectlink.prolog.tuprolog.TuPrologConverter;
 
 public class PrologProviderTest extends PrologBaseTest {
 
@@ -107,8 +105,8 @@ public class PrologProviderTest extends PrologBaseTest {
 	}
 
 	@Test
-	public final void testIsCompilant() {
-		assertFalse(provider.isCompliant());
+	public final void testIsCompliant() {
+		assertTrue(provider.isCompliant());
 	}
 
 	@Test
