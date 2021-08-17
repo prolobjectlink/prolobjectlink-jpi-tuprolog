@@ -21,11 +21,11 @@
  */
 package io.github.prolobjectlink.prolog.tuprolog;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -643,6 +643,89 @@ public class PrologClassTest extends PrologBaseTest {
 	@Test
 	public void testMatch() {
 		assertFalse(cls.match(cls).isEmpty());
+	}
+
+	@Test(expected = NoSuchFieldError.class)
+	public void testFindField() {
+		assertEquals(provider.newField(x, PrologType.ATOM), cls.findField("X"));
+		// raise an exception because Var is not declare
+		assertEquals(provider.newField(x, PrologType.ATOM), cls.findField("Var"));
+	}
+
+	@Test
+	public void testFindConstructor() {
+		assertArrayEquals(new PrologClause[] { emptyConstructor },
+				cls.findConstructor(cls.getName(), emptyConstructor.getArguments()));
+		assertArrayEquals(new PrologClause[] { fullConstructor },
+				cls.findConstructor(cls.getName(), fullConstructor.getArguments()));
+	}
+
+	@Test
+	public void testNewInstance() {
+		PrologTerm nil = provider.prologNil();
+		PrologTerm obj = provider.newStructure(cls.getName(), nil, nil, nil);
+		assertEquals(obj, cls.newInstance());
+	}
+
+	@Test
+	public void testIsInstance() {
+		PrologTerm nil = provider.prologNil();
+		PrologTerm obj = provider.newStructure(cls.getName(), nil, nil, nil);
+		assertFalse(cls.isInstance(nil));
+		assertTrue(cls.isInstance(obj));
+	}
+
+	@Test
+	public void testFindMethodsPrologTermArray() {
+
+		assertArrayEquals(new PrologClause[] { m }, cls.findMethod(m.getFunctor(), m.getArguments()));
+
+		assertArrayEquals(new PrologClause[] { fuzzy_metrics_1, fuzzy_metrics_2, fuzzy_metrics_3 },
+				cls.findMethod(fuzzy_metrics_1.getFunctor(), fuzzy_metrics_1.getArguments()));
+
+		assertArrayEquals(new PrologClause[] { fuzzy_metrics_1, fuzzy_metrics_2, fuzzy_metrics_3 },
+				cls.findMethod(fuzzy_metrics_2.getFunctor(), fuzzy_metrics_2.getArguments()));
+
+		assertArrayEquals(new PrologClause[] { fuzzy_metrics_1, fuzzy_metrics_2, fuzzy_metrics_3 },
+				cls.findMethod(fuzzy_metrics_3.getFunctor(), fuzzy_metrics_3.getArguments()));
+
+	}
+
+	@Test
+	public void testFindMethodsPrologTermPrologTermArray() {
+
+		// NOTE the resulting methods depends of equals criteria
+		// if equals use unify e.g. a result V is equals to result 1.0
+		assertArrayEquals(new PrologClause[] { fuzzy_metrics_1, fuzzy_metrics_3 }, cls
+				.findMethod(fuzzy_metrics_1.getFunctor(), fuzzy_metrics_1.getResult(), fuzzy_metrics_1.getArguments()));
+
+		// NOTE in a normal context this call return fuzzy_metrics_2, fuzzy_metrics_3
+		// but fuzzy_metrics_3 unify with fuzzy_metrics_1 in before call
+		assertArrayEquals(new PrologClause[] { fuzzy_metrics_2 }, cls.findMethod(fuzzy_metrics_2.getFunctor(),
+				fuzzy_metrics_2.getResult(), fuzzy_metrics_2.getArguments()));
+
+//		assertArrayEquals(new PrologClause[] { fuzzy_metrics_2, fuzzy_metrics_3 }, cls
+//				.findMethod(fuzzy_metrics_2.getFunctor(), fuzzy_metrics_2.getResult(), fuzzy_metrics_2.getArguments()));
+
+		assertArrayEquals(new PrologClause[] { fuzzy_metrics_1, fuzzy_metrics_3 }, cls
+				.findMethod(fuzzy_metrics_3.getFunctor(), fuzzy_metrics_3.getResult(), fuzzy_metrics_3.getArguments()));
+	}
+
+	@Test
+	public void testFindAncestors() {
+		assertEquals(interfacce, cls.findAncestor(interfacce.getName()));
+		assertEquals(mixin, cls.findAncestor(mixin.getName()));
+	}
+
+	@Test
+	public void testFindNesteds() {
+		assertEquals(interfacce, cls.findNestedClass(interfacce.getName()));
+		assertEquals(mixin, cls.findNestedClass(mixin.getName()));
+	}
+
+	@Test
+	public void testToPath() {
+		assertEquals("com/acme/HelloWorld", cls.toPath());
 	}
 
 }

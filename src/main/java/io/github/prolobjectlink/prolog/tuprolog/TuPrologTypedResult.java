@@ -54,11 +54,6 @@ public class TuPrologTypedResult extends TuPrologResult implements PrologTypedRe
 	}
 
 	@Override
-	public PrologTerm[] getArguments() {
-		return new PrologTerm[] { getKey(), getValue() };
-	}
-
-	@Override
 	public PrologTerm getKey() {
 		return getNameTerm();
 	}
@@ -82,6 +77,15 @@ public class TuPrologTypedResult extends TuPrologResult implements PrologTypedRe
 	public String getKind() {
 		PrologVariable v = (PrologVariable) kind;
 		return v.getName();
+	}
+
+	@Override
+	public String toString() {
+		String name = getName();
+		String tag = getFunctor();
+		PrologVariable v = kind.cast();
+		String type = v.getName();
+		return name + tag + type;
 	}
 
 }

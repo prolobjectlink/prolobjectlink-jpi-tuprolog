@@ -32,11 +32,12 @@ import org.junit.Test;
 
 import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologTermType;
+import io.github.prolobjectlink.prolog.PrologType;
 import io.github.prolobjectlink.prolog.PrologTypedField;
 
 public class PrologTypedFieldTest extends PrologBaseTest {
 
-	PrologTypedField field = provider.newField(x, provider.newAtom("atom")).cast();
+	PrologTypedField field = provider.newField(x, PrologType.ATOM).cast();
 
 	@Before
 	public void setUp() throws Exception {
@@ -78,7 +79,7 @@ public class PrologTypedFieldTest extends PrologBaseTest {
 
 	@Test
 	public void testGetArguments() {
-		assertArrayEquals(new PrologTerm[] { x, provider.newAtom("atom") }, field.getArguments());
+		assertArrayEquals(new PrologTerm[] {}, field.getArguments());
 	}
 
 	@Test
@@ -113,7 +114,7 @@ public class PrologTypedFieldTest extends PrologBaseTest {
 
 	@Test
 	public void testGetKind() {
-		assertEquals("atom", field.getKind());
+		assertEquals("ATOM", field.getKind());
 	}
 
 	@Test
@@ -123,7 +124,7 @@ public class PrologTypedFieldTest extends PrologBaseTest {
 
 	@Test
 	public void testToString() {
-		assertEquals("X", field.toString());
+		assertEquals("X-ATOM", field.toString());
 	}
 
 	@Test
@@ -221,7 +222,7 @@ public class PrologTypedFieldTest extends PrologBaseTest {
 		assertTrue(field.unify(field));
 	}
 
-	@Test
+	@Test(expected = ArrayIndexOutOfBoundsException.class)
 	public void testGetArgument() {
 		assertEquals(x, field.getArgument(0));
 		assertEquals(provider.newAtom("atom"), field.getArgument(1));

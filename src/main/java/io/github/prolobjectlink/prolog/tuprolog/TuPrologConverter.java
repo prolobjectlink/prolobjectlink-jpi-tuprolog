@@ -22,24 +22,26 @@
 package io.github.prolobjectlink.prolog.tuprolog;
 
 import static io.github.prolobjectlink.prolog.PrologTermType.ATOM_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.CLASS_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.CUT_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.DOUBLE_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.FAIL_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.FALSE_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.FIELD_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.FLOAT_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.INTEGER_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.LIST_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.LONG_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.MAP_ENTRY_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.MAP_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.MIXIN_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.NIL_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.OBJECT_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.PARAMETER_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.RESULT_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.STRUCTURE_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.TRUE_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.VARIABLE_TYPE;
-import static io.github.prolobjectlink.prolog.PrologTermType.FIELD_TYPE;
-import static io.github.prolobjectlink.prolog.PrologTermType.PARAMETER_TYPE;
-import static io.github.prolobjectlink.prolog.PrologTermType.RESULT_TYPE;
 
 import java.util.Iterator;
 
@@ -200,6 +202,11 @@ final class TuPrologConverter extends AbstractConverter<Term> implements PrologC
 		case FIELD_TYPE:
 			name = ((PrologField) term).getName();
 			return new Var(name);
+		case MIXIN_TYPE:
+		case CLASS_TYPE:
+			functor = removeQuoted(term.getFunctor());
+			arguments = fromTermArray(term.getArguments());
+			return new Struct(functor, arguments);
 		default:
 			throw new UnknownTermError(term);
 		}

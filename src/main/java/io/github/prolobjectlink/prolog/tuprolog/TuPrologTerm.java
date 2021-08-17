@@ -182,7 +182,7 @@ abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + type;
@@ -192,7 +192,7 @@ abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 	}
 
 	@Override
-	public final boolean equals(Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -212,7 +212,7 @@ abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 	}
 
 	@Override
-	public final String toString() {
+	public String toString() {
 		return "" + value + "";
 	}
 

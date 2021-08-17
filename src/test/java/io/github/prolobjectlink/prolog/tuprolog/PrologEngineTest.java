@@ -24,9 +24,16 @@ package io.github.prolobjectlink.prolog.tuprolog;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -53,11 +60,10 @@ import io.github.prolobjectlink.prolog.PrologQuery;
 import io.github.prolobjectlink.prolog.PrologStructure;
 import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologVariable;
-import io.github.prolobjectlink.prolog.tuprolog.TuPrologIndicator;
-import io.github.prolobjectlink.prolog.tuprolog.TuPrologOperator;
 
 public class PrologEngineTest extends PrologBaseTest {
 
+	private ParentMapping parentMapping = new ParentMapping();
 	private PrologEngine engine;
 	private PrologQuery query;
 
@@ -1400,6 +1406,521 @@ public class PrologEngineTest extends PrologBaseTest {
 	public final void testHashCode() {
 		// assertEquals(provider.newEngine().hashCode(), engine.hashCode())
 		assertTrue(engine.hashCode() > 0);
+	}
+
+	////////////////////////////////////////////////////////////////////////
+	// This are test for version 1.1
+	///////////////////////////////////////////////////////////////////////
+
+	@Test
+	public void testRegister() {
+
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+
+		assertEquals(parentMapping, engine.get(Parent.class));
+		assertTrue(engine.containsKey(Parent.class));
+		assertTrue(engine.containsValue(parentMapping));
+
+		engine.unregister(parentMapping);
+		engine.dispose();
+
+	}
+
+	@Test
+	public void testGetTermPrologableOfQ() {
+		assertEquals(provider.newStructure("parent", name, provider.newVariable("Child", 1)),
+				engine.getTerm(parentMapping));
+	}
+
+	@Test
+	public void testGetTermPrologableOfQO() {
+		System.out.println(engine.getTerm(parentMapping, new Parent()));
+	}
+
+	@Test
+	public void testUnregister() {
+
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+
+		assertEquals(parentMapping, engine.get(Parent.class));
+		assertTrue(engine.containsKey(Parent.class));
+		assertTrue(engine.containsValue(parentMapping));
+
+		engine.unregister(parentMapping);
+
+		assertNull(engine.get(Parent.class));
+		assertFalse(engine.containsKey(Parent.class));
+		assertFalse(engine.containsValue(parentMapping));
+
+		engine.dispose();
+
+	}
+
+	@Test
+	public void testRunOnWindows() {
+		assertTrue(engine.runOnWindows() == engine.getOSName().startsWith("Windows"));
+	}
+
+	@Test
+	public void testRunOnLinux() {
+		assertTrue(engine.runOnLinux() == engine.getOSName().startsWith("Linux"));
+	}
+
+	@Test
+	public void testRunOnOSX() {
+		assertTrue(
+				engine.runOnLinux() == (engine.getOSName().equals("Mac OS X") || engine.getOSName().equals("Darwin")));
+	}
+
+	@Test
+	public void testGetOSName() {
+		assertEquals(System.getProperty("os.name"), engine.getOSName());
+	}
+
+	@Test
+	public void testGetOSArch() {
+		assertEquals(System.getProperty("os.arch"), engine.getOSArch());
+	}
+
+	@Test
+	public void testConsultReader() throws FileNotFoundException {
+
+		engine = provider.newEngine();
+		engine.consult(new FileReader("family.pl"));
+		assertFalse(engine.isProgramEmpty());
+		assertEquals(21, engine.getProgramSize());
+		engine.dispose();
+
+		engine = provider.newEngine();
+		engine.consult(new FileReader("company.pl"));
+		assertFalse(engine.isProgramEmpty());
+		assertEquals(21, engine.getProgramSize());
+		engine.dispose();
+
+		engine = provider.newEngine();
+		engine.consult(new FileReader("zoo.pl"));
+		assertFalse(engine.isProgramEmpty());
+		assertEquals(8, engine.getProgramSize());
+		engine.dispose();
+
+	}
+
+	@Test
+	public void testIncludeReader() throws FileNotFoundException {
+
+		engine.include(new FileReader("family.pl"));
+		assertFalse(engine.isProgramEmpty());
+		assertEquals(21, engine.getProgramSize());
+		engine.include(new FileReader("company.pl"));
+		assertFalse(engine.isProgramEmpty());
+		assertEquals(42, engine.getProgramSize());
+		engine.include(new FileReader("zoo.pl"));
+		assertFalse(engine.isProgramEmpty());
+		assertEquals(50, engine.getProgramSize());
+
+	}
+
+	@Test
+	@Ignore
+	public void testPersistWriter() throws IOException {
+
+		// Family save test case
+		engine = provider.newEngine();
+
+		engine.assertz(provider.newStructure(parent, pam, bob));
+		engine.assertz(provider.newStructure(parent, tom, bob));
+		engine.assertz(provider.newStructure(parent, tom, liz));
+		engine.assertz(provider.newStructure(parent, bob, ann));
+		engine.assertz(provider.newStructure(parent, bob, pat));
+		engine.assertz(provider.newStructure(parent, pat, jim));
+
+		engine.assertz(provider.newStructure(female, pam));
+		engine.assertz(provider.newStructure(male, tom));
+		engine.assertz(provider.newStructure(male, bob));
+		engine.assertz(provider.newStructure(female, liz));
+		engine.assertz(provider.newStructure(female, ann));
+		engine.assertz(provider.newStructure(female, pat));
+		engine.assertz(provider.newStructure(male, jim));
+
+		x = provider.newVariable("X", 0);
+		y = provider.newVariable("Y", 1);
+		z = provider.newVariable("Z", 2);
+		engine.assertz(provider.newStructure(offspring, x, y), provider.newStructure(parent, x, y));
+
+		x = provider.newVariable("X", 0);
+		y = provider.newVariable("Y", 1);
+		engine.assertz(provider.newStructure(mother, x, y), provider.newStructure(parent, x, y),
+				provider.newStructure(female, x));
+
+		x = provider.newVariable("X", 0);
+		y = provider.newVariable("Y", 1);
+		z = provider.newVariable("Z", 2);
+		engine.assertz(provider.newStructure(grandparent, x, z), provider.newStructure(parent, x, y),
+				provider.newStructure(parent, y, z));
+
+		x = provider.newVariable("X", 0);
+		y = provider.newVariable("Y", 1);
+		z = provider.newVariable("Z", 2);
+
+		engine.assertz(provider.newStructure(sister, x, y), provider.newStructure(parent, z, x),
+				provider.newStructure(parent, z, y), provider.newStructure(female, x),
+				provider.newStructure(different, x, y));
+
+		x = provider.newVariable("X", 0);
+		engine.assertz(provider.newStructure(different, x, x), provider.prologCut(), provider.prologFail());
+
+		x = provider.newVariable("X", 0);
+		y = provider.newVariable("Y", 1);
+		engine.assertz(provider.newStructure(different, x, y));
+
+		x = provider.newVariable("X", 0);
+		y = provider.newVariable("Y", 1);
+		z = provider.newVariable("Z", 2);
+		engine.assertz(provider.newStructure(predecessor, x, z), provider.newStructure(parent, x, z));
+
+		x = provider.newVariable("X", 0);
+		y = provider.newVariable("Y", 1);
+		z = provider.newVariable("Z", 2);
+		engine.assertz(provider.newStructure(predecessor, x, z), provider.newStructure(parent, x, y),
+				provider.newStructure(predecessor, y, z));
+
+		Writer writer = new FileWriter("family.pl");
+		engine.persist(writer);
+		writer.flush();
+		writer.close();
+
+		// Physic existence test
+		File file = new File("family.pl");
+		assertTrue(file.exists());
+		assertTrue(file.length() > 0);
+
+		// Logical program saved
+		engine.consult("family.pl");
+		assertFalse(engine.isProgramEmpty());
+		assertEquals(21, engine.getProgramSize());
+		engine.dispose();
+
+		// Company save test case
+		engine = provider.newEngine();
+
+		// employee relationship
+		engine.assertz(provider.newStructure(employee, mcardon, one, five));
+		engine.assertz(provider.newStructure(employee, treeman, two, three));
+		engine.assertz(provider.newStructure(employee, chapman, one, two));
+		engine.assertz(provider.newStructure(employee, claessen, four, one));
+		engine.assertz(provider.newStructure(employee, petersen, five, eight));
+		engine.assertz(provider.newStructure(employee, cohn, one, seven));
+		engine.assertz(provider.newStructure(employee, duffy, one, nine));
+
+		// department relationship
+		engine.assertz(provider.newStructure(department, one, board));
+		engine.assertz(provider.newStructure(department, two, human_resources));
+		engine.assertz(provider.newStructure(department, three, production));
+		engine.assertz(provider.newStructure(department, four, technical_services));
+		engine.assertz(provider.newStructure(department, five, administration));
+
+		// salary relationship
+		engine.assertz(provider.newStructure(salary, one, thousand));
+		engine.assertz(provider.newStructure(salary, two, thousandFiveHundred));
+		engine.assertz(provider.newStructure(salary, three, twoThousand));
+		engine.assertz(provider.newStructure(salary, four, twoThousandFiveHundred));
+		engine.assertz(provider.newStructure(salary, five, threeThousand));
+		engine.assertz(provider.newStructure(salary, six, threeThousandFiveHundred));
+		engine.assertz(provider.newStructure(salary, seven, fourThousand));
+		engine.assertz(provider.newStructure(salary, eight, fourThousandFiveHundred));
+		engine.assertz(provider.newStructure(salary, nine, fiveThousand));
+
+		writer = new FileWriter("company.pl");
+		engine.persist(writer);
+		writer.flush();
+		writer.close();
+
+		// Physic existence test
+		file = new File("company.pl");
+		assertTrue(file.exists());
+		assertTrue(file.length() > 0);
+
+		// Logical program saved
+		engine.consult("company.pl");
+		assertFalse(engine.isProgramEmpty());
+		assertEquals(21, engine.getProgramSize());
+		engine.dispose();
+
+		// Zoo save test case
+		engine = provider.newEngine();
+
+		engine.assertz(provider.newStructure("big", bear));
+		engine.assertz(provider.newStructure("big", elephant));
+		engine.assertz(provider.newStructure("small", cat));
+		engine.assertz(provider.newStructure("brown", bear));
+		engine.assertz(provider.newStructure("black", cat));
+		engine.assertz(provider.newStructure("gray", elephant));
+
+		// dark rules
+		z = provider.newVariable("Z", 0);
+		engine.assertz(provider.newStructure("dark", z), provider.newStructure("black", z));
+
+		z = provider.newVariable("Z", 0);
+		engine.assertz(provider.newStructure("dark", z), provider.newStructure("brown", z));
+
+		writer = new FileWriter("zoo.pl");
+		engine.persist(writer);
+		writer.flush();
+		writer.close();
+
+		// Physic existence test
+		file = new File("zoo.pl");
+		assertTrue(file.exists());
+		assertTrue(file.length() > 0);
+
+		// Logical program saved
+		engine.consult("zoo.pl");
+		assertFalse(engine.isProgramEmpty());
+		assertEquals(8, engine.getProgramSize());
+		engine.dispose();
+
+	}
+
+	@Test
+	public void testAbolishClassOfQ() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAssertaO() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAssertaClassOfQ() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAssertaOOArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAssertaClassOfQClassOfQArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAssertzO() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAssertzClassOfQ() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAssertzOOArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAssertzClassOfQClassOfQArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testClauseO() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testClauseClassOfQ() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testClauseOOArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRetractO() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRetractClassOfQ() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRetractOOArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRetractClassOfQClassOfQArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testUnifyClassOfQClassOfQ() {
+		assertTrue(engine.unify(String.class, String.class));
+		assertTrue(engine.unify(Integer.class, Integer.class));
+		assertTrue(engine.unify(Double.class, Double.class));
+	}
+
+	@Test
+	public void testUnifyObjectObject() {
+		assertTrue(engine.unify("a", "a"));
+		assertTrue(engine.unify(100, 100));
+		assertTrue(engine.unify(3.14, 3.14));
+	}
+
+	@Test
+	public void testContainsO() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testContainsClassOfQ() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testContainsOOArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testContainsClassOfQClassOfQArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryO() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryClassOfQ() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryOOArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryClassOfQClassOfQArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryOneO() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryOneClassOfQ() {
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		engine.consult("family.pl");
+
+		famillySolutionMap.put("Name", pam);
+		famillySolutionMap.put("Child", bob);
+
+		solutionMap = engine.queryOne(Parent.class);
+		assertEquals(famillySolutionMap, solutionMap);
+		engine.dispose();
+	}
+
+	@Test
+	public void testQueryOneOOArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryOneClassOfQClassOfQArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryNIntO() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryNIntClassOfQ() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryNIntOOArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryNIntClassOfQClassOfQArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryAllO() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryAllClassOfQ() {
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		engine.consult("family.pl");
+
+		List<Map<String, PrologTerm>> famillyAll = new ArrayList<Map<String, PrologTerm>>(6);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", pam);
+		solutionMap.put("Child", bob);
+		famillyAll.add(0, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", tom);
+		solutionMap.put("Child", bob);
+		famillyAll.add(1, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", tom);
+		solutionMap.put("Child", liz);
+		famillyAll.add(2, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", bob);
+		solutionMap.put("Child", ann);
+		famillyAll.add(3, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", bob);
+		solutionMap.put("Child", pat);
+		famillyAll.add(4, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", pat);
+		solutionMap.put("Child", jim);
+		famillyAll.add(5, solutionMap);
+
+		List<Map<String, PrologTerm>> allSolutionMap = engine.queryAll(Parent.class);
+		assertEquals(famillyAll, allSolutionMap);
+		engine.dispose();
+	}
+
+	@Test
+	public void testQueryAllOOArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testQueryAllClassOfQClassOfQArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetVendor() {
+		assertEquals("tuProlog", engine.getVendor());
 	}
 
 }

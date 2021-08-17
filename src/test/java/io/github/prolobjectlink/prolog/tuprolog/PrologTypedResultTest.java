@@ -79,7 +79,7 @@ public class PrologTypedResultTest extends PrologBaseTest {
 
 	@Test
 	public void testGetArguments() {
-		assertArrayEquals(new PrologTerm[] { x, PrologType.ATOM }, result.getArguments());
+		assertArrayEquals(new PrologTerm[] {}, result.getArguments());
 	}
 
 	@Test
@@ -124,7 +124,7 @@ public class PrologTypedResultTest extends PrologBaseTest {
 
 	@Test
 	public void testToString() {
-		assertEquals("X", result.toString());
+		assertEquals("X-ATOM", result.toString());
 	}
 
 	@Test
@@ -222,7 +222,7 @@ public class PrologTypedResultTest extends PrologBaseTest {
 		assertTrue(result.unify(result));
 	}
 
-	@Test
+	@Test(expected=ArrayIndexOutOfBoundsException.class)
 	public void testGetArgument() {
 		assertEquals(x, result.getArgument(0));
 		assertEquals(PrologType.ATOM, result.getArgument(1));

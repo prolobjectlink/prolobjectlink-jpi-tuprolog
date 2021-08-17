@@ -24,6 +24,7 @@ package io.github.prolobjectlink.prolog.tuprolog;
 import io.github.prolobjectlink.prolog.PrologProvider;
 import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologTypedField;
+import io.github.prolobjectlink.prolog.PrologVariable;
 
 public class TuPrologTypedField extends TuPrologField implements PrologTypedField {
 
@@ -53,11 +54,6 @@ public class TuPrologTypedField extends TuPrologField implements PrologTypedFiel
 	}
 
 	@Override
-	public PrologTerm[] getArguments() {
-		return new PrologTerm[] { getKey(), getValue() };
-	}
-
-	@Override
 	public PrologTerm getKey() {
 		return getNameTerm();
 	}
@@ -79,7 +75,17 @@ public class TuPrologTypedField extends TuPrologField implements PrologTypedFiel
 	}
 
 	public String getKind() {
-		return kind.getFunctor();
+		PrologVariable v = kind.cast();
+		return v.getName();
+	}
+
+	@Override
+	public String toString() {
+		String name = getName();
+		String tag = getFunctor();
+		PrologVariable v = kind.cast();
+		String type = v.getName();
+		return name + tag + type;
 	}
 
 }
