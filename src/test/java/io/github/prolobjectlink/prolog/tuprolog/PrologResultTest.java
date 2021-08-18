@@ -68,12 +68,12 @@ public class PrologResultTest extends PrologBaseTest {
 		assertFalse(result.isEmptyList());
 	}
 
-	@Test(expected = ArityError.class)
+	@Test
 	public void testGetArity() {
 		assertEquals(2, result.getArity());
 	}
 
-	@Test(expected = FunctorError.class)
+	@Test
 	public void testGetFunctor() {
 		assertEquals("-", result.getFunctor());
 	}
@@ -100,7 +100,7 @@ public class PrologResultTest extends PrologBaseTest {
 
 	@Test
 	public void testToString() {
-		assertEquals("X", result.toString());
+		assertEquals("X-TERM", result.toString());
 	}
 
 	@Test
@@ -203,12 +203,12 @@ public class PrologResultTest extends PrologBaseTest {
 		assertEquals(x, result.getArgument(0));
 	}
 
-	@Test(expected = FunctorError.class)
+	@Test
 	public void testGetIndicator() {
 		assertEquals("-/2", result.getIndicator());
 	}
 
-	@Test(expected = FunctorError.class)
+	@Test
 	public void testHasIndicator() {
 		assertTrue(result.hasIndicator("-", 2));
 	}

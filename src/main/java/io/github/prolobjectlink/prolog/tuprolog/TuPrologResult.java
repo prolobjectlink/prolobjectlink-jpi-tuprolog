@@ -28,7 +28,7 @@ import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologTermType;
 import io.github.prolobjectlink.prolog.PrologVariable;
 
-public class TuPrologResult extends TuPrologVariable implements PrologResult {
+abstract class TuPrologResult extends TuPrologVariable implements PrologResult {
 
 	TuPrologResult(PrologProvider provider, String name) {
 		super(PrologTermType.RESULT_TYPE, provider, name);

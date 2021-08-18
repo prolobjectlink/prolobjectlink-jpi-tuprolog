@@ -1408,56 +1408,6 @@ public class PrologEngineTest extends PrologBaseTest {
 		assertTrue(engine.hashCode() > 0);
 	}
 
-	////////////////////////////////////////////////////////////////////////
-	// This are test for version 1.1
-	///////////////////////////////////////////////////////////////////////
-
-	@Test
-	public void testRegister() {
-
-		PrologEngine engine = provider.newEngine();
-		engine.register(parentMapping);
-
-		assertEquals(parentMapping, engine.get(Parent.class));
-		assertTrue(engine.containsKey(Parent.class));
-		assertTrue(engine.containsValue(parentMapping));
-
-		engine.unregister(parentMapping);
-		engine.dispose();
-
-	}
-
-	@Test
-	public void testGetTermPrologableOfQ() {
-		assertEquals(provider.newStructure("parent", name, provider.newVariable("Child", 1)),
-				engine.getTerm(parentMapping));
-	}
-
-	@Test
-	public void testGetTermPrologableOfQO() {
-		System.out.println(engine.getTerm(parentMapping, new Parent()));
-	}
-
-	@Test
-	public void testUnregister() {
-
-		PrologEngine engine = provider.newEngine();
-		engine.register(parentMapping);
-
-		assertEquals(parentMapping, engine.get(Parent.class));
-		assertTrue(engine.containsKey(Parent.class));
-		assertTrue(engine.containsValue(parentMapping));
-
-		engine.unregister(parentMapping);
-
-		assertNull(engine.get(Parent.class));
-		assertFalse(engine.containsKey(Parent.class));
-		assertFalse(engine.containsValue(parentMapping));
-
-		engine.dispose();
-
-	}
-
 	@Test
 	public void testRunOnWindows() {
 		assertTrue(engine.runOnWindows() == engine.getOSName().startsWith("Windows"));
@@ -1683,6 +1633,56 @@ public class PrologEngineTest extends PrologBaseTest {
 
 	}
 
+	////////////////////////////////////////////////////////////////////////
+	// This are test for version 1.1
+	////////////////////////////////////////////////////////////////////////
+
+	@Test
+	public void testRegister() {
+
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+
+		assertEquals(parentMapping, engine.get(Parent.class));
+		assertTrue(engine.containsKey(Parent.class));
+		assertTrue(engine.containsValue(parentMapping));
+
+		engine.unregister(parentMapping);
+		engine.dispose();
+
+	}
+
+	@Test
+	public void testGetTermPrologableOfQ() {
+		assertEquals(provider.newStructure("parent", name, provider.newVariable("Child", 1)),
+				engine.getTerm(parentMapping));
+	}
+
+	@Test
+	public void testGetTermPrologableOfQO() {
+		System.out.println(engine.getTerm(parentMapping, new Parent()));
+	}
+
+	@Test
+	public void testUnregister() {
+
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+
+		assertEquals(parentMapping, engine.get(Parent.class));
+		assertTrue(engine.containsKey(Parent.class));
+		assertTrue(engine.containsValue(parentMapping));
+
+		engine.unregister(parentMapping);
+
+		assertNull(engine.get(Parent.class));
+		assertFalse(engine.containsKey(Parent.class));
+		assertFalse(engine.containsValue(parentMapping));
+
+		engine.dispose();
+
+	}
+
 	@Test
 	public void testAbolishClassOfQ() {
 		fail("Not yet implemented");
@@ -1819,7 +1819,16 @@ public class PrologEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testQueryOneO() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		engine.consult("family.pl");
+
+		famillySolutionMap.put("Name", pam);
+		famillySolutionMap.put("Child", bob);
+
+		solutionMap = engine.queryOne(new Parent());
+		assertEquals(famillySolutionMap, solutionMap);
+		engine.dispose();
 	}
 
 	@Test
@@ -1848,12 +1857,76 @@ public class PrologEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testQueryNIntO() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		engine.consult("family.pl");
+
+		List<Map<String, PrologTerm>> famillyAll = new ArrayList<Map<String, PrologTerm>>(6);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", pam);
+		solutionMap.put("Child", bob);
+		famillyAll.add(0, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", tom);
+		solutionMap.put("Child", bob);
+		famillyAll.add(1, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", tom);
+		solutionMap.put("Child", liz);
+		famillyAll.add(2, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", bob);
+		solutionMap.put("Child", ann);
+		famillyAll.add(3, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", bob);
+		solutionMap.put("Child", pat);
+		famillyAll.add(4, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", pat);
+		solutionMap.put("Child", jim);
+		famillyAll.add(5, solutionMap);
+
+		List<Map<String, PrologTerm>> allSolutionMap = engine.queryN(6, new Parent());
+		assertEquals(famillyAll, allSolutionMap);
+		engine.dispose();
 	}
 
 	@Test
 	public void testQueryNIntClassOfQ() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		engine.consult("family.pl");
+
+		List<Map<String, PrologTerm>> famillyAll = new ArrayList<Map<String, PrologTerm>>(6);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", pam);
+		solutionMap.put("Child", bob);
+		famillyAll.add(0, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", tom);
+		solutionMap.put("Child", bob);
+		famillyAll.add(1, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", tom);
+		solutionMap.put("Child", liz);
+		famillyAll.add(2, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", bob);
+		solutionMap.put("Child", ann);
+		famillyAll.add(3, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", bob);
+		solutionMap.put("Child", pat);
+		famillyAll.add(4, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", pat);
+		solutionMap.put("Child", jim);
+		famillyAll.add(5, solutionMap);
+
+		List<Map<String, PrologTerm>> allSolutionMap = engine.queryN(6, Parent.class);
+		assertEquals(famillyAll, allSolutionMap);
+		engine.dispose();
 	}
 
 	@Test
@@ -1868,7 +1941,41 @@ public class PrologEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testQueryAllO() {
-		fail("Not yet implemented");
+
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		engine.consult("family.pl");
+
+		List<Map<String, PrologTerm>> famillyAll = new ArrayList<Map<String, PrologTerm>>(6);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", pam);
+		solutionMap.put("Child", bob);
+		famillyAll.add(0, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", tom);
+		solutionMap.put("Child", bob);
+		famillyAll.add(1, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", tom);
+		solutionMap.put("Child", liz);
+		famillyAll.add(2, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", bob);
+		solutionMap.put("Child", ann);
+		famillyAll.add(3, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", bob);
+		solutionMap.put("Child", pat);
+		famillyAll.add(4, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", pat);
+		solutionMap.put("Child", jim);
+		famillyAll.add(5, solutionMap);
+
+		List<Map<String, PrologTerm>> allSolutionMap = engine.queryAll(new Parent());
+		assertEquals(famillyAll, allSolutionMap);
+		engine.dispose();
+
 	}
 
 	@Test

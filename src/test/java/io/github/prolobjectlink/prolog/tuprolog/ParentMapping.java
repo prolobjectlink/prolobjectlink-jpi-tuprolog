@@ -41,6 +41,17 @@ public class ParentMapping implements Prologable<Parent> {
 			Parent p = (Parent) o;
 			String name = p.getParent();
 			String child = p.getChild();
+			PrologTerm x = provider.newVariable("Name", 0);
+			PrologTerm y = provider.newVariable("Child", 1);
+			if (name == null && child != null) {
+				return provider.newStructure("parent", x, child);
+			}
+			if (name != null && child == null) {
+				return provider.newStructure("parent", name, y);
+			}
+			if (name == null && child == null) {
+				return provider.newStructure("parent", x, y);
+			}
 			return provider.newStructure("parent", name, child);
 		}
 		return provider.prologNil();

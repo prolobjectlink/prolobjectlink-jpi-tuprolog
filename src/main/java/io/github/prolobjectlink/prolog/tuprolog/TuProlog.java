@@ -43,6 +43,7 @@ import io.github.prolobjectlink.prolog.PrologLong;
 import io.github.prolobjectlink.prolog.PrologProvider;
 import io.github.prolobjectlink.prolog.PrologStructure;
 import io.github.prolobjectlink.prolog.PrologTerm;
+import io.github.prolobjectlink.prolog.PrologType;
 import io.github.prolobjectlink.prolog.PrologVariable;
 
 /**
@@ -229,11 +230,11 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 	}
 
 	public PrologTerm newField(PrologTerm name) {
-		return new TuPrologField(this, name);
+		return new TuPrologTypedField(this, name, PrologType.TERM);
 	}
 
 	public PrologTerm newField(String name) {
-		return new TuPrologField(this, name);
+		return new TuPrologTypedField(this, name, PrologType.TERM);
 	}
 
 	public PrologTerm newField(PrologTerm name, PrologTerm type) {
@@ -241,17 +242,15 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 	}
 
 	public PrologTerm newField(String name, String type) {
-		PrologTerm oname = newVariable(name, 0);
-		PrologTerm otype = newVariable(type, 1);
-		return new TuPrologTypedField(this, oname, otype);
+		return new TuPrologTypedField(this, name, type);
 	}
 
 	public PrologTerm newResult(PrologTerm name) {
-		return new TuPrologResult(this, name);
+		return new TuPrologTypedResult(this, name, PrologType.TERM);
 	}
 
 	public PrologTerm newResult(String name) {
-		return new TuPrologResult(this, name);
+		return new TuPrologTypedResult(this, name, PrologType.TERM);
 	}
 
 	public PrologTerm newResult(PrologTerm name, PrologTerm type) {
@@ -259,17 +258,15 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 	}
 
 	public PrologTerm newResult(String name, String type) {
-		PrologTerm oname = newVariable(name, 0);
-		PrologTerm otype = newVariable(type, 1);
-		return new TuPrologTypedResult(this, oname, otype);
+		return new TuPrologTypedResult(this, name, type);
 	}
 
 	public PrologTerm newParameter(PrologTerm name) {
-		return new TuPrologParameter(this, name);
+		return new TuPrologTypedParameter(this, name, PrologType.TERM);
 	}
 
 	public PrologTerm newParameter(String name) {
-		return new TuPrologParameter(this, name);
+		return new TuPrologTypedParameter(this, name, PrologType.TERM);
 	}
 
 	public PrologTerm newParameter(PrologTerm name, PrologTerm type) {
@@ -277,9 +274,7 @@ public class TuProlog extends AbstractProvider implements PrologProvider {
 	}
 
 	public PrologTerm newParameter(String name, String type) {
-		PrologTerm oname = newVariable(name, 0);
-		PrologTerm otype = newVariable(type, 1);
-		return new TuPrologTypedParameter(this, oname, otype);
+		return new TuPrologTypedParameter(this, name, type);
 	}
 
 	public PrologJavaConverter getJavaConverter() {

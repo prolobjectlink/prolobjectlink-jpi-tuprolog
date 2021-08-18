@@ -68,12 +68,12 @@ public class PrologParameterTest extends PrologBaseTest {
 		assertFalse(parameter.isEmptyList());
 	}
 
-	@Test(expected = ArityError.class)
+	@Test
 	public void testGetArity() {
 		assertEquals(2, parameter.getArity());
 	}
 
-	@Test(expected = FunctorError.class)
+	@Test
 	public void testGetFunctor() {
 		assertEquals("-", parameter.getFunctor());
 	}
@@ -100,7 +100,7 @@ public class PrologParameterTest extends PrologBaseTest {
 
 	@Test
 	public void testToString() {
-		assertEquals("X", parameter.toString());
+		assertEquals("X-TERM", parameter.toString());
 	}
 
 	@Test
@@ -203,12 +203,12 @@ public class PrologParameterTest extends PrologBaseTest {
 		assertEquals(x, parameter.getArgument(0));
 	}
 
-	@Test(expected = FunctorError.class)
+	@Test
 	public void testGetIndicator() {
 		assertEquals("-/2", parameter.getIndicator());
 	}
 
-	@Test(expected = FunctorError.class)
+	@Test
 	public void testHasIndicator() {
 		assertTrue(parameter.hasIndicator("-", 2));
 	}

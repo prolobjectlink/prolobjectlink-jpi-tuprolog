@@ -28,7 +28,7 @@ import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologTermType;
 import io.github.prolobjectlink.prolog.PrologVariable;
 
-public class TuPrologField extends TuPrologVariable implements PrologField {
+abstract class TuPrologField extends TuPrologVariable implements PrologField {
 
 	TuPrologField(PrologProvider provider, String name) {
 		super(PrologTermType.FIELD_TYPE, provider, name);

@@ -68,12 +68,12 @@ public class PrologFieldTest extends PrologBaseTest {
 		assertFalse(field.isEmptyList());
 	}
 
-	@Test(expected = ArityError.class)
+	@Test
 	public void testGetArity() {
 		assertEquals(2, field.getArity());
 	}
 
-	@Test(expected = FunctorError.class)
+	@Test
 	public void testGetFunctor() {
 		assertEquals("-", field.getFunctor());
 	}
@@ -100,7 +100,7 @@ public class PrologFieldTest extends PrologBaseTest {
 
 	@Test
 	public void testToString() {
-		assertEquals("X", field.toString());
+		assertEquals("X-TERM", field.toString());
 	}
 
 	@Test
@@ -203,12 +203,12 @@ public class PrologFieldTest extends PrologBaseTest {
 		assertEquals(x, field.getArgument(0));
 	}
 
-	@Test(expected = FunctorError.class)
+	@Test
 	public void testGetIndicator() {
 		assertEquals("-/2", field.getIndicator());
 	}
 
-	@Test(expected = FunctorError.class)
+	@Test
 	public void testHasIndicator() {
 		assertTrue(field.hasIndicator("-", 2));
 	}
