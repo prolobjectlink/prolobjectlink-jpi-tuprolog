@@ -49,7 +49,7 @@ public class ParentMappingTest extends PrologBaseTest {
 
 	@Test
 	public void testToTermPrologProviderParent() {
-		assertEquals(provider.newStructure("parent", "tom", "bob"),
+		assertEquals(provider.newStructure("parent", provider.newAtom("tom"), provider.newAtom("bob")),
 				parentMapping.toTerm(provider, new Parent("tom", "bob")));
 	}
 

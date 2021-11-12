@@ -54,8 +54,10 @@ import alice.tuprolog.PrimitiveInfo;
 import alice.tuprolog.Prolog;
 import io.github.prolobjectlink.prolog.Licenses;
 import io.github.prolobjectlink.prolog.PrologAtom;
+import io.github.prolobjectlink.prolog.PrologClass;
 import io.github.prolobjectlink.prolog.PrologClause;
 import io.github.prolobjectlink.prolog.PrologEngine;
+import io.github.prolobjectlink.prolog.PrologMixin;
 import io.github.prolobjectlink.prolog.PrologOperator;
 import io.github.prolobjectlink.prolog.PrologQuery;
 import io.github.prolobjectlink.prolog.PrologStructure;
@@ -1824,7 +1826,14 @@ public class PrologEngineTest extends PrologBaseTest {
 		assertTrue(engine.unify(String.class, String.class));
 		assertTrue(engine.unify(Integer.class, Integer.class));
 		assertTrue(engine.unify(Double.class, Double.class));
-		assertFalse(engine.unify(Double.class, Double.class));
+		assertFalse(engine.unify(Double.class, Integer.class));
+		engine.register(parentMapping);
+		engine.register(predecessorMapping);
+		assertTrue(engine.unify(Parent.class, Parent.class));
+		assertFalse(engine.unify(Parent.class, Predecessor.class));
+		engine.unregister(parentMapping);
+		engine.unregister(predecessorMapping);
+		engine.dispose();
 	}
 
 	@Test
@@ -1833,6 +1842,13 @@ public class PrologEngineTest extends PrologBaseTest {
 		assertTrue(engine.unify(100, 100));
 		assertTrue(engine.unify(3.14, 3.14));
 		assertFalse(engine.unify(3.14, 100));
+		Parent a = new Parent("tom", "bob");
+		Parent b = new Parent("liz", "ann");
+		engine.register(parentMapping);
+		assertTrue(engine.unify(a, a));
+		assertFalse(engine.unify(a, b));
+		engine.unregister(parentMapping);
+		engine.dispose();
 	}
 
 	@Test
@@ -1936,12 +1952,30 @@ public class PrologEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testQueryOneOOArray() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		engine.consult("family.pl");
+
+		famillySolutionMap.put("Name", pam);
+		famillySolutionMap.put("Child", bob);
+
+		solutionMap = engine.queryOne(new Parent(), new Predecessor());
+		assertEquals(famillySolutionMap, solutionMap);
+		engine.dispose();
 	}
 
 	@Test
 	public void testQueryOneClassOfQClassOfQArray() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		engine.consult("family.pl");
+
+		famillySolutionMap.put("Name", pam);
+		famillySolutionMap.put("Child", bob);
+
+		solutionMap = engine.queryOne(Parent.class, Predecessor.class);
+		assertEquals(famillySolutionMap, solutionMap);
+		engine.dispose();
 	}
 
 	@Test
@@ -2111,7 +2145,60 @@ public class PrologEngineTest extends PrologBaseTest {
 
 	@Test
 	public void testQueryAllClassOfQClassOfQArray() {
-		fail("Not yet implemented");
+		PrologEngine engine = provider.newEngine();
+		engine.register(parentMapping);
+		engine.consult("family.pl");
+
+		List<Map<String, PrologTerm>> famillyAll = new ArrayList<Map<String, PrologTerm>>(6);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", pam);
+		solutionMap.put("Child", bob);
+		famillyAll.add(0, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", tom);
+		solutionMap.put("Child", bob);
+		famillyAll.add(1, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", tom);
+		solutionMap.put("Child", liz);
+		famillyAll.add(2, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", bob);
+		solutionMap.put("Child", ann);
+		famillyAll.add(3, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", bob);
+		solutionMap.put("Child", pat);
+		famillyAll.add(4, solutionMap);
+		solutionMap = new HashMap<String, PrologTerm>();
+		solutionMap.put("Name", pat);
+		solutionMap.put("Child", jim);
+		famillyAll.add(5, solutionMap);
+
+		List<Map<String, PrologTerm>> allSolutionMap = engine.queryAll(Parent.class, Predecessor.class);
+		assertEquals(famillyAll, allSolutionMap);
+		engine.dispose();
+
+	}
+
+	@Test
+	public void testNewMixinStringPrologTermArray() {
+		PrologTerm dark = provider.newStructure("dark", x);
+		PrologTerm fuzzy = provider.newStructure("fuzzy_metrics", x, y, z);
+		PrologMixin interfacce = provider.newEngine().newMixin("'com.acme.Interface'", dark, fuzzy).cast();
+		assertEquals("'com.acme.Interface'", interfacce.getName());
+	}
+
+	@Test
+	public void testNewMixinString() {
+		PrologMixin mixin = provider.newEngine().newMixin("'com.acme.Mixin'").cast();
+		assertEquals("'com.acme.Mixin'", mixin.getName());
+	}
+
+	@Test
+	public void testNewClassString() {
+		PrologClass cls = provider.newEngine().newClass("'com.acme.HelloWorld'").cast();
+		assertEquals("'com.acme.HelloWorld'", cls.getName());
 	}
 
 	@Test

@@ -36,6 +36,7 @@ import org.junit.Test;
 
 import io.github.prolobjectlink.prolog.PrologClass;
 import io.github.prolobjectlink.prolog.PrologClause;
+import io.github.prolobjectlink.prolog.PrologEngine;
 import io.github.prolobjectlink.prolog.PrologFunction;
 import io.github.prolobjectlink.prolog.PrologMethod;
 import io.github.prolobjectlink.prolog.PrologMixin;
@@ -44,6 +45,8 @@ import io.github.prolobjectlink.prolog.PrologTermType;
 import io.github.prolobjectlink.prolog.PrologType;
 
 public class PrologClassTest extends PrologBaseTest {
+
+	PrologEngine engine = provider.newEngine();
 
 	// results
 	PrologTerm one = provider.newDouble(1.0);
@@ -80,11 +83,11 @@ public class PrologClassTest extends PrologBaseTest {
 	PrologFunction fuzzy_metrics_3 = provider.newFunction(fuzzy, v, e3).cast();
 
 	// interfaces
-	PrologMixin mixin = provider.newMixin("'com.acme.Mixin'").cast();
-	PrologMixin interfacce = provider.newMixin("'com.acme.Interface'", head, fuzzy).cast();
+	PrologMixin mixin = engine.newMixin("'com.acme.Mixin'").cast();
+	PrologMixin interfacce = engine.newMixin("'com.acme.Interface'", head, fuzzy).cast();
 
 	// classes
-	PrologClass cls = provider.newClass("'com.acme.HelloWorld'").cast();
+	PrologClass cls = engine.newClass("'com.acme.HelloWorld'").cast();
 
 	@Before
 	public void setUp() throws Exception {
@@ -121,13 +124,13 @@ public class PrologClassTest extends PrologBaseTest {
 
 	@Test
 	public void testHashCode() {
-		assertEquals(provider.newClass("'com.acme.HelloWorld'").hashCode(),
-				provider.newClass("'com.acme.HelloWorld'").hashCode());
+		assertEquals(engine.newClass("'com.acme.HelloWorld'").hashCode(),
+				engine.newClass("'com.acme.HelloWorld'").hashCode());
 	}
 
 	@Test
 	public void testEqualsObject() {
-		assertEquals(provider.newClass("'com.acme.HelloWorld'"), provider.newClass("'com.acme.HelloWorld'"));
+		assertEquals(engine.newClass("'com.acme.HelloWorld'"), engine.newClass("'com.acme.HelloWorld'"));
 	}
 
 	@Test

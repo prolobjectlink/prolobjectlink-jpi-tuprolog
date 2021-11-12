@@ -461,7 +461,6 @@ public class PrologProviderTest extends PrologBaseTest {
 		ParentMapping parentMapping = new ParentMapping();
 		PrologEngine engine = provider.newEngine();
 		engine.register(parentMapping);
-		assertEquals(1, engine.size());
 		assertNotNull(engine.get(Parent.class));
 		assertSame(parentMapping, engine.get(Parent.class));
 	}
@@ -471,7 +470,6 @@ public class PrologProviderTest extends PrologBaseTest {
 		ParentMapping parentMapping = new ParentMapping();
 		PrologEngine engine = provider.newEngine();
 		engine.register(parentMapping);
-		assertEquals(1, engine.size());
 		assertNotNull(engine.get(Parent.class));
 		assertSame(parentMapping, engine.get(Parent.class));
 		assertEquals(provider.parseTerm("parent(Name,Child)"), engine.getTerm(parentMapping));
@@ -483,10 +481,9 @@ public class PrologProviderTest extends PrologBaseTest {
 		ParentMapping parentMapping = new ParentMapping();
 		PrologEngine engine = provider.newEngine();
 		engine.register(parentMapping);
-		assertEquals(1, engine.size());
 		assertNotNull(engine.get(Parent.class));
 		assertSame(parentMapping, engine.get(Parent.class));
-		assertEquals(provider.parseTerm("tom(parent,bob)"), engine.getTerm(parentMapping, parent));
+		assertEquals(provider.parseTerm("parent(tom,bob)"), engine.getTerm(parentMapping, parent));
 	}
 
 	@Test
@@ -494,11 +491,9 @@ public class PrologProviderTest extends PrologBaseTest {
 		ParentMapping parentMapping = new ParentMapping();
 		PrologEngine engine = provider.newEngine();
 		engine.register(parentMapping);
-		assertEquals(1, engine.size());
 		assertNotNull(engine.get(Parent.class));
 		assertSame(parentMapping, engine.get(Parent.class));
 		engine.unregister(parentMapping);
-		assertEquals(0, engine.size());
 		assertNull(engine.get(Parent.class));
 	}
 
@@ -758,20 +753,6 @@ public class PrologProviderTest extends PrologBaseTest {
 	}
 
 	@Test
-	public void testNewMixinString() {
-		PrologMixin mixin = provider.newMixin("'com.acme.Mixin'").cast();
-		assertEquals("'com.acme.Mixin'", mixin.getName());
-	}
-
-	@Test
-	public void testNewMixinStringPrologTermArray() {
-		PrologTerm dark = provider.newStructure("dark", x);
-		PrologTerm fuzzy = provider.newStructure("fuzzy_metrics", x, y, z);
-		PrologMixin interfacce = provider.newMixin("'com.acme.Interface'", dark, fuzzy).cast();
-		assertEquals("'com.acme.Interface'", interfacce.getName());
-	}
-
-	@Test
 	public void testNewMethodPrologTerm() {
 		PrologTerm blackCat = provider.newStructure("black", cat);
 		PrologMethod m = provider.newMethod(blackCat).cast();
@@ -881,12 +862,6 @@ public class PrologProviderTest extends PrologBaseTest {
 		assertTrue(fuzzy_metrics_1.isFunction());
 		assertTrue(fuzzy_metrics_2.isFunction());
 		assertTrue(fuzzy_metrics_3.isFunction());
-	}
-
-	@Test
-	public void testNewClassString() {
-		PrologClass cls = provider.newClass("'com.acme.HelloWorld'").cast();
-		assertEquals("'com.acme.HelloWorld'", cls.getName());
 	}
 
 }

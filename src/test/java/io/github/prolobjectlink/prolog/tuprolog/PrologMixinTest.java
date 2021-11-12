@@ -35,6 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import io.github.prolobjectlink.prolog.PrologClause;
+import io.github.prolobjectlink.prolog.PrologEngine;
 import io.github.prolobjectlink.prolog.PrologFunction;
 import io.github.prolobjectlink.prolog.PrologMethod;
 import io.github.prolobjectlink.prolog.PrologMixin;
@@ -42,6 +43,8 @@ import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologTermType;
 
 public class PrologMixinTest extends PrologBaseTest {
+
+	PrologEngine engine = provider.newEngine();
 
 	PrologTerm one = provider.newDouble(1.0);
 	PrologTerm zero = provider.newDouble(0.0);
@@ -63,8 +66,8 @@ public class PrologMixinTest extends PrologBaseTest {
 	PrologFunction fuzzy_metrics_2 = provider.newFunction(fuzzy, zero, e2).cast();
 	PrologFunction fuzzy_metrics_3 = provider.newFunction(fuzzy, v, e3).cast();
 
-	PrologMixin mixin = provider.newMixin("'com.acme.Mixin'").cast();
-	PrologMixin interfacce = provider.newMixin("'com.acme.Interface'", head, fuzzy).cast();
+	PrologMixin mixin = engine.newMixin("'com.acme.Mixin'").cast();
+	PrologMixin interfacce = engine.newMixin("'com.acme.Interface'", head, fuzzy).cast();
 
 	@Before
 	public void setUp() throws Exception {
@@ -76,8 +79,8 @@ public class PrologMixinTest extends PrologBaseTest {
 
 	@Test
 	public void testHashCode() {
-		assertEquals(provider.newMixin("'com.acme.Mixin'").cast().hashCode(), mixin.hashCode());
-		assertEquals(provider.newMixin("'com.acme.Interface'", head, fuzzy).cast().hashCode(), interfacce.hashCode());
+		assertEquals(engine.newMixin("'com.acme.Mixin'").cast().hashCode(), mixin.hashCode());
+		assertEquals(engine.newMixin("'com.acme.Interface'", head, fuzzy).cast().hashCode(), interfacce.hashCode());
 	}
 
 	@Test
@@ -255,8 +258,8 @@ public class PrologMixinTest extends PrologBaseTest {
 
 	@Test
 	public void testEqualsObject() {
-		assertEquals(provider.newMixin("'com.acme.Mixin'").cast(), mixin);
-		assertEquals(provider.newMixin("'com.acme.Interface'", head, fuzzy).cast(), interfacce);
+		assertEquals(engine.newMixin("'com.acme.Mixin'").cast(), mixin);
+		assertEquals(engine.newMixin("'com.acme.Interface'", head, fuzzy).cast(), interfacce);
 	}
 
 	@Test

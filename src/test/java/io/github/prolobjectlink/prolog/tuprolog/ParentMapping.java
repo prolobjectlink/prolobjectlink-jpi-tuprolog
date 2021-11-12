@@ -52,7 +52,9 @@ public class ParentMapping implements Prologable<Parent> {
 			if (name == null && child == null) {
 				return provider.newStructure("parent", x, y);
 			}
-			return provider.newStructure("parent", name, child);
+			PrologTerm n = provider.newAtom(name);
+			PrologTerm c = provider.newAtom(child);
+			return provider.newStructure("parent", n, c);
 		}
 		return provider.prologNil();
 	}
