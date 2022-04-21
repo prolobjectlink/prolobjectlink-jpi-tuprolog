@@ -56,13 +56,10 @@ import io.github.prolobjectlink.prolog.AbstractConverter;
 import io.github.prolobjectlink.prolog.PrologAtom;
 import io.github.prolobjectlink.prolog.PrologConverter;
 import io.github.prolobjectlink.prolog.PrologDouble;
-import io.github.prolobjectlink.prolog.PrologField;
 import io.github.prolobjectlink.prolog.PrologFloat;
 import io.github.prolobjectlink.prolog.PrologInteger;
 import io.github.prolobjectlink.prolog.PrologLong;
-import io.github.prolobjectlink.prolog.PrologParameter;
 import io.github.prolobjectlink.prolog.PrologProvider;
-import io.github.prolobjectlink.prolog.PrologResult;
 import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologVariable;
 import io.github.prolobjectlink.prolog.UnknownTermError;
@@ -72,173 +69,169 @@ import io.github.prolobjectlink.prolog.UnknownTermError;
  * @author Jose Zalacain
  * @since 1.0
  */
-<span class="fc" id="L75">final class TuPrologConverter extends AbstractConverter&lt;Term&gt; implements PrologConverter&lt;Term&gt; {</span>
+<span class="fc" id="L72">final class TuPrologConverter extends AbstractConverter&lt;Term&gt; implements PrologConverter&lt;Term&gt; {</span>
 
-<span class="fc" id="L77">	private static final TuPrologOperatorSet OPERATORS = new TuPrologOperatorSet();</span>
+<span class="fc" id="L74">	private static final TuPrologOperatorSet OPERATORS = new TuPrologOperatorSet();</span>
 
 	public PrologTerm toTerm(Term prologTerm) {
-<span class="fc bfc" id="L80" title="All 2 branches covered.">		if (prologTerm.equals(Term.TRUE)) {</span>
-<span class="fc" id="L81">			return new TuPrologTrue(provider);</span>
-<span class="fc bfc" id="L82" title="All 2 branches covered.">		} else if (prologTerm.equals(Term.FALSE)) {</span>
-<span class="fc" id="L83">			return new TuPrologFalse(provider);</span>
-<span class="fc bfc" id="L84" title="All 2 branches covered.">		} else if (prologTerm instanceof Float) {</span>
-<span class="fc" id="L85">			return new TuPrologFloat(provider, ((Float) prologTerm).floatValue());</span>
-<span class="fc bfc" id="L86" title="All 2 branches covered.">		} else if (prologTerm instanceof Int) {</span>
-<span class="fc" id="L87">			return new TuPrologInteger(provider, ((Int) prologTerm).intValue());</span>
-<span class="fc bfc" id="L88" title="All 2 branches covered.">		} else if (prologTerm instanceof Double) {</span>
-<span class="fc" id="L89">			return new TuPrologDouble(provider, ((Double) prologTerm).doubleValue());</span>
-<span class="fc bfc" id="L90" title="All 2 branches covered.">		} else if (prologTerm instanceof Long) {</span>
-<span class="fc" id="L91">			return new TuPrologLong(provider, ((Long) prologTerm).longValue());</span>
-<span class="fc bfc" id="L92" title="All 2 branches covered.">		} else if (prologTerm instanceof Var) {</span>
-<span class="fc" id="L93">			String name = ((Var) prologTerm).getName();</span>
-<span class="fc" id="L94">			PrologVariable variable = sharedVariables.get(name);</span>
-<span class="fc bfc" id="L95" title="All 2 branches covered.">			if (variable == null) {</span>
-<span class="fc" id="L96">				variable = new TuPrologVariable(provider, name);</span>
-<span class="fc" id="L97">				sharedVariables.put(variable.getName(), variable);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">		if (prologTerm.equals(Term.TRUE)) {</span>
+<span class="fc" id="L78">			return new TuPrologTrue(provider);</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">		} else if (prologTerm.equals(Term.FALSE)) {</span>
+<span class="fc" id="L80">			return new TuPrologFalse(provider);</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">		} else if (prologTerm instanceof Float) {</span>
+<span class="fc" id="L82">			return new TuPrologFloat(provider, ((Float) prologTerm).floatValue());</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">		} else if (prologTerm instanceof Int) {</span>
+<span class="fc" id="L84">			return new TuPrologInteger(provider, ((Int) prologTerm).intValue());</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">		} else if (prologTerm instanceof Double) {</span>
+<span class="fc" id="L86">			return new TuPrologDouble(provider, ((Double) prologTerm).doubleValue());</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">		} else if (prologTerm instanceof Long) {</span>
+<span class="fc" id="L88">			return new TuPrologLong(provider, ((Long) prologTerm).longValue());</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">		} else if (prologTerm instanceof Var) {</span>
+<span class="fc" id="L90">			String name = ((Var) prologTerm).getName();</span>
+<span class="fc" id="L91">			PrologVariable variable = sharedVariables.get(name);</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">			if (variable == null) {</span>
+<span class="fc" id="L93">				variable = new TuPrologVariable(provider, name);</span>
+<span class="fc" id="L94">				sharedVariables.put(variable.getName(), variable);</span>
 			}
-<span class="fc" id="L99">			return variable;</span>
-<span class="pc bpc" id="L100" title="1 of 2 branches missed.">		} else if (prologTerm instanceof Struct) {</span>
+<span class="fc" id="L96">			return variable;</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">		} else if (prologTerm instanceof Struct) {</span>
 
-<span class="fc" id="L102">			Struct struct = (Struct) prologTerm;</span>
-<span class="fc" id="L103">			int arity = struct.getArity();</span>
-<span class="fc" id="L104">			String functor = struct.getName();</span>
-<span class="fc" id="L105">			Term[] arguments = new Term[arity];</span>
+<span class="fc" id="L99">			Struct struct = (Struct) prologTerm;</span>
+<span class="fc" id="L100">			int arity = struct.getArity();</span>
+<span class="fc" id="L101">			String functor = struct.getName();</span>
+<span class="fc" id="L102">			Term[] arguments = new Term[arity];</span>
 
-<span class="fc bfc" id="L107" title="All 2 branches covered.">			if (struct.isEmptyList()) {</span>
-<span class="fc" id="L108">				return new TuPrologEmpty(provider);</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">			if (struct.isEmptyList()) {</span>
+<span class="fc" id="L105">				return new TuPrologEmpty(provider);</span>
 			}
 
 			// atom and constants
-<span class="fc bfc" id="L112" title="All 2 branches covered.">			else if (prologTerm.isAtom()) {</span>
-<span class="fc bfc" id="L113" title="All 2 branches covered.">				if (functor.equals(&quot;nil&quot;)) {</span>
-<span class="fc" id="L114">					return new TuPrologNil(provider);</span>
-<span class="fc bfc" id="L115" title="All 2 branches covered.">				} else if (functor.equals(&quot;!&quot;)) {</span>
-<span class="fc" id="L116">					return new TuPrologCut(provider);</span>
-<span class="fc bfc" id="L117" title="All 2 branches covered.">				} else if (functor.equals(&quot;fail&quot;)) {</span>
-<span class="fc" id="L118">					return new TuPrologFail(provider);</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">			else if (prologTerm.isAtom()) {</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">				if (functor.equals(&quot;nil&quot;)) {</span>
+<span class="fc" id="L111">					return new TuPrologNil(provider);</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">				} else if (functor.equals(&quot;!&quot;)) {</span>
+<span class="fc" id="L113">					return new TuPrologCut(provider);</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">				} else if (functor.equals(&quot;fail&quot;)) {</span>
+<span class="fc" id="L115">					return new TuPrologFail(provider);</span>
 				} else {
-<span class="fc" id="L120">					return new TuPrologAtom(provider, functor);</span>
+<span class="fc" id="L117">					return new TuPrologAtom(provider, functor);</span>
 				}
 			}
 
 			// list
-<span class="fc bfc" id="L125" title="All 2 branches covered.">			else if (struct.isList()) {</span>
-<span class="fc" id="L126">				int index = 0;</span>
-<span class="fc" id="L127">				arguments = new Term[struct.listSize()];</span>
-<span class="fc" id="L128">				Iterator&lt;? extends Term&gt; i = struct.listIterator();</span>
-<span class="fc bfc" id="L129" title="All 2 branches covered.">				while (i.hasNext()) {</span>
-<span class="fc" id="L130">					Term term = i.next();</span>
-<span class="fc" id="L131">					arguments[index++] = term;</span>
-<span class="fc" id="L132">				}</span>
-<span class="fc" id="L133">				return new TuPrologList(provider, arguments);</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">			else if (struct.isList()) {</span>
+<span class="fc" id="L123">				int index = 0;</span>
+<span class="fc" id="L124">				arguments = new Term[struct.listSize()];</span>
+<span class="fc" id="L125">				Iterator&lt;? extends Term&gt; i = struct.listIterator();</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">				while (i.hasNext()) {</span>
+<span class="fc" id="L127">					Term term = i.next();</span>
+<span class="fc" id="L128">					arguments[index++] = term;</span>
+<span class="fc" id="L129">				}</span>
+<span class="fc" id="L130">				return new TuPrologList(provider, arguments);</span>
 			}
 
 			// expression
-<span class="fc bfc" id="L137" title="All 4 branches covered.">			else if (arity == 2 &amp;&amp; OPERATORS.currentOp(functor)) {</span>
-<span class="fc" id="L138">				Term left = struct.getArg(0);</span>
-<span class="fc" id="L139">				Term right = struct.getArg(1);</span>
-<span class="fc" id="L140">				return new TuPrologStructure(provider, left, functor, right);</span>
+<span class="fc bfc" id="L134" title="All 4 branches covered.">			else if (arity == 2 &amp;&amp; OPERATORS.currentOp(functor)) {</span>
+<span class="fc" id="L135">				Term left = struct.getArg(0);</span>
+<span class="fc" id="L136">				Term right = struct.getArg(1);</span>
+<span class="fc" id="L137">				return new TuPrologStructure(provider, left, functor, right);</span>
 			}
 
 			// structure
 			else {
-<span class="fc bfc" id="L145" title="All 2 branches covered.">				for (int i = 0; i &lt; arity; i++) {</span>
-<span class="fc" id="L146">					arguments[i] = struct.getArg(i);</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">				for (int i = 0; i &lt; arity; i++) {</span>
+<span class="fc" id="L143">					arguments[i] = struct.getArg(i);</span>
 				}
-<span class="fc" id="L148">				return new TuPrologStructure(provider, functor, arguments);</span>
+<span class="fc" id="L145">				return new TuPrologStructure(provider, functor, arguments);</span>
 			}
 
 		} else {
-<span class="nc" id="L152">			throw new UnknownTermError(prologTerm);</span>
+<span class="nc" id="L149">			throw new UnknownTermError(prologTerm);</span>
 		}
 	}
 
 	public Term fromTerm(PrologTerm term) {
-<span class="pc bpc" id="L157" title="2 of 19 branches missed.">		switch (term.getType()) {</span>
+<span class="pc bpc" id="L154" title="3 of 17 branches missed.">		switch (term.getType()) {</span>
 		case NIL_TYPE:
-<span class="fc" id="L159">			return new Struct(&quot;nil&quot;);</span>
+<span class="fc" id="L156">			return new Struct(&quot;nil&quot;);</span>
 		case CUT_TYPE:
-<span class="fc" id="L161">			return new Struct(&quot;!&quot;);</span>
+<span class="fc" id="L158">			return new Struct(&quot;!&quot;);</span>
 		case FAIL_TYPE:
-<span class="fc" id="L163">			return new Struct(&quot;fail&quot;);</span>
+<span class="fc" id="L160">			return new Struct(&quot;fail&quot;);</span>
 		case TRUE_TYPE:
-<span class="fc" id="L165">			return Term.TRUE;</span>
+<span class="fc" id="L162">			return Term.TRUE;</span>
 		case FALSE_TYPE:
-<span class="fc" id="L167">			return Term.FALSE;</span>
+<span class="fc" id="L164">			return Term.FALSE;</span>
 		case ATOM_TYPE:
-<span class="fc" id="L169">			return new Struct(removeQuoted(((PrologAtom) term).getStringValue()));</span>
+<span class="fc" id="L166">			return new Struct(removeQuoted(((PrologAtom) term).getStringValue()));</span>
 		case FLOAT_TYPE:
-<span class="fc" id="L171">			return new Float(((PrologFloat) term).getFloatValue());</span>
+<span class="fc" id="L168">			return new Float(((PrologFloat) term).getFloatValue());</span>
 		case INTEGER_TYPE:
-<span class="fc" id="L173">			return new Int(((PrologInteger) term).getIntegerValue());</span>
+<span class="fc" id="L170">			return new Int(((PrologInteger) term).getIntegerValue());</span>
 		case DOUBLE_TYPE:
-<span class="fc" id="L175">			return new Double(((PrologDouble) term).getDoubleValue());</span>
+<span class="fc" id="L172">			return new Double(((PrologDouble) term).getDoubleValue());</span>
 		case LONG_TYPE:
-<span class="fc" id="L177">			return new Long(((PrologLong) term).getLongValue());</span>
+<span class="fc" id="L174">			return new Long(((PrologLong) term).getLongValue());</span>
 		case VARIABLE_TYPE:
-<span class="fc" id="L179">			String name = ((PrologVariable) term).getName();</span>
-<span class="fc" id="L180">			Term variable = sharedPrologVariables.get(name);</span>
-<span class="fc bfc" id="L181" title="All 2 branches covered.">			if (variable == null) {</span>
-<span class="fc" id="L182">				variable = new Var(name);</span>
-<span class="fc" id="L183">				sharedPrologVariables.put(name, variable);</span>
+<span class="fc" id="L176">			String name = ((PrologVariable) term).getName();</span>
+<span class="fc" id="L177">			Term variable = sharedPrologVariables.get(name);</span>
+<span class="fc bfc" id="L178" title="All 2 branches covered.">			if (variable == null) {</span>
+<span class="fc" id="L179">				variable = new Var(name);</span>
+<span class="fc" id="L180">				sharedPrologVariables.put(name, variable);</span>
 			}
-<span class="fc" id="L185">			return variable;</span>
+<span class="fc" id="L182">			return variable;</span>
 		case MAP_TYPE:
 		case LIST_TYPE:
-<span class="fc" id="L188">			return new Struct(fromTermArray(term.getArguments()));</span>
+<span class="fc" id="L185">			return new Struct(fromTermArray(term.getArguments()));</span>
 		case STRUCTURE_TYPE:
 		case MAP_ENTRY_TYPE:
-<span class="fc" id="L191">			String functor = term.getFunctor();</span>
-<span class="fc" id="L192">			Term[] arguments = fromTermArray(term.getArguments());</span>
-<span class="fc" id="L193">			return new Struct(functor, arguments);</span>
+<span class="fc" id="L188">			String functor = term.getFunctor();</span>
+<span class="fc" id="L189">			Term[] arguments = fromTermArray(term.getArguments());</span>
+<span class="fc" id="L190">			return new Struct(functor, arguments);</span>
 		case OBJECT_TYPE:
-<span class="fc" id="L195">			return TuPrologReference.set(term.getObject());</span>
+<span class="fc" id="L192">			return TuPrologReference.set(term.getObject());</span>
 		case PARAMETER_TYPE:
-<span class="fc" id="L197">			name = ((PrologParameter) term).getName();</span>
-<span class="fc" id="L198">			return new Var(name);</span>
 		case RESULT_TYPE:
-<span class="fc" id="L200">			name = ((PrologResult) term).getName();</span>
-<span class="fc" id="L201">			return new Var(name);</span>
 		case FIELD_TYPE:
-<span class="fc" id="L203">			name = ((PrologField) term).getName();</span>
-<span class="fc" id="L204">			return new Var(name);</span>
+<span class="nc" id="L196">			name = ((PrologVariable) term).getName();</span>
+<span class="nc" id="L197">			return new Var(name);</span>
 		case MIXIN_TYPE:
 		case CLASS_TYPE:
-<span class="nc" id="L207">			functor = removeQuoted(term.getFunctor());</span>
-<span class="nc" id="L208">			arguments = fromTermArray(term.getArguments());</span>
-<span class="nc" id="L209">			return new Struct(functor, arguments);</span>
+<span class="nc" id="L200">			functor = removeQuoted(term.getFunctor());</span>
+<span class="nc" id="L201">			arguments = fromTermArray(term.getArguments());</span>
+<span class="nc" id="L202">			return new Struct(functor, arguments);</span>
 		default:
-<span class="nc" id="L211">			throw new UnknownTermError(term);</span>
+<span class="nc" id="L204">			throw new UnknownTermError(term);</span>
 		}
 	}
 
 	public Term[] fromTermArray(PrologTerm[] terms) {
-<span class="fc" id="L216">		Term[] prologTerms = new Term[terms.length];</span>
-<span class="fc bfc" id="L217" title="All 2 branches covered.">		for (int i = 0; i &lt; terms.length; i++) {</span>
-<span class="fc" id="L218">			prologTerms[i] = fromTerm(terms[i]);</span>
+<span class="fc" id="L209">		Term[] prologTerms = new Term[terms.length];</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">		for (int i = 0; i &lt; terms.length; i++) {</span>
+<span class="fc" id="L211">			prologTerms[i] = fromTerm(terms[i]);</span>
 		}
-<span class="fc" id="L220">		return prologTerms;</span>
+<span class="fc" id="L213">		return prologTerms;</span>
 	}
 
 	public Term fromTerm(PrologTerm head, PrologTerm[] body) {
-<span class="fc" id="L224">		Term clauseHead = fromTerm(head);</span>
-<span class="fc bfc" id="L225" title="All 4 branches covered.">		if (body != null &amp;&amp; body.length &gt; 0) {</span>
-<span class="fc" id="L226">			Term clauseBody = fromTerm(body[body.length - 1]);</span>
-<span class="fc bfc" id="L227" title="All 2 branches covered.">			for (int i = body.length - 2; i &gt;= 0; --i) {</span>
-<span class="fc" id="L228">				clauseBody = new Struct(&quot;,&quot;, new Term[] { fromTerm(body[i]), clauseBody });</span>
+<span class="fc" id="L217">		Term clauseHead = fromTerm(head);</span>
+<span class="fc bfc" id="L218" title="All 4 branches covered.">		if (body != null &amp;&amp; body.length &gt; 0) {</span>
+<span class="fc" id="L219">			Term clauseBody = fromTerm(body[body.length - 1]);</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">			for (int i = body.length - 2; i &gt;= 0; --i) {</span>
+<span class="fc" id="L221">				clauseBody = new Struct(&quot;,&quot;, new Term[] { fromTerm(body[i]), clauseBody });</span>
 			}
-<span class="fc" id="L230">			return new Struct(&quot;:-&quot;, clauseHead, clauseBody);</span>
+<span class="fc" id="L223">			return new Struct(&quot;:-&quot;, clauseHead, clauseBody);</span>
 		}
-<span class="fc" id="L232">		return clauseHead;</span>
+<span class="fc" id="L225">		return clauseHead;</span>
 	}
 
 	public PrologProvider createProvider() {
-<span class="fc" id="L236">		return new TuProlog(this);</span>
+<span class="fc" id="L229">		return new TuProlog(this);</span>
 	}
 
 	@Override
 	public String toString() {
-<span class="fc" id="L241">		return &quot;TuPrologConverter&quot;;</span>
+<span class="fc" id="L234">		return &quot;TuPrologConverter&quot;;</span>
 	}
 
 }

@@ -52,9 +52,7 @@ import alice.tuprolog.PrimitiveInfo;
 import alice.tuprolog.Prolog;
 import io.github.prolobjectlink.prolog.Licenses;
 import io.github.prolobjectlink.prolog.PrologAtom;
-import io.github.prolobjectlink.prolog.PrologClass;
 import io.github.prolobjectlink.prolog.PrologEngine;
-import io.github.prolobjectlink.prolog.PrologMixin;
 import io.github.prolobjectlink.prolog.PrologOperator;
 import io.github.prolobjectlink.prolog.PrologQuery;
 import io.github.prolobjectlink.prolog.PrologStructure;
@@ -1630,26 +1628,6 @@ public class PrologEngineTest extends PrologBaseTest {
 		assertEquals(8, engine.getProgramSize());
 		engine.dispose();
 
-	}
-
-	@Test
-	public void testNewMixinStringPrologTermArray() {
-		PrologTerm dark = provider.newStructure("dark", x);
-		PrologTerm fuzzy = provider.newStructure("fuzzy_metrics", x, y, z);
-		PrologMixin interfacce = provider.newEngine().newMixin("'com.acme.Interface'", dark, fuzzy).cast();
-		assertEquals("'com.acme.Interface'", interfacce.getName());
-	}
-
-	@Test
-	public void testNewMixinString() {
-		PrologMixin mixin = provider.newEngine().newMixin("'com.acme.Mixin'").cast();
-		assertEquals("'com.acme.Mixin'", mixin.getName());
-	}
-
-	@Test
-	public void testNewClassString() {
-		PrologClass cls = provider.newEngine().newClass("'com.acme.HelloWorld'").cast();
-		assertEquals("'com.acme.HelloWorld'", cls.getName());
 	}
 
 	@Test
