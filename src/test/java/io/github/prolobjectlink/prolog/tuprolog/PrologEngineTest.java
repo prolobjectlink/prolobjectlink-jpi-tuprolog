@@ -1418,7 +1418,7 @@ public class PrologEngineTest extends PrologBaseTest {
 	@Test
 	public void testRunOnOSX() {
 		assertTrue(
-				engine.runOnLinux() == (engine.getOSName().equals("Mac OS X") || engine.getOSName().equals("Darwin")));
+				engine.runOnOSX() == (engine.getOSName().equals("Mac OS X") || engine.getOSName().equals("Darwin")));
 	}
 
 	@Test
