@@ -31,13 +31,10 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.JFrame;
 
 import org.junit.After;
 import org.junit.Before;
@@ -412,8 +409,8 @@ public class PrologProviderTest extends PrologBaseTest {
 	@Test
 	public void testNewReference() {
 		assertEquals("hello world", provider.newReference("hello world").getObject());
-		assertSame(new JFrame("hello world").getClass(),
-				provider.newReference(new JFrame("hello world")).getObject().getClass());
+//		assertSame(new JFrame("hello world").getClass(),
+//				provider.newReference(new JFrame("hello world")).getObject().getClass());
 		assertEquals(100, provider.newReference(100).getObject());
 	}
 
