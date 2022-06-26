@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.2.5" timestamp="2022-06-01T10:42:26.985">
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologConverter.java">
+<pmd version="4.2.5" timestamp="2022-06-26T11:06:03.860">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologConverter.java">
 <violation beginline="22" endline="237" begincolumn="1" endcolumn="3" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="io.github.prolobjectlink.prolog.tuprolog" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
 Too many static imports may lead to messy code
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologQuery.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologQuery.java">
 <violation beginline="113" endline="115" begincolumn="27" endcolumn="25" rule="EmptyCatchBlock" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologQuery" method="oneSolution" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
 Avoid empty catch blocks
 </violation>
@@ -31,7 +31,7 @@ Avoid empty catch blocks
 Avoid empty catch blocks
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologStructure.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-tuprolog\src\main\java\io\github\prolobjectlink\prolog\tuprolog\TuPrologStructure.java">
 <violation beginline="89" endline="91" begincolumn="22" endcolumn="9" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.tuprolog" class="TuPrologStructure" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
