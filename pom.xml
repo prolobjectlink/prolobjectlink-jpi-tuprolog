@@ -457,7 +457,7 @@
 						<Export-Package>${project.groupId}.prolog.tuprolog</Export-Package>
 						<Import-Package>javax.script;javax.tools;alice.tuprolog;${project.groupId}.*;provide:=true</Import-Package>
 						<Bundle-SymbolicName>${project.groupId}.prolog.tuprolog.plugin;singleton:=true</Bundle-SymbolicName>
-						<Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
+						<Bundle-RequiredExecutionEnvironment>JavaSE-1.7</Bundle-RequiredExecutionEnvironment>
 						<Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
 						<Embed-Directory>target/dependency</Embed-Directory>
 						<Embed-StripGroup>true</Embed-StripGroup>
