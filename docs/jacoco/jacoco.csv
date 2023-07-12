@@ -4,7 +4,7 @@ prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologRef
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologVariable,30,42,0,0,8,10,5,7,5,7
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologOperator,0,6,0,0,0,2,0,1,0,1
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologOperatorSet,0,117,0,10,0,29,0,11,0,6
-prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologTerm,38,276,15,37,6,63,12,45,2,29
+prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologTerm,15,299,10,42,4,65,9,48,0,31
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologProgram,10,0,0,0,3,0,2,0,2,0
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologDouble,0,79,0,0,0,13,0,12,0,12
 prolobjectlink-jpi-tuprolog,io.github.prolobjectlink.prolog.tuprolog,TuPrologList,0,191,0,6,0,43,0,17,0,14

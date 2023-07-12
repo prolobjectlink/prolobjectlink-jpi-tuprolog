@@ -155,11 +155,11 @@ abstract class TuPrologTerm extends AbstractTerm implements PrologTerm {
 	}
 
 	public final boolean isVariableBound() {
-<span class="nc bnc" id="L158" title="All 4 branches missed.">		return isVariable() &amp;&amp; value.getTerm() != value;</span>
+<span class="pc bpc" id="L158" title="1 of 4 branches missed.">		return isVariable() &amp;&amp; value.getTerm() != value;</span>
 	}
 
 	public final boolean isVariableNotBound() {
-<span class="nc bnc" id="L162" title="All 4 branches missed.">		return isVariable() &amp;&amp; value.getTerm() == value;</span>
+<span class="pc bpc" id="L162" title="2 of 4 branches missed.">		return isVariable() &amp;&amp; value.getTerm() == value;</span>
 	}
 
 	public final PrologTerm getTerm() {
