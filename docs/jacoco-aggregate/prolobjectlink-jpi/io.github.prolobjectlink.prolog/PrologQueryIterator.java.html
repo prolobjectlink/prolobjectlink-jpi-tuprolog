@@ -45,26 +45,26 @@ final class PrologQueryIterator extends AbstractIterator&lt;Collection&lt;Prolog
 	 * 
 	 * @param query PrologQuery to iterate
 	 */
-<span class="fc" id="L48">	PrologQueryIterator(PrologQuery query) {</span>
-<span class="fc" id="L49">		this.query = query;</span>
-<span class="fc" id="L50">	}</span>
+<span class="nc" id="L48">	PrologQueryIterator(PrologQuery query) {</span>
+<span class="nc" id="L49">		this.query = query;</span>
+<span class="nc" id="L50">	}</span>
 
 	/**
 	 * True if the current Prolog query has more solution, false if not has more
 	 * solution
 	 */
 	public boolean hasNext() {
-<span class="fc" id="L57">		return query.hasMoreSolutions();</span>
+<span class="nc" id="L57">		return query.hasMoreSolutions();</span>
 	}
 
 	/**
 	 * Next Prolog solution terms
 	 */
 	public Collection&lt;PrologTerm&gt; next() {
-<span class="pc bpc" id="L64" title="1 of 2 branches missed.">		if (!query.hasMoreSolutions()) {</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">		if (!query.hasMoreSolutions()) {</span>
 <span class="nc" id="L65">			throw new NoSuchElementException();</span>
 		}
-<span class="fc" id="L67">		return query.nextVariablesSolution().values();</span>
+<span class="nc" id="L67">		return query.nextVariablesSolution().values();</span>
 	}
 
 	/**
@@ -72,8 +72,8 @@ final class PrologQueryIterator extends AbstractIterator&lt;Collection&lt;Prolog
 	 */
 	@Override
 	public void remove() {
-<span class="fc" id="L75">		query.nextSolution();</span>
-<span class="fc" id="L76">	}</span>
+<span class="nc" id="L75">		query.nextSolution();</span>
+<span class="nc" id="L76">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
